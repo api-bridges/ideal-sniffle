@@ -46,17 +46,27 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1.75rem;
-  height: 62px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+  padding: 0 2rem;
+  height: 68px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.05), 0 4px 32px rgba(0,0,0,0.06);
   gap: 1rem;
+}
+
+nav::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 50%, var(--cyan) 100%);
+  opacity: 0.8;
+  pointer-events: none;
 }
 
 .nav-logo {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 0.01em;
   text-decoration: none;
@@ -68,10 +78,11 @@ nav {
   flex-shrink: 0;
 }
 .nav-logo .logo-dot {
-  width: 8px; height: 8px;
+  width: 10px; height: 10px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   display: inline-block;
+  box-shadow: 0 0 8px rgba(79,70,229,0.45);
 }
 
 /* ── CENTER NAV LINKS ── */
@@ -94,12 +105,12 @@ nav {
 .nav-links a {
   color: var(--text-muted);
   text-decoration: none;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 500;
-  letter-spacing: 0.01em;
-  padding: 0.45rem 0.9rem;
-  border-radius: 6px;
-  transition: all 0.18s;
+  letter-spacing: 0.02em;
+  padding: 0.48rem 0.95rem;
+  border-radius: 7px;
+  transition: all 0.2s;
   white-space: nowrap;
   display: flex;
   align-items: center;
@@ -107,7 +118,7 @@ nav {
 }
 
 .nav-links a:hover { color: var(--heading); background: var(--surface-2); }
-.nav-links a.active { color: var(--primary); background: var(--primary-light); }
+.nav-links a.active { color: var(--primary); background: var(--primary-light); font-weight: 600; }
 
 /* ── DROPDOWN ── */
 .nav-dropdown { position: relative; }
@@ -121,19 +132,24 @@ nav {
 
 .nav-dropdown-menu {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 10px);
   left: 50%;
   transform: translateX(-50%);
   background: var(--white);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  box-shadow: var(--shadow-lg);
-  padding: 0.5rem;
-  min-width: 230px;
+  border-radius: 14px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+  padding: 0.6rem;
+  min-width: 240px;
   display: none;
   flex-direction: column;
   gap: 0.2rem;
   z-index: 200;
+  animation: dropdown-in 0.15s ease;
+}
+@keyframes dropdown-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 .nav-dropdown:hover .nav-dropdown-menu { display: flex; }
 
@@ -168,11 +184,11 @@ nav {
   font-size: 0.75rem;
   font-weight: 600;
   font-family: 'Space Grotesk', sans-serif;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
   text-decoration: none;
-  padding: 0.42rem 0.9rem;
-  border-radius: 7px;
-  transition: all 0.18s;
+  padding: 0.46rem 0.95rem;
+  border-radius: 8px;
+  transition: all 0.2s;
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
@@ -201,15 +217,15 @@ nav {
 }
 
 .nav-btn-start {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
   color: #fff;
   border: none;
-  box-shadow: 0 2px 8px rgba(79,70,229,0.3);
-  padding: 0.44rem 1rem;
+  box-shadow: 0 2px 12px rgba(79,70,229,0.35), inset 0 1px 0 rgba(255,255,255,0.15);
+  padding: 0.5rem 1.1rem;
 }
 .nav-btn-start:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(79,70,229,0.4);
+  box-shadow: 0 5px 18px rgba(79,70,229,0.45), inset 0 1px 0 rgba(255,255,255,0.15);
 }
 
 /* ── HAMBURGER ── */
@@ -232,7 +248,7 @@ nav {
 .nav-mobile {
   display: none;
   position: fixed;
-  top: 62px; left: 0; right: 0;
+  top: 68px; left: 0; right: 0;
   background: var(--white);
   border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow-lg);
@@ -270,7 +286,7 @@ nav {
 
 /* ── PAGE HERO ── */
 .page-hero {
-  padding-top: 62px;
+  padding-top: 68px;
   min-height: 52vh;
   display: flex;
   align-items: center;
