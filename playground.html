@@ -623,9 +623,20 @@
   .pg-sidebar { display: none; }
 }
 @media (max-width: 600px) {
-  .pg-topbar { padding: 0.65rem 1rem; }
+  .pg-topbar { padding: 0.65rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
+  .pg-model-badge { font-size: 0.72rem; padding: 0.3rem 0.75rem; }
+  .pg-type-tabs { order: 2; width: 100%; }
+  .pg-tab { flex: 1; justify-content: center; font-size: 0.7rem; padding: 0.35rem 0.5rem; }
+  .pg-topbar-actions { margin-left: auto; }
+  .pg-api-btn, .pg-start-btn { font-size: 0.7rem; padding: 0.38rem 0.75rem; }
   .chat-area, .imggen-area, .audiovid-area { padding: 1rem; }
   .chat-footer { padding: 0.75rem 1rem; }
+  .chat-msg { max-width: 92%; }
+  .imggen-prompt-row { flex-direction: column; align-items: stretch; gap: 0.6rem; }
+  .imggen-gen-btn { width: 100%; padding: 0.7rem; }
+  .audiovid-input-row { flex-direction: column; align-items: stretch; gap: 0.5rem; }
+  .audiovid-gen-btn { width: 100%; padding: 0.65rem; }
+  .imggen-sample-grid { grid-template-columns: repeat(3, 1fr); }
 }
 </style>
 </head>
