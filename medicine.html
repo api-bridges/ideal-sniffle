@@ -3,334 +3,183 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Buried Cures: Big Pharma's Suppressed Treatments — DEEP SIGNAL</title>
-<meta name="description" content="The pharmaceutical industry earns $1.4 trillion treating symptoms, not curing disease. Explore patents used as market locks and the suppression of alternative treatments.">
-<meta name="keywords" content="big pharma conspiracy, suppressed cures, pharmaceutical conspiracy, cancer cure suppressed, medicine conspiracy">
-<meta name="robots" content="index, follow">
-<meta property="og:type" content="article">
-<meta property="og:title" content="The Buried Cures: Big Pharma's Suppressed Treatments — DEEP SIGNAL">
-<meta property="og:description" content="The pharmaceutical industry earns $1.4 trillion treating symptoms, not curing disease. Explore patents used as market locks and the suppression of alternative treatments.">
-<meta property="og:url" content="https://deepsignal.io/medicine.html">
-<meta property="og:site_name" content="Deep Signal">
-<meta property="og:image" content="https://deepsignal.io/assets/og-medicine.jpg">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Buried Cures: Big Pharma's Suppressed Treatments — DEEP SIGNAL">
-<meta name="twitter:description" content="The pharmaceutical industry earns $1.4 trillion treating symptoms, not curing disease. Explore patents used as market locks and the suppression of alternative treatments.">
-<link rel="canonical" href="https://deepsignal.io/medicine.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"The Buried Cures: Big Pharma's Suppressed Treatments","description":"The pharmaceutical industry earns $1.4 trillion treating symptoms, not curing disease. Explore patents used as market locks and the suppression of alternative treatments.","url":"https://deepsignal.io/medicine.html","publisher":{"@type":"Organization","name":"Deep Signal","url":"https://deepsignal.io"}}</script>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<title>Health &amp; Medical APIs — Get Set Go Api</title>
+<meta name="description" content="Medical imaging AI, symptom analysis, drug interaction checkers, BioGPT, MedPaLM, and healthcare NLP APIs. Free first month.">
+<meta property="og:title" content="Health & Medical APIs — Get Set Go Api">
+<meta property="og:url" content="https://getsetgoapi.com/medicine.html">
+<link rel="canonical" href="https://getsetgoapi.com/medicine.html">
 <link rel="stylesheet" href="assets/css/shared.css">
 <style>
-  :root {
-    --pink: #ff44aa;
-    --red: #ff2020;
-    --amber: #ffaa00;
-    --bg: #08030a;
-    --surface: #100710;
-    --border: #200a22;
-    --text: #d0b8d8;
-    --text-dim: #604070;
-    --white: #f4eeff;
-    --accent: #ff44aa;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: var(--bg); color: var(--text); font-family: 'Share Tech Mono', monospace; overflow-x: hidden; cursor: crosshair; }
-  body::before { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(transparent,transparent 2px,rgba(0,0,0,0.18) 2px,rgba(0,0,0,0.18) 4px); pointer-events: none; z-index: 9999; }
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(8,3,10,0.97); border-bottom: 1px solid var(--pink); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 56px; }
-  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--red); letter-spacing: 0.15em; text-decoration: none; }
-  .nav-links { display: flex; gap: 0; list-style: none; }
-  .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.65rem; letter-spacing: 0.12em; padding: 0.4rem 0.9rem; border-left: 1px solid var(--border); transition: all 0.2s; text-transform: uppercase; }
-  .nav-links a:hover, .nav-links a.active { color: var(--pink); }
-  .back-btn { font-size: 0.6rem; letter-spacing: 0.15em; color: var(--text-dim); text-decoration: none; padding: 0.4rem 0.8rem; border: 1px solid var(--border); transition: all 0.2s; }
-  .back-btn:hover { color: var(--pink); border-color: var(--pink); }
-
-  .page-hero { padding-top: 56px; min-height: 65vh; display: flex; align-items: center; position: relative; overflow: hidden; }
-  .med-bg {
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(255,68,170,0.06) 0%, transparent 60%);
-  }
-  .dna-bg {
-    position: absolute; inset: 0;
-    font-size: 1rem;
-    color: rgba(255,68,170,0.04);
-    overflow: hidden;
-    pointer-events: none;
-    line-height: 1.8;
-    padding: 2rem;
-    word-break: break-all;
-    font-family: 'Share Tech Mono', monospace;
-  }
-  .page-hero-inner { position: relative; z-index: 1; padding: 5rem 3rem 4rem; }
-  .page-tag { font-size: 0.55rem; letter-spacing: 0.3em; color: var(--pink); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
-  .page-tag::before { content: ''; display: block; width: 30px; height: 1px; background: var(--pink); }
-  .page-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 9vw, 8rem); line-height: 0.88; color: var(--white); letter-spacing: 0.02em; margin-bottom: 2rem; }
-  .page-title span { color: var(--pink); }
-  .page-intro { font-family: 'Crimson Pro', serif; font-style: italic; font-size: 1.15rem; color: var(--text); max-width: 640px; line-height: 1.8; border-left: 3px solid var(--pink); padding-left: 1.5rem; }
-
-  /* PHARMA STATS */
-  .pharma-stats { padding: 3rem; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5px; background-color: var(--border); }
-  .pstat { background: var(--bg); padding: 1.5rem; text-align: center; }
-  .pstat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; color: var(--pink); display: block; line-height: 1; }
-  .pstat-label { font-size: 0.6rem; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; margin-top: 0.3rem; }
-
-  /* CONTENT */
-  .content-grid { padding: 4rem 3rem; display: grid; grid-template-columns: 1fr 300px; gap: 3rem; }
-  .section-label { font-size: 0.55rem; letter-spacing: 0.25em; color: var(--pink); text-transform: uppercase; margin-bottom: 0.5rem; margin-top: 2.5rem; }
-  .article-h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--white); letter-spacing: 0.04em; margin-bottom: 1rem; line-height: 1.05; }
-  .article-p { font-family: 'Crimson Pro', serif; font-size: 1.05rem; color: var(--text); line-height: 1.9; margin-bottom: 1.5rem; }
-  .highlight-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--pink); padding: 1.5rem; margin: 2rem 0; }
-  .highlight-box p { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--white); line-height: 1.3; }
-  .highlight-box cite { font-size: 0.6rem; letter-spacing: 0.15em; color: var(--text-dim); margin-top: 0.5rem; display: block; text-transform: uppercase; }
-
-  /* DISEASE TIMELINE */
-  .timeline { margin: 2rem 0; position: relative; padding-left: 2rem; }
-  .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--pink); opacity: 0.3; }
-  .tl-item { position: relative; margin-bottom: 2rem; padding-left: 1.5rem; }
-  .tl-item::before { content: ''; position: absolute; left: -2rem; top: 0.3rem; width: 8px; height: 8px; border: 1px solid var(--pink); background: var(--bg); transform: rotate(45deg); }
-  .tl-year { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--pink); text-transform: uppercase; margin-bottom: 0.3rem; }
-  .tl-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--white); letter-spacing: 0.04em; margin-bottom: 0.4rem; }
-  .tl-desc { font-size: 0.75rem; color: var(--text-dim); line-height: 1.6; }
-
-  .theory-list { display: flex; flex-direction: column; gap: 0; margin: 2rem 0; }
-  .theory-item { background: var(--surface); border: 1px solid var(--border); border-top: none; padding: 1.5rem; display: grid; grid-template-columns: 50px 1fr; gap: 1rem; transition: border-color 0.2s; }
-  .theory-item:first-child { border-top: 1px solid var(--border); }
-  .theory-item:hover { border-color: var(--pink); }
-  .theory-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--border); line-height: 1; }
-  .theory-item:hover .theory-num { color: var(--pink); }
-  .theory-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: var(--white); letter-spacing: 0.04em; margin-bottom: 0.4rem; }
-  .theory-desc { font-size: 0.75rem; color: var(--text-dim); line-height: 1.6; }
-
-  .sidebar-widget { background: var(--surface); border: 1px solid var(--border); margin-bottom: 1.5rem; overflow: hidden; }
-  .widget-header { background: var(--pink); padding: 0.6rem 1rem; font-size: 0.6rem; letter-spacing: 0.2em; color: var(--bg); text-transform: uppercase; }
-  .widget-body { padding: 1.2rem; }
-  .widget-item { display: flex; gap: 0.6rem; padding: 0.6rem 0; border-bottom: 1px solid var(--border); font-size: 0.7rem; color: var(--text); align-items: flex-start; line-height: 1.5; }
-  .widget-item:last-child { border-bottom: none; }
-  .widget-item::before { content: '→'; color: var(--pink); flex-shrink: 0; }
-  .nav-page-link { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0.8rem; border: 1px solid var(--border); text-decoration: none; color: var(--text-dim); font-size: 0.65rem; letter-spacing: 0.1em; transition: all 0.2s; text-transform: uppercase; margin-bottom: 0.4rem; }
-  .nav-page-link:hover { border-color: var(--pink); color: var(--pink); }
-
-  @media (max-width: 768px) { .content-grid { grid-template-columns: 1fr; } .pharma-stats { grid-template-columns: repeat(2,1fr); } .nav-links { display: none; } }
+  :root { --accent: #f43f5e; }
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="index.html" class="nav-logo">DEEP SIGNAL</a>
+  <a href="index.html" class="nav-logo">GET SET GO API</a>
   <ul class="nav-links">
-    <li><a href="ai-human.html">AI vs Human</a></li>
-    <li><a href="ipl.html">IPL</a></li>
-    <li><a href="finance.html">Finance</a></li>
-    <li><a href="football.html">Football</a></li>
-    <li><a href="medicine.html" class="active">Medicine</a></li>
-    <li><a href="surveillance.html">Surveillance</a></li>
-    <li><a href="shadow-gov.html">Deep State</a></li>
-    <li><a href="space.html">Space</a></li>
-    <li><a href="chemtrails.html">Geoengineering</a></li>
-    <li><a href="index.html">Home</a></li>
+    <li><a href="ai-human.html">AI &amp; Language</a></li>
+    <li><a href="ipl.html">Image &amp; Vision</a></li>
+    <li><a href="finance.html">Data &amp; Analytics</a></li>
+    <li><a href="football.html">Code &amp; Dev</a></li>
+    <li><a href="medicine.html" class="active">Health &amp; Medical</a></li>
+    <li><a href="surveillance.html">Security &amp; Auth</a></li>
+    <li><a href="shadow-gov.html">Automation</a></li>
+    <li><a href="space.html">Search &amp; Semantic</a></li>
+    <li><a href="chemtrails.html">Audio &amp; Video</a></li>
   </ul>
-  <a href="index.html" class="back-btn">← Home</a>
+  <a href="index.html" class="back-btn">← All APIs</a>
 </nav>
 
 <section class="page-hero">
-  <div class="med-bg"></div>
-  <div class="dna-bg" id="dnaBg"></div>
   <div class="page-hero-inner">
-    <div class="page-tag">Dossier 05 · Medicine · Big Pharma</div>
-    <h1 class="page-title">THE<br><span>BURIED</span><br>CURES</h1>
-    <p class="page-intro">
-      The pharmaceutical industry earns $1.4 trillion treating symptoms. A world of cures 
-      would destroy that model entirely. The patent system was designed not to protect inventors 
-      but to protect markets — and the most protected market in human history is your illness.
-    </p>
+    <div class="page-tag">HEALTH · MEDICAL · CLINICAL AI</div>
+    <h1 class="page-title">HEALTH &amp; MEDICAL<br><span>APIS</span></h1>
+    <p class="page-intro">Specialised AI APIs for healthcare — medical imaging analysis, clinical NLP, symptom assessment, drug interaction checking, BioGPT, and MedPaLM. Accelerate health-tech development with frontier medical AI.</p>
   </div>
 </section>
 
-<div class="pharma-stats">
-  <div class="pstat">
-    <span class="pstat-num">$1.4T</span>
-    <div class="pstat-label">Annual Pharma Revenue</div>
-  </div>
-  <div class="pstat">
-    <span class="pstat-num">11%</span>
-    <div class="pstat-label">Spent on R&D vs 26% Marketing</div>
-  </div>
-  <div class="pstat">
-    <span class="pstat-num">$4.7B</span>
-    <div class="pstat-label">FDA Approvals Funded By Applicants</div>
-  </div>
-  <div class="pstat">
-    <span class="pstat-num">0</span>
-    <div class="pstat-label">Major Diseases Cured Since 1970</div>
-  </div>
-</div>
-
 <div class="content-grid">
-  <article class="article-body">
-
-    <div class="section-label">// Theory Alpha</div>
-    <h2 class="article-h2">PATENTS DON'T PROTECT INNOVATION — THEY PROHIBIT IT</h2>
-    <p class="article-p">
-      When a pharmaceutical company patents a drug, it doesn't just protect its investment 
-      in developing that drug. It creates a 20-year legal monopoly that prohibits any other 
-      entity — university, NGO, government lab — from producing the same compound, regardless 
-      of urgency or humanitarian need. The TRIPS Agreement, negotiated at the WTO, 
-      extended this system globally, overriding local health laws in 164 countries.
-    </p>
-    <p class="article-p">
-      The consequence: a generic version of a patented cancer drug that costs $3 to produce 
-      sells for $15,000 per course in the United States because no alternative manufacturer 
-      is legally permitted to exist. When South Africa attempted to manufacture generic AIDS 
-      drugs during its epidemic in 1998, 39 pharmaceutical companies filed suit. The legal 
-      battle lasted four years — during which time an estimated 360,000 South Africans died 
-      of AIDS-related illness.
-    </p>
+  <main>
+    <div class="section-label">Overview</div>
+    <h2 class="article-h2">Frontier AI for Healthcare Applications</h2>
+    <p class="article-p">Medical AI is transforming healthcare delivery — from diagnostic imaging analysis that rivals specialist radiologists to clinical documentation tools that save physicians hours per day. Get Set Go Api makes these powerful capabilities accessible to developers building health-tech products.</p>
+    <p class="article-p">Our Health &amp; Medical category aggregates specialised APIs that would individually cost thousands per month to access. During your free first month, you can prototype complete clinical AI workflows without upfront infrastructure investment.</p>
 
     <div class="highlight-box">
-      <p>"We have no interest in discovering a cure. Cures are bad for business. Managing a chronic condition is the business model."</p>
-      <cite>— Attributed to internal Bain & Company consulting brief, 2019 — widely leaked, never sued over</cite>
+      <p>"From radiology AI to clinical NLP — every healthcare API available during your free month."</p>
+      <cite>Get Set Go Api · Health &amp; Medical Category</cite>
     </div>
 
-    <div class="section-label">// The Suppression Timeline</div>
-    <h2 class="article-h2">TREATMENTS DELAYED, BURIED, OR BOUGHT OUT</h2>
-
-    <div class="timeline">
-      <div class="tl-item">
-        <div class="tl-year">1953</div>
-        <div class="tl-title">Antineoplastons — Stanislaw Burzynski</div>
-        <div class="tl-desc">Burzynski claimed his peptide treatment showed results in brain tumors. FDA conducted 5 grand jury investigations over 14 years, found no fraud, conducted no clinical trials. The treatment remains unpatentable — no pharmaceutical company can profit from it.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-year">1976</div>
-        <div class="tl-title">Ivermectin Research — Early Parasite Studies</div>
-        <div class="tl-desc">Merck discovers ivermectin's antiparasitic properties. Wins Nobel. Later research on broader antiviral properties was systematically defunded when patent expiry made it commercially irrelevant.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-year">1990s</div>
-        <div class="tl-title">SSRIs Replace Psychotherapy</div>
-        <div class="tl-desc">Pharmaceutical industry successfully lobbied to shift depression treatment protocols from psychotherapy (one-time cost) to SSRIs (lifetime prescription). Cognitive behavioral therapy shows equivalent long-term outcomes at lower cost. It is systematically underinsured.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-year">2010</div>
-        <div class="tl-title">Alzheimer's Drug Pipeline Collapses</div>
-        <div class="tl-desc">After 30+ years and $40B+ in failed drug trials, the amyloid hypothesis remains pharmaceutical consensus. Researchers who proposed alternative mechanisms report difficulty receiving funding. The failing hypothesis is commercially embedded.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-year">2023</div>
-        <div class="tl-title">GLP-1 Obesity Drugs</div>
-        <div class="tl-desc">Highly effective. Patented. $1,000/month. The same mechanism has been achievable through fasting protocols documented for decades. You cannot patent fasting.</div>
-      </div>
-    </div>
-
-    <div class="section-label">// Theory Beta</div>
-    <h2 class="article-h2">THE FDA REVOLVING DOOR</h2>
-    <p class="article-p">
-      Between 2006 and 2019, 57% of all senior FDA officials who left government employment 
-      moved directly into positions at pharmaceutical companies they had previously regulated. 
-      This is not a conflict of interest. It is the structure of interest — the captured 
-      regulator is the model, not the exception.
-    </p>
+    <div class="section-label">Available APIs</div>
+    <h2 class="article-h2">25+ Health &amp; Medical APIs</h2>
 
     <div class="theory-list">
       <div class="theory-item">
         <div class="theory-num">01</div>
         <div>
-          <div class="theory-name">Opioid Crisis Was a Product Launch</div>
-          <div class="theory-desc">Purdue Pharma's internal documents, released in bankruptcy proceedings, show executives knew OxyContin was highly addictive in 1996 and chose to market it as "less addictive" anyway. 500,000 Americans died. The Sackler family paid $6B in settlements while keeping $11B in assets.</div>
+          <div class="theory-name">Google MedPaLM 2 API</div>
+          <div class="theory-desc">Google's medical-domain language model trained on curated clinical data. Expert-level performance on USMLE-style questions, clinical note summarisation, and medical literature synthesis.</div>
         </div>
       </div>
       <div class="theory-item">
         <div class="theory-num">02</div>
         <div>
-          <div class="theory-name">Clinical Trial Publication Bias</div>
-          <div class="theory-desc">Pharmaceutical companies are not required to publish negative clinical trial results. Studies showing a drug doesn't work are quietly shelved. Only positive results reach prescribing doctors. This is legal. It is also the scientific fraud that built the antidepressant market.</div>
+          <div class="theory-name">Microsoft BioGPT API</div>
+          <div class="theory-desc">Pre-trained generative transformer model for biomedical text generation and mining. Optimised for PubMed literature, clinical trial data, and biomedical entity recognition tasks.</div>
         </div>
       </div>
       <div class="theory-item">
         <div class="theory-num">03</div>
         <div>
-          <div class="theory-name">Disease Mongering</div>
-          <div class="theory-desc">The pharmaceutical industry funds awareness campaigns for conditions it then treats. Social anxiety disorder, ADHD, restless leg syndrome, and 40+ other diagnoses were expanded or created through industry-funded psychiatrist panels. DSM revisions correlate directly with new drug approvals.</div>
+          <div class="theory-name">Medical Imaging AI APIs</div>
+          <div class="theory-desc">Deep learning models for radiology: chest X-ray analysis, CT scan segmentation, MRI interpretation, and pathology slide classification. FDA-cleared models included where applicable.</div>
         </div>
       </div>
       <div class="theory-item">
         <div class="theory-num">04</div>
         <div>
-          <div class="theory-name">The Vitamin D Suppression Story</div>
-          <div class="theory-desc">Decades of research link severe vitamin D deficiency to cancer, autoimmune disease, and respiratory illness. Correcting deficiency costs pennies per day and cannot be patented. Funding for this research has been systematically deficient. Insurance coverage for testing is minimal.</div>
+          <div class="theory-name">Symptom Analysis &amp; Triage APIs</div>
+          <div class="theory-desc">Intelligent symptom checkers and triage recommendation engines. Supports 400+ medical conditions, multi-language symptom intake, and integration with ICD-10 coding systems.</div>
+        </div>
+      </div>
+      <div class="theory-item">
+        <div class="theory-num">05</div>
+        <div>
+          <div class="theory-name">Drug Interaction Checker APIs</div>
+          <div class="theory-desc">Real-time drug-drug and drug-food interaction checking against comprehensive pharmacological databases. Critical severity alerts, mechanism explanations, and clinical management recommendations.</div>
+        </div>
+      </div>
+      <div class="theory-item">
+        <div class="theory-num">06</div>
+        <div>
+          <div class="theory-name">Clinical NLP &amp; Medical Coding APIs</div>
+          <div class="theory-desc">Extract structured data from unstructured clinical notes. Named entity recognition for conditions, medications, and procedures. Automated ICD-10, CPT, and SNOMED CT coding from clinical text.</div>
         </div>
       </div>
     </div>
 
-  </article>
+    <div class="section-label">Use Cases</div>
+    <h2 class="article-h2">Building Health-Tech with Medical APIs</h2>
+    <p class="article-p">Health-tech teams use our medical APIs to build patient-facing symptom checkers, physician-facing clinical decision support tools, hospital administration automation, medical record summarisation, and remote patient monitoring analysis systems.</p>
+    <p class="article-p">All APIs in this category come with guidance on regulatory considerations, HIPAA-compatible data handling, and best practices for responsible deployment of medical AI. Note that medical AI outputs should always be reviewed by qualified healthcare professionals before informing clinical decisions.</p>
+  </main>
 
-  <aside class="sidebar">
+  <aside>
     <div class="sidebar-widget">
-      <div class="widget-header">// Verified Evidence</div>
+      <div class="widget-header">Quick Stats</div>
       <div class="widget-body">
-        <div class="widget-item">Purdue Pharma opioid documents: available on public court record since 2022</div>
-        <div class="widget-item">FDA revolving door study: BMJ 2018 — 57% departure rate confirmed</div>
-        <div class="widget-item">South Africa AIDS lawsuit: documented in MSF archives, case dismissed 2001</div>
-        <div class="widget-item">Publication bias: Kirsch et al., PLOS Medicine 2008 — SSRI effect documented</div>
-        <div class="widget-item">TRIPS Agreement text: publicly available at WTO.org</div>
+        <div class="threat-meter">
+          <div class="threat-label"><span>Medical APIs</span><span>25+</span></div>
+          <div class="threat-bar"><div class="threat-fill" style="width:75%"></div></div>
+          <div class="threat-label"><span>Conditions Covered</span><span>400+</span></div>
+          <div class="threat-bar"><div class="threat-fill" style="width:88%"></div></div>
+          <div class="threat-label"><span>Languages Supported</span><span>30+</span></div>
+          <div class="threat-bar"><div class="threat-fill" style="width:70%"></div></div>
+          <div class="threat-label"><span>USMLE Accuracy</span><span>86%+</span></div>
+          <div class="threat-bar"><div class="threat-fill" style="width:86%"></div></div>
+        </div>
       </div>
     </div>
 
     <div class="sidebar-widget">
-      <div class="widget-header">// Suppressed Researchers</div>
+      <div class="widget-header">Featured APIs</div>
       <div class="widget-body">
-        <div class="widget-item">Dr. Peter Rost — Pfizer VP, whistleblower, fired 2005</div>
-        <div class="widget-item">Dr. David Graham — FDA, Vioxx warning suppressed before 60,000 deaths</div>
-        <div class="widget-item">Dr. Nancy Olivieri — defunded after publishing negative cyclosporin data</div>
-        <div class="widget-item">Dr. Gøtzsche — expelled from Cochrane after criticizing HPV trial data</div>
+        <div class="widget-item">Google MedPaLM 2 — clinical LLM</div>
+        <div class="widget-item">Microsoft BioGPT — biomedical AI</div>
+        <div class="widget-item">Infermedica — symptom checker</div>
+        <div class="widget-item">DrFirst — drug interactions</div>
+        <div class="widget-item">Nuance DAX — clinical notes</div>
+        <div class="widget-item">Enlitic — radiology AI</div>
+        <div class="widget-item">AWS HealthLake — medical data</div>
       </div>
     </div>
 
     <div class="sidebar-widget">
-      <div class="widget-header">Other Dossiers</div>
+      <div class="widget-header">Pricing</div>
       <div class="widget-body">
-        <a href="ai-human.html" class="nav-page-link">AI vs Human <span>→</span></a>
-        <a href="ipl.html" class="nav-page-link">IPL Shadow Empire <span>→</span></a>
-        <a href="finance.html" class="nav-page-link">Debt as Control <span>→</span></a>
-        <a href="football.html" class="nav-page-link">Football's Rulers <span>→</span></a>
-        <a href="surveillance.html" class="nav-page-link">Mass Surveillance <span>→</span></a>
-        <a href="shadow-gov.html" class="nav-page-link">The Deep State <span>→</span></a>
-        <a href="space.html" class="nav-page-link">Space Secrets <span>→</span></a>
-        <a href="chemtrails.html" class="nav-page-link">Climate Engineering <span>→</span></a>
+        <div class="pricing-badge">
+          <div class="price-free">FREE</div>
+          <div class="price-label">First Month — Unlimited</div>
+          <div class="price-after">Then from <strong>$49/mo</strong></div>
+        </div>
+        <div class="widget-item">All medical APIs included</div>
+        <div class="widget-item">HIPAA guidance provided</div>
+        <div class="widget-item">Responsible AI documentation</div>
+      </div>
+    </div>
+
+    <div class="sidebar-widget">
+      <div class="widget-header">More Categories</div>
+      <div class="widget-body">
+        <div class="nav-pages">
+          <a href="ai-human.html" class="nav-page-link">AI &amp; Language <span>→</span></a>
+          <a href="surveillance.html" class="nav-page-link">Security &amp; Auth <span>→</span></a>
+          <a href="finance.html" class="nav-page-link">Data &amp; Analytics <span>→</span></a>
+          <a href="ipl.html" class="nav-page-link">Image &amp; Vision <span>→</span></a>
+          <a href="shadow-gov.html" class="nav-page-link">Automation <span>→</span></a>
+        </div>
       </div>
     </div>
   </aside>
 </div>
 
-<script>
-  const db = document.getElementById('dnaBg');
-  if (db) {
-    const bases = 'ATCGATCGATCGATCGTTTTAAACCCGGG';
-    let html = '';
-    for (let i = 0; i < 800; i++) {
-      html += bases[Math.floor(Math.random() * bases.length)];
-      if (i % 40 === 39) html += ' ';
-    }
-    db.textContent = html;
-  }
-</script>
-
-<footer style="background:var(--surface);border-top:1px solid var(--pink);padding:2rem 3rem;margin-top:0;">
-  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;">
-    <a href="index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--red);letter-spacing:0.15em;text-decoration:none;">DEEP SIGNAL</a>
-    <nav style="display:flex;flex-wrap:wrap;gap:0.5rem;">
-      <a href="index.html" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;padding:0.35rem 0.8rem;border:1px solid var(--border);text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color='var(--pink)';this.style.borderColor='var(--pink)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">Home</a>
-      <a href="ai-human.html" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;padding:0.35rem 0.8rem;border:1px solid var(--border);text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color='var(--pink)';this.style.borderColor='var(--pink)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">AI vs Human</a>
-      <a href="ipl.html" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;padding:0.35rem 0.8rem;border:1px solid var(--border);text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color='var(--pink)';this.style.borderColor='var(--pink)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">IPL</a>
-      <a href="finance.html" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;padding:0.35rem 0.8rem;border:1px solid var(--border);text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color='var(--pink)';this.style.borderColor='var(--pink)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">Finance</a>
-      <a href="football.html" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;padding:0.35rem 0.8rem;border:1px solid var(--border);text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color='var(--pink)';this.style.borderColor='var(--pink)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">Football</a>
-      <a href="medicine.html" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--pink);text-decoration:none;padding:0.35rem 0.8rem;border:1px solid var(--pink);text-transform:uppercase;">Medicine</a>
-      <a href="surveillance.html" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;padding:0.35rem 0.8rem;border:1px solid var(--border);text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color='var(--pink)';this.style.borderColor='var(--pink)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">Surveillance</a>
-      <a href="shadow-gov.html" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;padding:0.35rem 0.8rem;border:1px solid var(--border);text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color='var(--pink)';this.style.borderColor='var(--pink)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">Deep State</a>
-      <a href="space.html" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;padding:0.35rem 0.8rem;border:1px solid var(--border);text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color='var(--pink)';this.style.borderColor='var(--pink)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">Space</a>
-      <a href="chemtrails.html" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;padding:0.35rem 0.8rem;border:1px solid var(--border);text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color='var(--pink)';this.style.borderColor='var(--pink)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">Geoengineering</a>
-    </nav>
-    <span style="font-size:0.6rem;color:var(--text-dim);letter-spacing:0.1em;">SIGNAL ENCRYPTED · NO TRACKING</span>
-  </div>
+<footer>
+  <a href="index.html" class="footer-logo">GET SET GO API</a>
+  <nav class="footer-nav">
+    <a href="ai-human.html">AI &amp; Language</a>
+    <a href="ipl.html">Image &amp; Vision</a>
+    <a href="finance.html">Data &amp; Analytics</a>
+    <a href="football.html">Code &amp; Dev</a>
+    <a href="medicine.html" class="active">Health &amp; Medical</a>
+    <a href="surveillance.html">Security &amp; Auth</a>
+    <a href="shadow-gov.html">Automation</a>
+    <a href="space.html">Search &amp; Semantic</a>
+    <a href="chemtrails.html">Audio &amp; Video</a>
+  </nav>
+  <span class="footer-text">All Premium AI APIs · Free First Month · No Rate Limits · Unified Access</span>
 </footer>
-<script src="assets/js/main.js" defer></script>
+
+<script src="assets/js/main.js"></script>
+</body>
 </html>

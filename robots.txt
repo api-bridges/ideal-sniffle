@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://deepsignal.io/sitemap.xml
+
+Sitemap: https://getsetgoapi.com/sitemap.xml

@@ -1,19 +1,56 @@
-// DEEP SIGNAL · Shared Scripts
+// GET SET GO API · Shared Scripts
 
-// Matrix/random background text generator
-function initMatrixBg(elementId, chars) {
-  const el = document.getElementById(elementId);
-  if (!el) return;
-  const charSet = chars || '01アイウエオカキクケコABCDEFGXYZ01010110';
-  let html = '';
-  for (let i = 0; i < 400; i++) {
-    html += charSet[Math.floor(Math.random() * charSet.length)];
-    if (i % 60 === 59) html += '<br>';
-    else html += ' ';
+// Animate API counter stats
+function animateCounter(el, target, duration) {
+  const start = performance.now();
+  const startVal = 0;
+  function update(time) {
+    const elapsed = time - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(startVal + (target - startVal) * eased).toLocaleString();
+    if (progress < 1) requestAnimationFrame(update);
+    else el.textContent = target >= 1000 ? target.toLocaleString() : target + (el.dataset.suffix || '');
   }
-  el.innerHTML = html;
+  requestAnimationFrame(update);
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-  initMatrixBg('matrixBg');
+function initCounters() {
+  const counters = document.querySelectorAll('[data-count]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = 'true';
+        const target = parseInt(entry.target.dataset.count, 10);
+        animateCounter(entry.target, target, 1800);
+      }
+    });
+  }, { threshold: 0.3 });
+  counters.forEach(el => observer.observe(el));
+}
+
+// Ticker animation (CSS handles it, JS just ensures it's cloned for seamless loop)
+function initTicker() {
+  const ticker = document.querySelector('.ticker-inner');
+  if (!ticker) return;
+  ticker.innerHTML += ticker.innerHTML;
+}
+
+// Smooth highlight for stat bars
+function initStatBars() {
+  const bars = document.querySelectorAll('.threat-fill');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.width = entry.target.dataset.width || entry.target.style.width;
+      }
+    });
+  });
+  bars.forEach(bar => observer.observe(bar));
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  initCounters();
+  initTicker();
+  initStatBars();
 });
