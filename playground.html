@@ -721,73 +721,23 @@
       <div id="sidebarChat">
         <div class="pg-sidebar-title">Model Settings</div>
         <div class="pg-setting">
-          <label>Model <span id="sidebarModelLabel">GPT-4o</span></label>
-          <select class="pg-select" id="sidebarModel">
-            <optgroup label="— OpenAI —">
-              <option>GPT-3.5 Turbo</option>
-              <option>GPT-4</option>
-              <option>GPT-4 Turbo</option>
-              <option selected>GPT-4o</option>
-              <option>GPT-4o mini</option>
-              <option>o1</option>
-              <option>o1-mini</option>
-              <option>o3</option>
-              <option>o3-mini</option>
-            </optgroup>
-            <optgroup label="— Anthropic / Claude —">
-              <option>Claude 1</option>
-              <option>Claude 2</option>
-              <option>Claude 2.1</option>
-              <option>Claude 3 Haiku</option>
-              <option>Claude 3 Sonnet</option>
-              <option>Claude 3 Opus</option>
-              <option>Claude 3.5 Haiku</option>
-              <option>Claude 3.5 Sonnet</option>
-              <option>Claude 3.7 Sonnet</option>
-              <option>Claude 4 Sonnet</option>
-              <option>Claude 4 Opus</option>
-            </optgroup>
-            <optgroup label="— Google / Gemini —">
-              <option>Gemini 1.0 Pro</option>
-              <option>Gemini 1.5 Flash</option>
-              <option>Gemini 1.5 Pro</option>
-              <option>Gemini 1.5 Ultra</option>
-              <option>Gemini 2.0 Flash</option>
-              <option>Gemini 2.0 Pro</option>
-              <option>Gemini 2.5 Flash</option>
-              <option>Gemini 2.5 Pro</option>
-            </optgroup>
-            <optgroup label="— Meta / Llama —">
-              <option>Llama 2 7B</option>
-              <option>Llama 2 13B</option>
-              <option>Llama 2 70B</option>
-              <option>Llama 3 8B</option>
-              <option>Llama 3 70B</option>
-              <option>Llama 3.1 8B</option>
-              <option>Llama 3.1 70B</option>
-              <option>Llama 3.1 405B</option>
-              <option>Llama 3.3 70B</option>
-            </optgroup>
-            <optgroup label="— Mistral AI —">
-              <option>Mistral 7B</option>
-              <option>Mixtral 8x7B</option>
-              <option>Mixtral 8x22B</option>
-              <option>Mistral Large 2</option>
-              <option>Mistral Small 3</option>
-              <option>Pixtral Large</option>
-            </optgroup>
-            <optgroup label="— Other Frontier Models —">
-              <option>DeepSeek V2</option>
-              <option>DeepSeek V3</option>
-              <option>DeepSeek R1</option>
-              <option>Grok 1</option>
-              <option>Grok 2</option>
-              <option>Grok 3</option>
-              <option>Command R+</option>
-              <option>MiniMax Text 01</option>
-              <option>Perplexity Sonar</option>
-            </optgroup>
+          <label>Provider</label>
+          <select class="pg-select" id="sidebarProvider">
+            <option value="openai">OpenAI</option>
+            <option value="anthropic">Anthropic / Claude</option>
+            <option value="google">Google / Gemini</option>
+            <option value="meta">Meta / Llama</option>
+            <option value="mistral">Mistral AI</option>
+            <option value="deepseek">DeepSeek</option>
+            <option value="xai">xAI / Grok</option>
+            <option value="cohere">Cohere</option>
+            <option value="perplexity">Perplexity</option>
+            <option value="minimax">MiniMax</option>
           </select>
+        </div>
+        <div class="pg-setting">
+          <label>Model <span id="sidebarModelLabel">GPT-4o</span></label>
+          <select class="pg-select" id="sidebarModel"></select>
         </div>
         <div class="pg-setting">
           <label>Temperature <span id="tempVal">0.7</span></label>
@@ -1074,21 +1024,177 @@
   var gm = document.getElementById('gateModelName');
   if (gm) gm.textContent = model;
 
-  // Populate sidebar model dropdown
+  // ── Provider → Model two-step selector ──
+  var PROVIDER_MODELS = {
+    openai: [
+      'GPT-3.5 Turbo',
+      'GPT-4',
+      'GPT-4 Turbo',
+      'GPT-4o',
+      'GPT-4o mini',
+      'GPT-4.1',
+      'GPT-4.1 mini',
+      'GPT-4.1 nano',
+      'o1',
+      'o1-mini',
+      'o1-pro',
+      'o3',
+      'o3-mini',
+      'o4-mini'
+    ],
+    anthropic: [
+      'Claude 1',
+      'Claude 2',
+      'Claude 2.1',
+      'Claude 3 Haiku',
+      'Claude 3 Sonnet',
+      'Claude 3 Opus',
+      'Claude 3.5 Haiku',
+      'Claude 3.5 Sonnet',
+      'Claude 3.7 Sonnet',
+      'Claude 4 Haiku',
+      'Claude 4 Sonnet',
+      'Claude 4 Opus',
+      'Claude Opus 4.5',
+      'Claude Opus 4.7'
+    ],
+    google: [
+      'Gemini 1.0 Pro',
+      'Gemini 1.5 Flash',
+      'Gemini 1.5 Pro',
+      'Gemini 1.5 Ultra',
+      'Gemini 2.0 Flash',
+      'Gemini 2.0 Flash Thinking',
+      'Gemini 2.0 Pro',
+      'Gemini 2.5 Flash',
+      'Gemini 2.5 Pro'
+    ],
+    meta: [
+      'Llama 2 7B',
+      'Llama 2 13B',
+      'Llama 2 70B',
+      'Llama 3 8B',
+      'Llama 3 70B',
+      'Llama 3.1 8B',
+      'Llama 3.1 70B',
+      'Llama 3.1 405B',
+      'Llama 3.2 1B',
+      'Llama 3.2 3B',
+      'Llama 3.2 11B',
+      'Llama 3.2 90B',
+      'Llama 3.3 70B',
+      'Llama 4 Scout',
+      'Llama 4 Maverick'
+    ],
+    mistral: [
+      'Mistral 7B',
+      'Mixtral 8x7B',
+      'Mixtral 8x22B',
+      'Mistral Small',
+      'Mistral Small 3',
+      'Mistral Medium',
+      'Mistral Large',
+      'Mistral Large 2',
+      'Mistral Saba',
+      'Codestral',
+      'Pixtral 12B',
+      'Pixtral Large'
+    ],
+    deepseek: [
+      'DeepSeek V2',
+      'DeepSeek V2.5',
+      'DeepSeek V3',
+      'DeepSeek R1',
+      'DeepSeek R1 Zero',
+      'DeepSeek R2'
+    ],
+    xai: [
+      'Grok 1',
+      'Grok 1.5',
+      'Grok 2',
+      'Grok 2 Vision',
+      'Grok 3',
+      'Grok 3 Mini'
+    ],
+    cohere: [
+      'Command',
+      'Command R',
+      'Command R+',
+      'Command A'
+    ],
+    perplexity: [
+      'Sonar Small',
+      'Sonar',
+      'Sonar Pro',
+      'Sonar Reasoning',
+      'Sonar Reasoning Pro'
+    ],
+    minimax: [
+      'MiniMax Text 01',
+      'MiniMax VL 01',
+      'MiniMax M1'
+    ]
+  };
+
+  // Detect which provider a model name belongs to (for URL ?model= param)
+  function detectProvider(modelName) {
+    var lc = modelName.toLowerCase();
+    if (lc.indexOf('claude') !== -1 || lc.indexOf('anthropic') !== -1) return 'anthropic';
+    if (lc.indexOf('gemini') !== -1 || lc.indexOf('imagen') !== -1) return 'google';
+    if (lc.indexOf('llama') !== -1) return 'meta';
+    if (lc.indexOf('mistral') !== -1 || lc.indexOf('mixtral') !== -1 || lc.indexOf('pixtral') !== -1 || lc.indexOf('codestral') !== -1) return 'mistral';
+    if (lc.indexOf('deepseek') !== -1) return 'deepseek';
+    if (lc.indexOf('grok') !== -1) return 'xai';
+    if (lc.indexOf('command') !== -1) return 'cohere';
+    if (lc.indexOf('sonar') !== -1) return 'perplexity';
+    if (lc.indexOf('minimax') !== -1) return 'minimax';
+    return 'openai';
+  }
+
+  function populateModelDropdown(provider, selectedModel) {
+    var sidebarSel = document.getElementById('sidebarModel');
+    if (!sidebarSel) return;
+    var models = PROVIDER_MODELS[provider] || [];
+    sidebarSel.innerHTML = '';
+    models.forEach(function (m) {
+      var opt = document.createElement('option');
+      opt.value = m;
+      opt.textContent = m;
+      sidebarSel.appendChild(opt);
+    });
+    // Select the requested model if it's in this provider's list, otherwise pick first
+    if (selectedModel && models.indexOf(selectedModel) !== -1) {
+      sidebarSel.value = selectedModel;
+    } else {
+      sidebarSel.selectedIndex = 0;
+    }
+    var chosen = sidebarSel.value;
+    document.getElementById('pgModelName').textContent = chosen;
+    document.getElementById('sidebarModelLabel').textContent = chosen;
+    if (wm) wm.textContent = chosen;
+    if (gm) gm.textContent = chosen;
+  }
+
+  // Initialise provider dropdown
+  var providerSel = document.getElementById('sidebarProvider');
+  var initProvider = detectProvider(model);
+  if (providerSel) {
+    providerSel.value = initProvider;
+    populateModelDropdown(initProvider, model);
+
+    providerSel.addEventListener('change', function () {
+      populateModelDropdown(providerSel.value, null);
+    });
+  }
+
+  // Model dropdown change handler
   var sidebarSel = document.getElementById('sidebarModel');
   if (sidebarSel) {
-    var exists = Array.from(sidebarSel.options).some(function (o) { return o.value === model; });
-    if (!exists) {
-      var opt = document.createElement('option');
-      opt.value = model;
-      opt.textContent = model;
-      sidebarSel.insertBefore(opt, sidebarSel.firstChild);
-    }
-    sidebarSel.value = model;
     sidebarSel.addEventListener('change', function () {
       document.getElementById('pgModelName').textContent = sidebarSel.value;
       document.getElementById('sidebarModelLabel').textContent = sidebarSel.value;
       if (wm) wm.textContent = sidebarSel.value;
+      if (gm) gm.textContent = sidebarSel.value;
     });
   }
 
