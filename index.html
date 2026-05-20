@@ -3,917 +3,845 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DEEP SIGNAL — Uncover Hidden Truths & Conspiracy Theories</title>
-<meta name="description" content="Deep Signal exposes hidden truths behind AI, finance, sports, medicine and government. Explore declassified dossiers, conspiracy theories and investigative analysis.">
-<meta name="keywords" content="conspiracy theories, deep state, hidden truth, AI conspiracy, financial conspiracy, surveillance, shadow government">
-<meta name="robots" content="index, follow">
+<title>Get Set Go Api — All Premium AI APIs. Every Category. Free First Month.</title>
+<meta name="description" content="Access GPT-4, Claude, Gemini, DALL-E, Whisper and 500+ more premium AI APIs across every category — unlimited for your first month. One unified API key.">
+<meta name="keywords" content="AI APIs, GPT-4 API, Claude API, Gemini API, DALL-E API, Whisper API, AI platform, API marketplace">
+<meta property="og:title" content="Get Set Go Api — All Premium AI APIs. One Platform.">
+<meta property="og:description" content="500+ premium AI APIs. Every category. Free unlimited access for your first month.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="DEEP SIGNAL — Uncover Hidden Truths & Conspiracy Theories">
-<meta property="og:description" content="Deep Signal exposes hidden truths behind AI, finance, sports, medicine and government. Explore declassified dossiers, conspiracy theories and investigative analysis.">
-<meta property="og:url" content="https://deepsignal.io/">
-<meta property="og:site_name" content="Deep Signal">
-<meta property="og:image" content="https://deepsignal.io/assets/og-index.jpg">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="DEEP SIGNAL — Uncover Hidden Truths & Conspiracy Theories">
-<meta name="twitter:description" content="Deep Signal exposes hidden truths behind AI, finance, sports, medicine and government. Explore declassified dossiers, conspiracy theories and investigative analysis.">
-<link rel="canonical" href="https://deepsignal.io/">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Deep Signal","url":"https://deepsignal.io","description":"Conspiracy theories, investigative dossiers and hidden truth analysis","potentialAction":{"@type":"SearchAction","target":"https://deepsignal.io/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<meta property="og:url" content="https://getsetgoapi.com/">
+<link rel="canonical" href="https://getsetgoapi.com/">
 <link rel="stylesheet" href="assets/css/shared.css">
 <style>
-  :root {
-    --red: #ff2020;
-    --amber: #ffaa00;
-    --green: #00ff88;
-    --bg: #050508;
-    --surface: #0d0d14;
-    --border: #1a1a2e;
-    --text: #c8c8d8;
-    --text-dim: #5a5a7a;
-    --white: #f0f0f8;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Share Tech Mono', monospace;
-    overflow-x: hidden;
-    cursor: crosshair;
-  }
-
-  /* SCANLINES OVERLAY */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: repeating-linear-gradient(
-      to bottom,
-      transparent,
-      transparent 2px,
-      rgba(0,0,0,0.18) 2px,
-      rgba(0,0,0,0.18) 4px
-    );
-    pointer-events: none;
-    z-index: 9999;
-  }
-
-  /* NOISE TEXTURE */
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 9998;
-    opacity: 0.5;
-  }
-
-  /* ─── NAV ─── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 1000;
-    background: rgba(5,5,8,0.95);
-    border-bottom: 1px solid var(--red);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 2rem;
-    height: 56px;
-    backdrop-filter: blur(8px);
-  }
-
-  .nav-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.8rem;
-    color: var(--red);
-    letter-spacing: 0.15em;
-    text-decoration: none;
-    position: relative;
-  }
-  .nav-logo::after {
-    content: '▮';
-    animation: blink 1s step-end infinite;
-    color: var(--amber);
-    font-size: 1rem;
-    margin-left: 4px;
-  }
-  @keyframes blink { 50% { opacity: 0; } }
-
-  .nav-links {
-    display: flex;
-    gap: 0;
-    list-style: none;
-  }
-  .nav-links a {
-    color: var(--text-dim);
-    text-decoration: none;
-    font-size: 0.65rem;
-    letter-spacing: 0.12em;
-    padding: 0.4rem 0.9rem;
-    border-left: 1px solid var(--border);
-    transition: all 0.2s;
-    text-transform: uppercase;
-  }
-  .nav-links a:hover { color: var(--amber); background: rgba(255,170,0,0.05); }
-  .nav-links a.active { color: var(--red); border-bottom: 2px solid var(--red); }
-
-  .nav-ticker {
-    font-size: 0.6rem;
-    color: var(--green);
-    overflow: hidden;
-    width: 220px;
-    white-space: nowrap;
-  }
-  .ticker-inner {
-    display: inline-block;
-    animation: ticker 18s linear infinite;
-  }
-  @keyframes ticker { from { transform: translateX(220px); } to { transform: translateX(-100%); } }
-
-  /* ─── HERO ─── */
+  /* ── HOMEPAGE SPECIFIC ── */
   .hero {
+    padding-top: 60px;
     min-height: 100vh;
-    padding-top: 56px;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 3rem;
+    padding-left: 5rem;
+    padding-right: 4rem;
     position: relative;
     overflow: hidden;
   }
-
-  .hero-bg {
+  .hero::before {
+    content: '';
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 60% 60% at 20% 50%, rgba(255,32,32,0.07) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 50% at 80% 30%, rgba(0,255,136,0.04) 0%, transparent 70%);
+      radial-gradient(ellipse 70% 60% at 15% 60%, rgba(99,102,241,0.14) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 70% at 80% 20%, rgba(139,92,246,0.1) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 40% at 60% 80%, rgba(6,182,212,0.07) 0%, transparent 60%);
+    pointer-events: none;
   }
-
-  .hero-grid {
+  .hero-grid-lines {
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(255,32,32,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,32,32,0.04) 1px, transparent 1px);
+      linear-gradient(rgba(99,102,241,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99,102,241,0.04) 1px, transparent 1px);
     background-size: 60px 60px;
+    pointer-events: none;
   }
-
-  .hero-left {
-    padding: 5rem 3rem 3rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-    z-index: 1;
+  .hero-left { position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(99,102,241,0.12);
+    border: 1px solid rgba(99,102,241,0.3);
+    border-radius: 20px;
+    padding: 0.4rem 1rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+    color: #a5b4fc;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 1.8rem;
   }
-
-  .classified-stamp {
-    display: inline-block;
-    border: 2px solid var(--red);
-    color: var(--red);
-    font-size: 0.6rem;
-    letter-spacing: 0.25em;
-    padding: 0.2rem 0.6rem;
-    transform: rotate(-2deg);
-    margin-bottom: 2rem;
-    animation: stamp-glow 3s ease-in-out infinite;
-    width: fit-content;
+  .hero-badge .dot {
+    width: 6px; height: 6px;
+    background: #10b981;
+    border-radius: 50%;
+    animation: pulse-dot 2s infinite;
   }
-  @keyframes stamp-glow {
-    0%,100% { box-shadow: 0 0 4px var(--red); }
-    50% { box-shadow: 0 0 16px var(--red), 0 0 32px rgba(255,32,32,0.3); }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.85); }
   }
-
-  .hero-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3.5rem, 8vw, 7rem);
-    line-height: 0.9;
+  .hero-h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.8rem, 5.5vw, 5rem);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
     color: var(--white);
-    letter-spacing: 0.02em;
     margin-bottom: 1.5rem;
   }
-  .hero-title span { color: var(--red); }
-
-  .hero-sub {
-    font-family: 'Crimson Pro', serif;
-    font-style: italic;
-    font-size: 1.15rem;
-    color: var(--text-dim);
-    line-height: 1.7;
-    max-width: 480px;
-    margin-bottom: 2.5rem;
-    border-left: 2px solid var(--red);
-    padding-left: 1rem;
+  .hero-h1 .grad {
+    background: linear-gradient(135deg, #818cf8, #a78bfa, #22d3ee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
-
-  .hero-cta {
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--text);
+    line-height: 1.75;
+    max-width: 520px;
+    margin-bottom: 2.2rem;
+    opacity: 0.9;
+  }
+  .hero-ctas {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
   }
-
-  .btn {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    padding: 0.75rem 1.5rem;
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 0.75rem 1.6rem;
+    border-radius: 8px;
     text-decoration: none;
-    text-transform: uppercase;
-    border: 1px solid;
     transition: all 0.25s;
+    letter-spacing: 0.02em;
+    border: none;
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
   }
-  .btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    transform: translateX(-101%);
-    transition: transform 0.3s ease;
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(99,102,241,0.4);
   }
-  .btn:hover::before { transform: translateX(0); }
-  .btn span { position: relative; z-index: 1; }
-
-  .btn-red {
-    color: var(--red);
-    border-color: var(--red);
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: transparent;
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding: 0.75rem 1.6rem;
+    border-radius: 8px;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    transition: all 0.25s;
+    letter-spacing: 0.02em;
   }
-  .btn-red::before { background: var(--red); }
-  .btn-red:hover { color: var(--bg); }
-
-  .btn-ghost {
-    color: var(--text-dim);
-    border-color: var(--border);
+  .btn-secondary:hover {
+    border-color: rgba(99,102,241,0.5);
+    color: var(--white);
+    background: rgba(99,102,241,0.08);
   }
-  .btn-ghost::before { background: var(--border); }
-  .btn-ghost:hover { color: var(--white); }
-
-  /* HERO RIGHT — FILE CARDS */
+  /* Hero right — category cards panel */
   .hero-right {
-    padding: 6rem 2rem 3rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    justify-content: center;
     position: relative;
     z-index: 1;
   }
-
-  .file-card {
-    background: var(--surface);
+  .hero-panel {
+    background: rgba(13,13,32,0.8);
     border: 1px solid var(--border);
-    padding: 1rem 1.2rem;
-    cursor: pointer;
-    transition: all 0.25s;
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    text-decoration: none;
-    color: inherit;
-  }
-  .file-card:hover {
-    border-color: var(--red);
-    transform: translateX(6px);
-    background: rgba(255,32,32,0.04);
-  }
-  .file-card::before {
-    content: attr(data-num);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    color: var(--border);
-    min-width: 2.5rem;
-    transition: color 0.25s;
-  }
-  .file-card:hover::before { color: var(--red); }
-
-  .file-card-body { flex: 1; }
-  .file-card-tag {
-    font-size: 0.55rem;
-    letter-spacing: 0.2em;
-    color: var(--amber);
-    text-transform: uppercase;
-    margin-bottom: 0.3rem;
-  }
-  .file-card-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.1rem;
-    color: var(--white);
-    letter-spacing: 0.05em;
-  }
-  .file-card-arrow {
-    color: var(--text-dim);
-    font-size: 1rem;
-    transition: color 0.25s;
-  }
-  .file-card:hover .file-card-arrow { color: var(--red); }
-
-  /* ─── SECTION LABELS ─── */
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 3rem;
-  }
-  .section-header h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.8rem;
-    color: var(--white);
-    letter-spacing: 0.05em;
-  }
-  .section-header h2 span { color: var(--red); }
-  .section-line {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, var(--red), transparent);
-  }
-  .section-badge {
-    font-size: 0.55rem;
-    letter-spacing: 0.2em;
-    color: var(--bg);
-    background: var(--red);
-    padding: 0.2rem 0.6rem;
-    text-transform: uppercase;
-  }
-
-  /* ─── TOPICS GRID ─── */
-  .topics-section {
-    padding: 5rem 3rem;
-    position: relative;
-  }
-
-  .topics-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5px;
-    background: var(--border);
-  }
-
-  .topic-card {
-    background: var(--surface);
-    padding: 2rem;
-    text-decoration: none;
-    color: inherit;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s;
-    display: block;
-  }
-  .topic-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--accent, var(--red));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.35s ease;
-  }
-  .topic-card:hover { background: #111118; }
-  .topic-card:hover::after { transform: scaleX(1); }
-
-  .topic-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    display: block;
-    filter: grayscale(0.4);
-  }
-  .topic-category {
-    font-size: 0.55rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent, var(--red));
-    margin-bottom: 0.5rem;
-  }
-  .topic-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.7rem;
-    color: var(--white);
-    letter-spacing: 0.04em;
-    line-height: 1.1;
-    margin-bottom: 0.8rem;
-  }
-  .topic-desc {
-    font-family: 'Crimson Pro', serif;
-    font-size: 0.95rem;
-    color: var(--text-dim);
-    line-height: 1.65;
-    margin-bottom: 1rem;
-  }
-  .topic-link {
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
-    color: var(--accent, var(--red));
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-
-  /* ─── EVIDENCE TICKER ─── */
-  .evidence-bar {
-    background: var(--red);
-    padding: 0.6rem 0;
-    overflow: hidden;
-    position: relative;
-  }
-  .evidence-scroll {
-    display: flex;
-    gap: 3rem;
-    animation: scroll-left 25s linear infinite;
-    white-space: nowrap;
-  }
-  @keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-  .evidence-item {
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    color: var(--bg);
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-  .evidence-item::before { content: '◆'; font-size: 0.4rem; }
-
-  /* ─── FEATURED THEORY ─── */
-  .featured-section {
-    padding: 5rem 3rem;
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 3rem;
-    align-items: center;
-  }
-  .featured-label {
-    font-size: 0.55rem;
-    letter-spacing: 0.3em;
-    color: var(--red);
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .featured-label::before {
-    content: '';
-    width: 20px;
-    height: 1px;
-    background: var(--red);
-  }
-  .featured-headline {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2rem, 5vw, 4.5rem);
-    line-height: 0.95;
-    color: var(--white);
-    margin-bottom: 1.5rem;
-  }
-  .featured-headline em { color: var(--red); font-style: normal; }
-  .featured-body {
-    font-family: 'Crimson Pro', serif;
-    font-size: 1.05rem;
-    color: var(--text);
-    line-height: 1.8;
-    margin-bottom: 2rem;
-  }
-
-  .evidence-box {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--amber);
+    border-radius: 16px;
     padding: 1.5rem;
+    backdrop-filter: blur(8px);
+  }
+  .hero-panel-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .hero-api-list {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.5rem;
   }
-  .evidence-title {
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    color: var(--amber);
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  }
-  .evidence-point {
+  .hero-api-item {
     display: flex;
-    gap: 0.8rem;
-    font-size: 0.75rem;
-    color: var(--text);
-    line-height: 1.5;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7rem 1rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s;
   }
-  .evidence-point::before {
-    content: '//';
-    color: var(--red);
+  .hero-api-item:hover {
+    border-color: var(--item-accent, var(--primary));
+    background: rgba(99,102,241,0.05);
+  }
+  .hero-api-item-left {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .hero-api-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--item-accent, var(--primary));
+    flex-shrink: 0;
+    box-shadow: 0 0 6px var(--item-accent, var(--primary));
+  }
+  .hero-api-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .hero-api-sub {
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .hero-api-badge {
+    font-size: 0.58rem;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--item-accent, var(--primary));
+    background: rgba(99,102,241,0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── TICKER ── */
+  .ticker-wrap {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    overflow: hidden;
+    padding: 0.75rem 0;
+  }
+  .ticker-inner {
+    display: flex;
+    gap: 0;
+    white-space: nowrap;
+    animation: ticker-scroll 40s linear infinite;
+  }
+  @keyframes ticker-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 1.8rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .ticker-item .sep { color: rgba(255,255,255,0.4); }
+
+  /* ── CATEGORIES SECTION ── */
+  .section { padding: 5rem 5rem; }
+  .section-header { text-align: center; margin-bottom: 3.5rem; }
+  .section-eyebrow {
+    font-size: 0.65rem;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.2em;
+    color: var(--primary);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    line-height: 1.15;
+  }
+  .section-title .grad {
+    background: linear-gradient(135deg, var(--primary), var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .section-desc {
+    font-size: 1rem;
+    color: var(--text-dim);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* Categories grid */
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .cat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.6rem 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .cat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+  }
+  .cat-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.4), 0 0 24px rgba(99,102,241,0.08);
+  }
+  .cat-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    background: rgba(99,102,241,0.12);
+    border: 1px solid rgba(99,102,241,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+  .cat-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+  }
+  .cat-desc {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    line-height: 1.55;
+    margin-bottom: 1rem;
+  }
+  .cat-apis {
+    font-size: 0.65rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── FREE OFFER SECTION ── */
+  .offer-section {
+    padding: 5rem;
+    background: linear-gradient(135deg, rgba(99,102,241,0.06) 0%, rgba(139,92,246,0.04) 50%, rgba(6,182,212,0.04) 100%);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .offer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .offer-left .offer-eyebrow {
+    font-size: 0.65rem;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.2em;
+    color: var(--green);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .offer-left h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.2rem;
+  }
+  .offer-left h2 .grad {
+    background: linear-gradient(135deg, var(--green), var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .offer-left p {
+    font-size: 0.97rem;
+    color: var(--text);
+    line-height: 1.75;
+    margin-bottom: 1.4rem;
+  }
+  .offer-features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+  }
+  .offer-feature {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.85rem;
+    color: var(--text);
+  }
+  .offer-feature .check {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: rgba(16,185,129,0.15);
+    border: 1px solid rgba(16,185,129,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    color: var(--green);
     flex-shrink: 0;
   }
-
-  /* ─── STATS ROW ─── */
-  .stats-row {
-    padding: 3rem;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5px;
-    background: var(--border);
-  }
-  .stat-cell {
+  /* Pricing card */
+  .pricing-card {
     background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
     padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .pricing-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary), var(--cyan));
+  }
+  .pricing-card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 1.5rem;
     text-align: center;
   }
-  .stat-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3.5rem;
-    color: var(--red);
-    display: block;
-    line-height: 1;
-    margin-bottom: 0.3rem;
-  }
-  .stat-label {
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    color: var(--text-dim);
-    text-transform: uppercase;
-  }
-
-  /* ─── FOOTER ─── */
-  footer {
-    background: var(--surface);
-    border-top: 1px solid var(--red);
-    padding: 2rem 3rem;
+  .pricing-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--border);
   }
-  .footer-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.4rem;
-    color: var(--red);
-    letter-spacing: 0.15em;
-  }
-  .footer-text {
-    font-size: 0.6rem;
+  .pricing-row:last-of-type { border-bottom: none; }
+  .pricing-row-label {
+    font-size: 0.82rem;
     color: var(--text-dim);
-    letter-spacing: 0.1em;
+    font-family: 'Space Grotesk', sans-serif;
   }
-  .footer-signal {
+  .pricing-row-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .pricing-row-value.free {
+    background: linear-gradient(135deg, var(--green), var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.3rem;
+  }
+  .pricing-note {
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    text-align: center;
+    margin-top: 1rem;
+    line-height: 1.5;
+  }
+  .pricing-cta {
+    display: block;
+    text-align: center;
+    margin-top: 1.5rem;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 0.8rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+  .pricing-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(99,102,241,0.35);
+  }
+
+  /* ── STATS ROW ── */
+  .stats-row {
     display: flex;
-    gap: 0.3rem;
-    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 3rem 5rem;
+    border-bottom: 1px solid var(--border);
   }
-  .signal-bar {
-    width: 3px;
-    background: var(--green);
-    border-radius: 1px;
-    animation: signal-pulse 1.5s ease-in-out infinite;
+  .stat-item {
+    text-align: center;
+    padding: 0 3rem;
+    border-right: 1px solid var(--border);
+    flex: 1;
   }
-  .signal-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
-  .signal-bar:nth-child(2) { height: 14px; animation-delay: 0.2s; }
-  .signal-bar:nth-child(3) { height: 10px; animation-delay: 0.4s; }
-  .signal-bar:nth-child(4) { height: 18px; animation-delay: 0.6s; }
-  .signal-bar:nth-child(5) { height: 12px; animation-delay: 0.8s; }
-  @keyframes signal-pulse {
-    0%,100% { opacity: 1; }
-    50% { opacity: 0.2; }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 0.4rem;
   }
-
-  /* ─── GLITCH EFFECT ─── */
-  .glitch {
-    position: relative;
-    display: inline-block;
-  }
-  .glitch::before, .glitch::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0; left: 0;
-    clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%);
-  }
-  .glitch::before {
-    color: var(--red);
-    animation: glitch-a 3s infinite steps(1);
-  }
-  .glitch::after {
-    color: var(--green);
-    animation: glitch-b 3s infinite steps(1);
-    clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
-  }
-  @keyframes glitch-a {
-    0%,94%,100% { transform: translateX(0); opacity: 0; }
-    95% { transform: translateX(-3px); opacity: 1; }
-    97% { transform: translateX(3px); opacity: 1; }
-  }
-  @keyframes glitch-b {
-    0%,96%,100% { transform: translateX(0); opacity: 0; }
-    97% { transform: translateX(3px); opacity: 1; }
-    99% { transform: translateX(-3px); opacity: 1; }
+  .stat-label {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 
-  /* RESPONSIVE */
-  @media (max-width: 768px) {
-    .hero { grid-template-columns: 1fr; }
+  @media (max-width: 1200px) {
+    .hero { grid-template-columns: 1fr; padding: 5rem 2.5rem 3rem; }
     .hero-right { display: none; }
-    .featured-section { grid-template-columns: 1fr; }
-    .stats-row { grid-template-columns: repeat(2, 1fr); }
-    .nav-links { display: none; }
+    .cat-grid { grid-template-columns: repeat(2, 1fr); }
+    .offer-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .section { padding: 4rem 2.5rem; }
+    .offer-section { padding: 4rem 2.5rem; }
+    .stats-row { padding: 2.5rem; }
+    .stat-item { padding: 0 1.5rem; }
+  }
+  @media (max-width: 640px) {
+    .cat-grid { grid-template-columns: 1fr; }
+    .stats-row { flex-wrap: wrap; gap: 1.5rem; }
+    .stat-item { border-right: none; padding: 0 1rem; flex: 0 0 45%; }
   }
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="index.html" class="nav-logo">DEEP SIGNAL</a>
+  <a href="index.html" class="nav-logo">GET SET GO API</a>
   <ul class="nav-links">
-    <li><a href="ai-human.html">AI vs Human</a></li>
-    <li><a href="ipl.html">IPL</a></li>
-    <li><a href="finance.html">Finance</a></li>
-    <li><a href="football.html">Football</a></li>
-    <li><a href="medicine.html">Medicine</a></li>
-    <li><a href="surveillance.html">Surveillance</a></li>
-    <li><a href="shadow-gov.html">Deep State</a></li>
-    <li><a href="space.html">Space</a></li>
-    <li><a href="chemtrails.html">Geoengineering</a></li>
-    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="ai-human.html">AI &amp; Language</a></li>
+    <li><a href="ipl.html">Image &amp; Vision</a></li>
+    <li><a href="finance.html">Data &amp; Analytics</a></li>
+    <li><a href="football.html">Code &amp; Dev</a></li>
+    <li><a href="medicine.html">Health &amp; Medical</a></li>
+    <li><a href="surveillance.html">Security &amp; Auth</a></li>
+    <li><a href="shadow-gov.html">Automation</a></li>
+    <li><a href="space.html">Search &amp; Semantic</a></li>
+    <li><a href="chemtrails.html">Audio &amp; Video</a></li>
   </ul>
-  <div class="nav-ticker">
-    <span class="ticker-inner">◆ SIGNAL ACTIVE ◆ 2,847 FILES DECLASSIFIED ◆ THEY ARE WATCHING ◆ QUESTION EVERYTHING ◆ 10 ACTIVE INVESTIGATIONS ◆</span>
-  </div>
+  <span class="nav-badge">🎁 Free 1st Month</span>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-
+  <div class="hero-grid-lines"></div>
   <div class="hero-left">
-    <div class="classified-stamp">⚠ CLASSIFIED DOSSIER</div>
-    <h1 class="hero-title">
-      <span class="glitch" data-text="THE">THE</span><br>
-      TRUTH<br>
-      <span>THEY HID</span>
-    </h1>
-    <p class="hero-sub">
-      From AI replacing humanity to match-fixing empires, financial black holes and suppressed cures — 
-      every institution carries secrets. We connect the dots so you don't have to.
-    </p>
-    <div class="hero-cta">
-      <a href="ai-human.html" class="btn btn-red"><span>Access Files →</span></a>
-      <a href="#topics" class="btn btn-ghost"><span>Browse Theories</span></a>
+    <div class="hero-badge">
+      <span class="dot"></span>
+      🚀 Free for first month — no credit card required
+    </div>
+    <h1 class="hero-h1">ALL PREMIUM<br>AI APIS<br><span class="grad">ONE PLATFORM</span></h1>
+    <p class="hero-sub">Access GPT-4, Claude 3.5 Sonnet, Gemini Ultra, DALL-E 3, Whisper, and 500+ more AI APIs across every category — <strong style="color:var(--white)">unlimited</strong> for your first month.</p>
+    <div class="hero-ctas">
+      <a href="#categories" class="btn-primary">Start Free →</a>
+      <a href="#categories" class="btn-secondary">Browse APIs</a>
     </div>
   </div>
-
   <div class="hero-right">
-    <a href="ai-human.html" class="file-card" data-num="01">
-      <div class="file-card-body">
-        <div class="file-card-tag">⚠ Critical</div>
-        <div class="file-card-title">AI IS REPLACING YOUR MIND, NOT YOUR JOB</div>
+    <div class="hero-panel">
+      <div class="hero-panel-title">// 9 API Categories Available</div>
+      <div class="hero-api-list">
+        <a href="ai-human.html" class="hero-api-item" style="--item-accent:#6366f1">
+          <div class="hero-api-item-left">
+            <div class="hero-api-dot"></div>
+            <div>
+              <div class="hero-api-name">AI &amp; Language</div>
+              <div class="hero-api-sub">GPT-4o · Claude 3.5 · Gemini Ultra</div>
+            </div>
+          </div>
+          <span class="hero-api-badge">100+ models</span>
+        </a>
+        <a href="ipl.html" class="hero-api-item" style="--item-accent:#ec4899">
+          <div class="hero-api-item-left">
+            <div class="hero-api-dot"></div>
+            <div>
+              <div class="hero-api-name">Image &amp; Vision</div>
+              <div class="hero-api-sub">DALL-E 3 · Stable Diffusion · Firefly</div>
+            </div>
+          </div>
+          <span class="hero-api-badge" style="color:#ec4899;background:rgba(236,72,153,0.1)">50+ APIs</span>
+        </a>
+        <a href="finance.html" class="hero-api-item" style="--item-accent:#10b981">
+          <div class="hero-api-item-left">
+            <div class="hero-api-dot"></div>
+            <div>
+              <div class="hero-api-name">Data &amp; Analytics</div>
+              <div class="hero-api-sub">Polygon.io · Alpha Vantage · DataRobot</div>
+            </div>
+          </div>
+          <span class="hero-api-badge" style="color:#10b981;background:rgba(16,185,129,0.1)">40+ APIs</span>
+        </a>
+        <a href="football.html" class="hero-api-item" style="--item-accent:#06b6d4">
+          <div class="hero-api-item-left">
+            <div class="hero-api-dot"></div>
+            <div>
+              <div class="hero-api-name">Code &amp; Dev</div>
+              <div class="hero-api-sub">Codex · CodeLlama · DeepSeek Coder</div>
+            </div>
+          </div>
+          <span class="hero-api-badge" style="color:#06b6d4;background:rgba(6,182,212,0.1)">30+ APIs</span>
+        </a>
+        <a href="medicine.html" class="hero-api-item" style="--item-accent:#f43f5e">
+          <div class="hero-api-item-left">
+            <div class="hero-api-dot"></div>
+            <div>
+              <div class="hero-api-name">Health &amp; Medical</div>
+              <div class="hero-api-sub">MedPaLM · BioGPT · Medical NLP</div>
+            </div>
+          </div>
+          <span class="hero-api-badge" style="color:#f43f5e;background:rgba(244,63,94,0.1)">25+ APIs</span>
+        </a>
+        <a href="surveillance.html" class="hero-api-item" style="--item-accent:#f59e0b">
+          <div class="hero-api-item-left">
+            <div class="hero-api-dot"></div>
+            <div>
+              <div class="hero-api-name">Security &amp; Auth</div>
+              <div class="hero-api-sub">Fraud Detection · Moderation · Biometric</div>
+            </div>
+          </div>
+          <span class="hero-api-badge" style="color:#f59e0b;background:rgba(245,158,11,0.1)">35+ APIs</span>
+        </a>
+        <a href="shadow-gov.html" class="hero-api-item" style="--item-accent:#8b5cf6">
+          <div class="hero-api-item-left">
+            <div class="hero-api-dot"></div>
+            <div>
+              <div class="hero-api-name">Automation &amp; Workflow</div>
+              <div class="hero-api-sub">Zapier AI · Make.com · n8n AI</div>
+            </div>
+          </div>
+          <span class="hero-api-badge" style="color:#8b5cf6;background:rgba(139,92,246,0.1)">45+ APIs</span>
+        </a>
+        <a href="space.html" class="hero-api-item" style="--item-accent:#3b82f6">
+          <div class="hero-api-item-left">
+            <div class="hero-api-dot"></div>
+            <div>
+              <div class="hero-api-name">Search &amp; Semantic</div>
+              <div class="hero-api-sub">Pinecone · Weaviate · Cohere Embed</div>
+            </div>
+          </div>
+          <span class="hero-api-badge" style="color:#3b82f6;background:rgba(59,130,246,0.1)">30+ APIs</span>
+        </a>
+        <a href="chemtrails.html" class="hero-api-item" style="--item-accent:#1abc9c">
+          <div class="hero-api-item-left">
+            <div class="hero-api-dot"></div>
+            <div>
+              <div class="hero-api-name">Audio &amp; Video</div>
+              <div class="hero-api-sub">Whisper · ElevenLabs · Runway ML</div>
+            </div>
+          </div>
+          <span class="hero-api-badge" style="color:#1abc9c;background:rgba(26,188,156,0.1)">40+ APIs</span>
+        </a>
       </div>
-      <span class="file-card-arrow">→</span>
-    </a>
-    <a href="ipl.html" class="file-card" data-num="02">
-      <div class="file-card-body">
-        <div class="file-card-tag">◆ Sport</div>
-        <div class="file-card-title">IPL: THE BILLION DOLLAR SCRIPT</div>
-      </div>
-      <span class="file-card-arrow">→</span>
-    </a>
-    <a href="finance.html" class="file-card" data-num="03">
-      <div class="file-card-body">
-        <div class="file-card-tag">$ Finance</div>
-        <div class="file-card-title">YOUR BANK WORKS AGAINST YOU</div>
-      </div>
-      <span class="file-card-arrow">→</span>
-    </a>
-    <a href="football.html" class="file-card" data-num="04">
-      <div class="file-card-body">
-        <div class="file-card-tag">⚽ Sport</div>
-        <div class="file-card-title">FIFA'S SHADOW GOVERNMENT</div>
-      </div>
-      <span class="file-card-arrow">→</span>
-    </a>
-    <a href="medicine.html" class="file-card" data-num="05">
-      <div class="file-card-body">
-        <div class="file-card-tag">🧬 Health</div>
-        <div class="file-card-title">THE CURE THAT WAS BURIED</div>
-      </div>
-      <span class="file-card-arrow">→</span>
-    </a>
-    <a href="surveillance.html" class="file-card" data-num="06">
-      <div class="file-card-body">
-        <div class="file-card-tag">👁️ Surveillance</div>
-        <div class="file-card-title">THE PANOPTICON PROTOCOL</div>
-      </div>
-      <span class="file-card-arrow">→</span>
-    </a>
-    <a href="shadow-gov.html" class="file-card" data-num="07">
-      <div class="file-card-body">
-        <div class="file-card-tag">🏛️ Power</div>
-        <div class="file-card-title">THE DEEP STATE MACHINE</div>
-      </div>
-      <span class="file-card-arrow">→</span>
-    </a>
-    <a href="space.html" class="file-card" data-num="08">
-      <div class="file-card-body">
-        <div class="file-card-tag">🚀 Space</div>
-        <div class="file-card-title">SPACE AGENCY SECRETS</div>
-      </div>
-      <span class="file-card-arrow">→</span>
-    </a>
-    <a href="chemtrails.html" class="file-card" data-num="09">
-      <div class="file-card-body">
-        <div class="file-card-tag">🌫️ Environment</div>
-        <div class="file-card-title">CLIMATE ENGINEERING EXPOSED</div>
-      </div>
-      <span class="file-card-arrow">→</span>
-    </a>
+    </div>
   </div>
 </section>
 
-<!-- EVIDENCE TICKER -->
-<div class="evidence-bar">
-  <div class="evidence-scroll">
-    <span class="evidence-item">AI patent filings up 4,000% — who benefits?</span>
-    <span class="evidence-item">IPL spot-fixing arrests: only the small fish caught</span>
-    <span class="evidence-item">Central banks bought $14T in assets nobody asked for</span>
-    <span class="evidence-item">Pharma spends more on lobbying than R&D</span>
-    <span class="evidence-item">FIFA World Cup hosts selected 10 years in advance — why?</span>
-    <span class="evidence-item">Your credit score is a social compliance metric</span>
-    <span class="evidence-item">NSA XKeyscore collects nearly everything you do online</span>
-    <span class="evidence-item">CIA Director Allen Dulles fired by JFK — then placed on Warren Commission</span>
-    <span class="evidence-item">NASA erased original Apollo 11 telemetry tapes — officially</span>
-    <span class="evidence-item">Harvard's SCoPEx received $16M from Bill Gates for atmospheric aerosol tests</span>
-    <span class="evidence-item">AI patent filings up 4,000% — who benefits?</span>
-    <span class="evidence-item">IPL spot-fixing arrests: only the small fish caught</span>
-    <span class="evidence-item">Central banks bought $14T in assets nobody asked for</span>
-    <span class="evidence-item">Pharma spends more on lobbying than R&D</span>
-    <span class="evidence-item">NSA XKeyscore collects nearly everything you do online</span>
-    <span class="evidence-item">Harvard's SCoPEx received $16M from Bill Gates for atmospheric aerosol tests</span>
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner" id="tickerInner">
+    <span class="ticker-item">500+ Premium APIs</span>
+    <span class="ticker-item"><span class="sep">·</span> GPT-4o</span>
+    <span class="ticker-item"><span class="sep">·</span> Claude 3.5 Sonnet</span>
+    <span class="ticker-item"><span class="sep">·</span> Gemini Ultra</span>
+    <span class="ticker-item"><span class="sep">·</span> DALL-E 3</span>
+    <span class="ticker-item"><span class="sep">·</span> Stable Diffusion XL</span>
+    <span class="ticker-item"><span class="sep">·</span> Whisper</span>
+    <span class="ticker-item"><span class="sep">·</span> ElevenLabs</span>
+    <span class="ticker-item"><span class="sep">·</span> CodeLlama</span>
+    <span class="ticker-item"><span class="sep">·</span> Unlimited First Month</span>
+    <span class="ticker-item"><span class="sep">·</span> No Rate Limits</span>
+    <span class="ticker-item"><span class="sep">·</span> Unified API Key</span>
+    <span class="ticker-item"><span class="sep">·</span> 99.9% Uptime SLA</span>
+    <span class="ticker-item"><span class="sep">·</span> Llama 3.1 405B</span>
+    <span class="ticker-item"><span class="sep">·</span> Mistral Large</span>
+    <span class="ticker-item"><span class="sep">·</span> Adobe Firefly API</span>
+    <span class="ticker-item"><span class="sep">·</span> Runway Gen-2</span>
+    <span class="ticker-item"><span class="sep">·</span> Deepgram</span>
   </div>
 </div>
 
-<!-- TOPICS SECTION -->
-<section class="topics-section" id="topics">
-  <div class="section-header">
-    <span class="section-badge">Dossiers</span>
-    <h2><span>Active</span> Investigations</h2>
-    <div class="section-line"></div>
-  </div>
-
-  <div class="topics-grid">
-    <a href="ai-human.html" class="topic-card" style="--accent: #ff2020;">
-      <span class="topic-icon">🤖</span>
-      <div class="topic-category">Technology · Critical</div>
-      <div class="topic-name">AI vs Human Supremacy</div>
-      <p class="topic-desc">The machines aren't rising — they're being aimed. Big Tech is engineering cognitive dependency while governments quietly draft AI governance that exempts the powerful.</p>
-      <span class="topic-link">Open Dossier →</span>
-    </a>
-
-    <a href="ipl.html" class="topic-card" style="--accent: #ffaa00;">
-      <span class="topic-icon">🏏</span>
-      <div class="topic-category">Sport · India</div>
-      <div class="topic-name">IPL Shadow Empire</div>
-      <p class="topic-desc">The Indian Premier League generates ₹50,000 crore — and almost none of it is transparent. Follow the franchise ownership to offshore shells and political donors.</p>
-      <span class="topic-link">Open Dossier →</span>
-    </a>
-
-    <a href="finance.html" class="topic-card" style="--accent: #00ff88;">
-      <span class="topic-icon">💸</span>
-      <div class="topic-category">Finance · Global</div>
-      <div class="topic-name">Debt as Control</div>
-      <p class="topic-desc">Loans are not financial products — they are leashes. The modern banking system was designed by 12 men in 1910 to ensure perpetual debt dependency across generations.</p>
-      <span class="topic-link">Open Dossier →</span>
-    </a>
-
-    <a href="football.html" class="topic-card" style="--accent: #00aaff;">
-      <span class="topic-icon">⚽</span>
-      <div class="topic-category">Sport · Global</div>
-      <div class="topic-name">Football's Hidden Rulers</div>
-      <p class="topic-desc">From Qatar 2022 to Premier League ownership by sovereign wealth funds, football has become the world's most elegant money laundering and geopolitical influence operation.</p>
-      <span class="topic-link">Open Dossier →</span>
-    </a>
-
-    <a href="medicine.html" class="topic-card" style="--accent: #ff44aa;">
-      <span class="topic-icon">🧬</span>
-      <div class="topic-category">Medicine · Big Pharma</div>
-      <div class="topic-name">The Buried Cures</div>
-      <p class="topic-desc">The pharmaceutical industry earns $1.4 trillion treating symptoms. A world of cures would destroy that model. Patents are not about innovation — they are about market locks.</p>
-      <span class="topic-link">Open Dossier →</span>
-    </a>
-
-    <a href="finance.html" class="topic-card" style="--accent: #aa44ff;">
-      <span class="topic-icon">🏦</span>
-      <div class="topic-category">Finance · Loans</div>
-      <div class="topic-name">Loan Trap Architecture</div>
-      <p class="topic-desc">Compound interest was outlawed in many civilizations for good reason. Modern personal loan products are designed to ensure minimum repayment keeps maximum profit flowing indefinitely.</p>
-      <span class="topic-link">Open Dossier →</span>
-    </a>
-
-    <a href="surveillance.html" class="topic-card" style="--accent: #9b59b6;">
-      <span class="topic-icon">👁️</span>
-      <div class="topic-category">Surveillance · Global</div>
-      <div class="topic-name">Mass Surveillance State</div>
-      <p class="topic-desc">You consented to none of it. The Five Eyes intercept 97% of global communications. Smart cities profile every movement. The Panopticon is not coming — it arrived.</p>
-      <span class="topic-link">Open Dossier →</span>
-    </a>
-
-    <a href="shadow-gov.html" class="topic-card" style="--accent: #e67e22;">
-      <span class="topic-icon">🏛️</span>
-      <div class="topic-category">Power · Deep State</div>
-      <div class="topic-name">The Deep State Machine</div>
-      <p class="topic-desc">Elected officials change every four years. The same 10,000 people have controlled intelligence, finance, and media for 60 years. Democracy is the stage.</p>
-      <span class="topic-link">Open Dossier →</span>
-    </a>
-
-    <a href="space.html" class="topic-card" style="--accent: #3498db;">
-      <span class="topic-icon">🚀</span>
-      <div class="topic-category">Space · Classified</div>
-      <div class="topic-name">Space Agency Secrets</div>
-      <p class="topic-desc">NASA classifies thousands of mission documents, employs ex-Nazi scientists, and acknowledges UAP programs after 70 years of denial. What else is hidden above us?</p>
-      <span class="topic-link">Open Dossier →</span>
-    </a>
-
-    <a href="chemtrails.html" class="topic-card" style="--accent: #1abc9c;">
-      <span class="topic-icon">🌫️</span>
-      <div class="topic-category">Environment · Geoengineering</div>
-      <div class="topic-name">Climate Engineering</div>
-      <p class="topic-desc">Solar Radiation Management is peer-reviewed science with funding from Bill Gates. Nobody voted for it. No treaty governs it. The sky is the laboratory.</p>
-      <span class="topic-link">Open Dossier →</span>
-    </a>
-  </div>
-</section>
-
-<!-- FEATURED THEORY -->
-<section class="featured-section">
-  <div>
-    <div class="featured-label">FEATURED THEORY</div>
-    <h2 class="featured-headline">
-      THE GLOBAL <em>RESET</em><br>IS ALREADY<br>HAPPENING
-    </h2>
-    <p class="featured-body">
-      Since 2020, central banks have injected over $20 trillion into financial systems, 
-      AI companies have received unprecedented regulatory exemptions, sports leagues have 
-      signed billion-dollar media deals with state-controlled entities, and pharmaceutical 
-      companies have been granted blanket liability shields. These events are not unconnected. 
-      They represent a coordinated transfer of power from democratic institutions to 
-      techno-financial oligarchies operating in the open.
-    </p>
-    <a href="finance.html" class="btn btn-red"><span>Read Full Analysis →</span></a>
-  </div>
-
-  <div class="evidence-box">
-    <div class="evidence-title">// Evidence Chain</div>
-    <div class="evidence-point">WEF's "Great Reset" document published June 2020 — same week of unprecedented central bank action</div>
-    <div class="evidence-point">BlackRock advising both US Federal Reserve AND central banks of 3 other nations simultaneously</div>
-    <div class="evidence-point">AI regulation bills in 11 countries drafted using identical language — same consulting firm</div>
-    <div class="evidence-point">IPL, Premier League, Formula 1 all received sovereign wealth investment within 18 months of each other</div>
-    <div class="evidence-point">4 Big Pharma CEOs sold $500M+ in personal stock before Q1 2020</div>
-  </div>
-</section>
-
-<!-- STATS -->
+<!-- STATS ROW -->
 <div class="stats-row">
-  <div class="stat-cell">
-    <span class="stat-num">2,847</span>
-    <div class="stat-label">Declassified Files</div>
+  <div class="stat-item">
+    <div class="stat-num"><span data-count="500">0</span>+</div>
+    <div class="stat-label">APIs Available</div>
   </div>
-  <div class="stat-cell">
-    <span class="stat-num">10</span>
-    <div class="stat-label">Active Investigations</div>
+  <div class="stat-item">
+    <div class="stat-num"><span data-count="50">0</span>+</div>
+    <div class="stat-label">AI Providers</div>
   </div>
-  <div class="stat-cell">
-    <span class="stat-num">$20T</span>
-    <div class="stat-label">Unexplained Capital Flows</div>
+  <div class="stat-item">
+    <div class="stat-num">9</div>
+    <div class="stat-label">Categories</div>
   </div>
-  <div class="stat-cell">
-    <span class="stat-num">99%</span>
-    <div class="stat-label">Never Reported By Media</div>
+  <div class="stat-item">
+    <div class="stat-num">99.9%</div>
+    <div class="stat-label">Uptime SLA</div>
   </div>
 </div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">DEEP SIGNAL</div>
-  <nav style="display:flex;flex-wrap:wrap;gap:0.5rem;">
-    <a href="ai-human.html" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;padding:0.35rem 0.8rem;border:1px solid var(--border);text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color='var(--red)';this.style.borderColor='var(--red)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">AI vs Human</a>
-    <a href="ipl.html" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;padding:0.35rem 0.8rem;border:1px solid var(--border);text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color='var(--red)';this.style.borderColor='var(--red)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">IPL</a>
-    <a href="finance.html" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;padding:0.35rem 0.8rem;border:1px solid var(--border);text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color='var(--red)';this.style.borderColor='var(--red)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">Finance</a>
-    <a href="football.html" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;padding:0.35rem 0.8rem;border:1px solid var(--border);text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color='var(--red)';this.style.borderColor='var(--red)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">Football</a>
-    <a href="medicine.html" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;padding:0.35rem 0.8rem;border:1px solid var(--border);text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color='var(--red)';this.style.borderColor='var(--red)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">Medicine</a>
-    <a href="surveillance.html" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;padding:0.35rem 0.8rem;border:1px solid var(--border);text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color='var(--red)';this.style.borderColor='var(--red)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">Surveillance</a>
-    <a href="shadow-gov.html" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;padding:0.35rem 0.8rem;border:1px solid var(--border);text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color='var(--red)';this.style.borderColor='var(--red)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">Deep State</a>
-    <a href="space.html" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;padding:0.35rem 0.8rem;border:1px solid var(--border);text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color='var(--red)';this.style.borderColor='var(--red)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">Space</a>
-    <a href="chemtrails.html" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;padding:0.35rem 0.8rem;border:1px solid var(--border);text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color='var(--red)';this.style.borderColor='var(--red)'" onmouseout="this.style.color='var(--text-dim)';this.style.borderColor='var(--border)'">Geoengineering</a>
-  </nav>
-  <div class="footer-text">SIGNAL ENCRYPTED · TOR-FRIENDLY · NO COOKIES · NO TRACKING · EST. UNKNOWN</div>
-  <div class="footer-signal">
-    <div class="signal-bar"></div>
-    <div class="signal-bar"></div>
-    <div class="signal-bar"></div>
-    <div class="signal-bar"></div>
-    <div class="signal-bar"></div>
+<!-- CATEGORIES -->
+<section class="section" id="categories">
+  <div class="section-header">
+    <div class="section-eyebrow">// API Categories</div>
+    <h2 class="section-title">Every AI Category<br><span class="grad">Covered</span></h2>
+    <p class="section-desc">From language models to image generation, code completion to medical AI — all available through one unified API key.</p>
   </div>
+  <div class="cat-grid">
+    <a href="ai-human.html" class="cat-card" style="--accent:#6366f1">
+      <div class="cat-icon" style="background:rgba(99,102,241,0.12);border-color:rgba(99,102,241,0.25)">🧠</div>
+      <div class="cat-name">AI &amp; Language</div>
+      <div class="cat-desc">The most powerful LLMs on earth — GPT-4o, Claude 3.5 Sonnet, Gemini Ultra, Llama 3, and Mistral through one endpoint.</div>
+      <div class="cat-apis" style="color:#6366f1">100+ Language Models →</div>
+    </a>
+    <a href="ipl.html" class="cat-card" style="--accent:#ec4899">
+      <div class="cat-icon" style="background:rgba(236,72,153,0.12);border-color:rgba(236,72,153,0.25)">🎨</div>
+      <div class="cat-name">Image &amp; Vision</div>
+      <div class="cat-desc">Generate stunning images with DALL-E 3, Stable Diffusion XL, and Adobe Firefly. Analyze images with Google Vision &amp; AWS Rekognition.</div>
+      <div class="cat-apis" style="color:#ec4899">50+ Image APIs →</div>
+    </a>
+    <a href="finance.html" class="cat-card" style="--accent:#10b981">
+      <div class="cat-icon" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)">📊</div>
+      <div class="cat-name">Data &amp; Analytics</div>
+      <div class="cat-desc">Financial data, market predictions, and AI-powered business intelligence from Alpha Vantage, Polygon.io, DataRobot, and more.</div>
+      <div class="cat-apis" style="color:#10b981">40+ Data APIs →</div>
+    </a>
+    <a href="football.html" class="cat-card" style="--accent:#06b6d4">
+      <div class="cat-icon" style="background:rgba(6,182,212,0.12);border-color:rgba(6,182,212,0.25)">💻</div>
+      <div class="cat-name">Code &amp; Dev</div>
+      <div class="cat-desc">Supercharge development with OpenAI Codex, CodeLlama, DeepSeek Coder, GitHub Copilot API, and Tabnine for AI-assisted coding.</div>
+      <div class="cat-apis" style="color:#06b6d4">30+ Code APIs →</div>
+    </a>
+    <a href="medicine.html" class="cat-card" style="--accent:#f43f5e">
+      <div class="cat-icon" style="background:rgba(244,63,94,0.12);border-color:rgba(244,63,94,0.25)">🏥</div>
+      <div class="cat-name">Health &amp; Medical</div>
+      <div class="cat-desc">Medical imaging AI, symptom analysis, drug interaction checkers, BioGPT, MedPaLM, and specialized healthcare NLP models.</div>
+      <div class="cat-apis" style="color:#f43f5e">25+ Medical APIs →</div>
+    </a>
+    <a href="surveillance.html" class="cat-card" style="--accent:#f59e0b">
+      <div class="cat-icon" style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.25)">🔐</div>
+      <div class="cat-name">Security &amp; Auth</div>
+      <div class="cat-desc">Fraud detection, content moderation, biometric authentication, anomaly detection with AWS Fraud Detector, OpenAI Moderation, and Stripe Radar.</div>
+      <div class="cat-apis" style="color:#f59e0b">35+ Security APIs →</div>
+    </a>
+    <a href="shadow-gov.html" class="cat-card" style="--accent:#8b5cf6">
+      <div class="cat-icon" style="background:rgba(139,92,246,0.12);border-color:rgba(139,92,246,0.25)">⚡</div>
+      <div class="cat-name">Automation &amp; Workflow</div>
+      <div class="cat-desc">AI-powered workflow automation, intelligent document processing, and RPA integrations via Zapier AI, Make.com AI, and n8n.</div>
+      <div class="cat-apis" style="color:#8b5cf6">45+ Automation APIs →</div>
+    </a>
+    <a href="space.html" class="cat-card" style="--accent:#3b82f6">
+      <div class="cat-icon" style="background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25)">🔍</div>
+      <div class="cat-name">Search &amp; Semantic</div>
+      <div class="cat-desc">Vector databases, semantic search, and embeddings APIs from Pinecone, Weaviate, Qdrant, and Cohere for next-gen RAG applications.</div>
+      <div class="cat-apis" style="color:#3b82f6">30+ Search APIs →</div>
+    </a>
+    <a href="chemtrails.html" class="cat-card" style="--accent:#1abc9c">
+      <div class="cat-icon" style="background:rgba(26,188,156,0.12);border-color:rgba(26,188,156,0.25)">🎵</div>
+      <div class="cat-name">Audio &amp; Video</div>
+      <div class="cat-desc">Speech-to-text with Whisper, text-to-speech with ElevenLabs, AI video generation via Runway ML, Pika Labs, and voice cloning APIs.</div>
+      <div class="cat-apis" style="color:#1abc9c">40+ Audio/Video APIs →</div>
+    </a>
+  </div>
+</section>
+
+<!-- FREE OFFER -->
+<section class="offer-section">
+  <div class="offer-inner">
+    <div class="offer-left">
+      <div class="offer-eyebrow">// Limited Time Offer</div>
+      <h2>Your First Month Is<br><span class="grad">Completely Free</span></h2>
+      <p>Get unrestricted access to every API on our platform — all 500+ integrations, zero rate limits, full response quality — for your entire first month. No credit card required to start.</p>
+      <p>After your free month, continue with our flexible plans starting from $49/month. Cancel anytime.</p>
+      <div class="offer-features">
+        <div class="offer-feature"><span class="check">✓</span> All 500+ premium APIs included</div>
+        <div class="offer-feature"><span class="check">✓</span> No rate limiting during free month</div>
+        <div class="offer-feature"><span class="check">✓</span> Single unified API key for everything</div>
+        <div class="offer-feature"><span class="check">✓</span> Full GPT-4o, Claude 3.5, Gemini Ultra access</div>
+        <div class="offer-feature"><span class="check">✓</span> 99.9% uptime SLA from day one</div>
+        <div class="offer-feature"><span class="check">✓</span> No credit card required to start</div>
+      </div>
+      <a href="#categories" class="btn-primary">Get Free Access →</a>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-card-title">Simple, Transparent Pricing</div>
+      <div class="pricing-row">
+        <span class="pricing-row-label">Month 1</span>
+        <span class="pricing-row-value free">FREE</span>
+      </div>
+      <div class="pricing-row">
+        <span class="pricing-row-label">Month 2+</span>
+        <span class="pricing-row-value">from $49<span style="font-size:0.7rem;font-weight:400;color:var(--text-dim)">/mo</span></span>
+      </div>
+      <div class="pricing-row">
+        <span class="pricing-row-label">Rate Limits</span>
+        <span class="pricing-row-value" style="color:var(--green);font-size:0.85rem">None</span>
+      </div>
+      <div class="pricing-row">
+        <span class="pricing-row-label">API Key</span>
+        <span class="pricing-row-value" style="font-size:0.85rem;color:var(--text)">One unified key</span>
+      </div>
+      <div class="pricing-row">
+        <span class="pricing-row-label">Uptime SLA</span>
+        <span class="pricing-row-value" style="font-size:0.85rem;color:var(--cyan)">99.9%</span>
+      </div>
+      <div class="pricing-note">* Standard charges apply after the first month ends.<br>All plans include access to all 9 API categories.</div>
+      <a href="#categories" class="pricing-cta">Start Free — No Card Needed</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="index.html" class="footer-logo">GET SET GO API</a>
+  <nav class="footer-nav">
+    <a href="ai-human.html">AI &amp; Language</a>
+    <a href="ipl.html">Image &amp; Vision</a>
+    <a href="finance.html">Data &amp; Analytics</a>
+    <a href="football.html">Code &amp; Dev</a>
+    <a href="medicine.html">Health &amp; Medical</a>
+    <a href="surveillance.html">Security &amp; Auth</a>
+    <a href="shadow-gov.html">Automation</a>
+    <a href="space.html">Search &amp; Semantic</a>
+    <a href="chemtrails.html">Audio &amp; Video</a>
+  </nav>
+  <span class="footer-text">All Premium AI APIs · Free First Month · No Rate Limits · Unified Access</span>
 </footer>
-<script src="assets/js/main.js" defer></script>
+
+<script src="assets/js/main.js"></script>
 </body>
 </html>
