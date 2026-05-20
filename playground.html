@@ -712,12 +712,70 @@
         <div class="pg-setting">
           <label>Model <span id="sidebarModelLabel">GPT-4o</span></label>
           <select class="pg-select" id="sidebarModel">
-            <option>GPT-4o</option>
-            <option>GPT-4o mini</option>
-            <option>Claude 3.5 Sonnet</option>
-            <option>Gemini Ultra</option>
-            <option>Llama 3.1 405B</option>
-            <option>Mistral Large 2</option>
+            <optgroup label="— OpenAI —">
+              <option>GPT-3.5 Turbo</option>
+              <option>GPT-4</option>
+              <option>GPT-4 Turbo</option>
+              <option selected>GPT-4o</option>
+              <option>GPT-4o mini</option>
+              <option>o1</option>
+              <option>o1-mini</option>
+              <option>o3</option>
+              <option>o3-mini</option>
+            </optgroup>
+            <optgroup label="— Anthropic / Claude —">
+              <option>Claude 1</option>
+              <option>Claude 2</option>
+              <option>Claude 2.1</option>
+              <option>Claude 3 Haiku</option>
+              <option>Claude 3 Sonnet</option>
+              <option>Claude 3 Opus</option>
+              <option>Claude 3.5 Haiku</option>
+              <option>Claude 3.5 Sonnet</option>
+              <option>Claude 3.7 Sonnet</option>
+              <option>Claude 4 Sonnet</option>
+              <option>Claude 4 Opus</option>
+            </optgroup>
+            <optgroup label="— Google / Gemini —">
+              <option>Gemini 1.0 Pro</option>
+              <option>Gemini 1.5 Flash</option>
+              <option>Gemini 1.5 Pro</option>
+              <option>Gemini 1.5 Ultra</option>
+              <option>Gemini 2.0 Flash</option>
+              <option>Gemini 2.0 Pro</option>
+              <option>Gemini 2.5 Flash</option>
+              <option>Gemini 2.5 Pro</option>
+            </optgroup>
+            <optgroup label="— Meta / Llama —">
+              <option>Llama 2 7B</option>
+              <option>Llama 2 13B</option>
+              <option>Llama 2 70B</option>
+              <option>Llama 3 8B</option>
+              <option>Llama 3 70B</option>
+              <option>Llama 3.1 8B</option>
+              <option>Llama 3.1 70B</option>
+              <option>Llama 3.1 405B</option>
+              <option>Llama 3.3 70B</option>
+            </optgroup>
+            <optgroup label="— Mistral AI —">
+              <option>Mistral 7B</option>
+              <option>Mixtral 8x7B</option>
+              <option>Mixtral 8x22B</option>
+              <option>Mistral Large 2</option>
+              <option>Mistral Small 3</option>
+              <option>Pixtral Large</option>
+            </optgroup>
+            <optgroup label="— Other Frontier Models —">
+              <option>DeepSeek V2</option>
+              <option>DeepSeek V3</option>
+              <option>DeepSeek R1</option>
+              <option>Grok 1</option>
+              <option>Grok 2</option>
+              <option>Grok 3</option>
+              <option>Command R+</option>
+              <option>MiniMax Text 01</option>
+              <option>Perplexity Sonar</option>
+            </optgroup>
           </select>
         </div>
         <div class="pg-setting">
@@ -744,10 +802,33 @@
         <div class="pg-setting">
           <label>Model</label>
           <select class="pg-select">
-            <option>DALL-E 3</option>
-            <option>Stable Diffusion XL</option>
-            <option>Adobe Firefly</option>
-            <option>Midjourney (proxy)</option>
+            <optgroup label="— OpenAI —">
+              <option>DALL-E 2</option>
+              <option selected>DALL-E 3</option>
+            </optgroup>
+            <optgroup label="— Black Forest Labs —">
+              <option>Flux 1.0 Dev</option>
+              <option>Flux 1.0 Pro</option>
+              <option>Flux 1.1 Pro</option>
+              <option>Flux 1.1 Pro Ultra</option>
+            </optgroup>
+            <optgroup label="— Stability AI —">
+              <option>Stable Diffusion 1.5</option>
+              <option>Stable Diffusion 2.1</option>
+              <option>Stable Diffusion XL</option>
+              <option>Stable Diffusion 3</option>
+              <option>Stable Diffusion 3.5</option>
+            </optgroup>
+            <optgroup label="— Google —">
+              <option>Imagen 2</option>
+              <option>Imagen 3</option>
+            </optgroup>
+            <optgroup label="— Others —">
+              <option>Adobe Firefly</option>
+              <option>Midjourney v6 (proxy)</option>
+              <option>Ideogram 2.0</option>
+              <option>MiniMax Image</option>
+            </optgroup>
           </select>
         </div>
         <div class="pg-setting">
@@ -784,9 +865,25 @@
         <div class="pg-setting">
           <label>TTS Model</label>
           <select class="pg-select">
-            <option>OpenAI TTS HD</option>
-            <option>ElevenLabs Multilingual</option>
-            <option>PlayHT 2.0</option>
+            <optgroup label="— OpenAI —">
+              <option>OpenAI TTS</option>
+              <option selected>OpenAI TTS HD</option>
+            </optgroup>
+            <optgroup label="— ElevenLabs —">
+              <option>ElevenLabs Monolingual</option>
+              <option>ElevenLabs Multilingual</option>
+              <option>ElevenLabs Turbo v2</option>
+            </optgroup>
+            <optgroup label="— PlayHT —">
+              <option>PlayHT 1.0</option>
+              <option>PlayHT 2.0</option>
+            </optgroup>
+            <optgroup label="— Others —">
+              <option>Azure TTS Neural</option>
+              <option>Google TTS WaveNet</option>
+              <option>Murf AI</option>
+              <option>Resemble AI</option>
+            </optgroup>
           </select>
         </div>
         <div class="pg-setting">
@@ -803,9 +900,27 @@
         <div class="pg-setting">
           <label>Video Model</label>
           <select class="pg-select">
-            <option>Runway Gen-2</option>
-            <option>Stable Video Diffusion</option>
-            <option>Pika Labs</option>
+            <optgroup label="— Runway ML —">
+              <option>Runway Gen-1</option>
+              <option>Runway Gen-2</option>
+              <option>Runway Gen-3 Alpha</option>
+            </optgroup>
+            <optgroup label="— OpenAI —">
+              <option>Sora</option>
+            </optgroup>
+            <optgroup label="— Pika Labs —">
+              <option>Pika 1.0</option>
+              <option>Pika 2.0</option>
+            </optgroup>
+            <optgroup label="— Stability AI —">
+              <option>Stable Video Diffusion</option>
+            </optgroup>
+            <optgroup label="— Others —">
+              <option>Kling 1.5</option>
+              <option>Luma Dream Machine</option>
+              <option>MiniMax Video-01</option>
+              <option>CogVideoX</option>
+            </optgroup>
           </select>
         </div>
         <div class="pg-info-box">
