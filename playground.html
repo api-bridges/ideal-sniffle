@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Playground — Get Set Go Api</title>
+<meta name="description" content="Try any AI model directly in your browser — chat with LLMs, generate images, create audio and video. Get Set Go Api interactive playground.">
+<link rel="canonical" href="https://getsetgoapi.com/playground.html">
+<link rel="stylesheet" href="assets/css/shared.css">
+<style>
+:root { --accent: #4f46e5; }
+
+/* ── PLAYGROUND LAYOUT ── */
+.playground-wrap {
+  padding-top: 62px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+}
+
+/* ── TOP BAR ── */
+.pg-topbar {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.pg-model-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--primary-light);
+  border: 1px solid rgba(79,70,229,0.2);
+  border-radius: 20px;
+  padding: 0.35rem 1rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.01em;
+}
+.pg-model-badge .pg-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: pulse-live 2s ease-in-out infinite;
+}
+@keyframes pulse-live {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.8); }
+}
+.pg-type-tabs {
+  display: flex;
+  gap: 0.35rem;
+  background: var(--surface-2);
+  border-radius: 8px;
+  padding: 0.25rem;
+}
+.pg-tab {
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+  padding: 0.38rem 0.9rem;
+  border-radius: 6px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.15s;
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.pg-tab.active {
+  background: var(--white);
+  color: var(--heading);
+  box-shadow: var(--shadow-sm);
+}
+.pg-topbar-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.pg-api-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: 0.02em;
+  padding: 0.42rem 0.9rem;
+  border-radius: 7px;
+  text-decoration: none;
+  transition: all 0.18s;
+  border: 1px solid rgba(79,70,229,0.35);
+  color: var(--primary);
+  background: var(--primary-light);
+  white-space: nowrap;
+}
+.pg-api-btn:hover { background: var(--primary); color: #fff; }
+.pg-start-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: 0.02em;
+  padding: 0.44rem 1rem;
+  border-radius: 7px;
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(79,70,229,0.3);
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+}
+.pg-start-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(79,70,229,0.4); }
+
+/* ── PANELS ── */
+.pg-panels {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 0;
+  flex: 1;
+}
+
+/* ── LEFT SIDEBAR ── */
+.pg-sidebar {
+  background: var(--white);
+  border-right: 1px solid var(--border);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  overflow-y: auto;
+}
+.pg-sidebar-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.pg-setting {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+.pg-setting label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-family: 'Space Grotesk', sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pg-setting label span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--primary);
+}
+.pg-select, .pg-input-field {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  font-size: 0.8rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  background: var(--white);
+  transition: border-color 0.15s;
+  outline: none;
+  -webkit-appearance: none;
+}
+.pg-select:focus, .pg-input-field:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79,70,229,0.08);
+}
+.pg-range {
+  width: 100%;
+  accent-color: var(--primary);
+}
+.pg-info-box {
+  background: var(--primary-light);
+  border: 1px solid rgba(79,70,229,0.15);
+  border-left: 3px solid var(--primary);
+  border-radius: 0 8px 8px 0;
+  padding: 0.9rem 1rem;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.pg-info-box strong { color: var(--heading); display: block; margin-bottom: 0.25rem; font-family: 'Space Grotesk', sans-serif; }
+
+/* ── MAIN PANEL ── */
+.pg-main {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ─── CHAT UI ─── */
+.chat-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.chat-welcome {
+  text-align: center;
+  padding: 3rem 2rem;
+  max-width: 480px;
+  margin: auto;
+}
+.chat-welcome-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+.chat-welcome h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--heading);
+  margin-bottom: 0.6rem;
+}
+.chat-welcome p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+.chat-starters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+.chat-starter {
+  font-size: 0.76rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--white);
+  cursor: pointer;
+  color: var(--text);
+  transition: all 0.15s;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+}
+.chat-starter:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+.chat-msg {
+  display: flex;
+  gap: 0.75rem;
+  max-width: 80%;
+}
+.chat-msg.user { align-self: flex-end; flex-direction: row-reverse; }
+.chat-avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.chat-msg.assistant .chat-avatar { background: var(--primary-light); border: 1px solid rgba(79,70,229,0.2); }
+.chat-msg.user .chat-avatar { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
+.chat-bubble {
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  max-width: 100%;
+}
+.chat-msg.assistant .chat-bubble {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 2px 12px 12px 12px;
+  color: var(--text);
+}
+.chat-msg.user .chat-bubble {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff;
+  border-radius: 12px 2px 12px 12px;
+}
+.chat-footer {
+  border-top: 1px solid var(--border);
+  padding: 1rem 1.5rem;
+  background: var(--white);
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+.chat-textarea {
+  flex: 1;
+  resize: none;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 0.88rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  outline: none;
+  min-height: 44px;
+  max-height: 160px;
+  line-height: 1.5;
+  transition: border-color 0.15s;
+  background: var(--surface);
+}
+.chat-textarea:focus { border-color: var(--primary); background: var(--white); }
+.chat-textarea::placeholder { color: var(--text-dim); }
+.chat-send-btn {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.18s;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(79,70,229,0.3);
+}
+.chat-send-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(79,70,229,0.4); }
+.chat-send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* ─── IMAGE GEN UI ─── */
+.imggen-area {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.imggen-prompt-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-end;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+.imggen-prompt-wrap { flex: 1; }
+.imggen-prompt-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.imggen-prompt-input {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.imggen-prompt-input:focus { border-color: var(--primary); }
+.imggen-gen-btn {
+  padding: 0.65rem 1.5rem;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff;
+  border: none;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(79,70,229,0.3);
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+.imggen-gen-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(79,70,229,0.4); }
+.imggen-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.imggen-placeholder {
+  text-align: center;
+  padding: 4rem 2rem;
+  max-width: 440px;
+  margin: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.imggen-placeholder-icon { font-size: 4rem; margin-bottom: 1rem; }
+.imggen-placeholder h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--heading); margin-bottom: 0.6rem; }
+.imggen-placeholder p { font-size: 0.86rem; color: var(--text-muted); line-height: 1.7; }
+.imggen-sample-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  width: 100%;
+}
+.imggen-sample {
+  aspect-ratio: 1;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  border: 1px solid var(--border);
+}
+
+/* ─── AUDIO / VIDEO UI ─── */
+.audiovid-area {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.audiovid-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+.audiovid-card-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--heading);
+  margin-bottom: 0.25rem;
+}
+.audiovid-card-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 1.2rem;
+  line-height: 1.6;
+}
+.audiovid-input-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+.audiovid-text-input {
+  flex: 1;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.audiovid-text-input:focus { border-color: var(--primary); }
+.audiovid-gen-btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff;
+  border: none;
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.18s;
+}
+.audiovid-gen-btn:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(79,70,229,0.35); }
+.audiovid-player-mock {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+.audiovid-play-btn {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+.audiovid-waveform {
+  flex: 1;
+  height: 32px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(79,70,229,0.15) 0px, rgba(79,70,229,0.15) 2px,
+      transparent 2px, transparent 5px
+    );
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+.audiovid-duration {
+  font-size: 0.7rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+/* ── API KEY GATE OVERLAY ── */
+.pg-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(15,23,42,0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.pg-gate-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  border: 1px solid var(--border);
+}
+.pg-gate-icon { font-size: 3rem; margin-bottom: 1rem; }
+.pg-gate-card h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--heading);
+  margin-bottom: 0.7rem;
+}
+.pg-gate-card p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 1.8rem;
+}
+.pg-gate-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.pg-gate-primary {
+  display: block;
+  padding: 0.85rem 1.5rem;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  transition: all 0.18s;
+  box-shadow: 0 4px 14px rgba(79,70,229,0.32);
+}
+.pg-gate-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(79,70,229,0.42); }
+.pg-gate-secondary {
+  display: block;
+  padding: 0.8rem 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: all 0.18s;
+  background: var(--white);
+  cursor: pointer;
+}
+.pg-gate-secondary:hover { border-color: var(--border-2); color: var(--heading); }
+.pg-gate-close {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--white);
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.pg-gate-close:hover { color: var(--heading); border-color: var(--border-2); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .pg-panels { grid-template-columns: 1fr; }
+  .pg-sidebar { display: none; }
+}
+@media (max-width: 600px) {
+  .pg-topbar { padding: 0.65rem 1rem; }
+  .chat-area, .imggen-area, .audiovid-area { padding: 1rem; }
+  .chat-footer { padding: 0.75rem 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="logo-dot"></span>GET SET GO API
+  </a>
+  <div class="nav-center">
+    <ul class="nav-links">
+      <li class="nav-dropdown">
+        <a href="#" class="nav-dropdown-toggle">Explore <span class="dropdown-arrow">▾</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="ai-human.html">🧠 AI &amp; Language</a>
+          <a href="ipl.html">🖼️ Image &amp; Vision</a>
+          <a href="chemtrails.html">🎵 Audio &amp; Video</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="football.html">💻 Code &amp; Dev</a>
+          <a href="medicine.html">🏥 Health &amp; Medical</a>
+          <a href="finance.html">📊 Data &amp; Analytics</a>
+          <a href="surveillance.html">🔐 Security &amp; Auth</a>
+          <a href="shadow-gov.html">⚙️ Automation</a>
+          <a href="space.html">🔍 Search &amp; Semantic</a>
+        </div>
+      </li>
+      <li><a href="#">Docs</a></li>
+      <li><a href="#">Pricing</a></li>
+    </ul>
+  </div>
+  <div class="nav-actions">
+    <a href="index.html#api-browser" class="nav-btn nav-btn-browse">Browse APIs</a>
+    <a href="#" class="nav-btn nav-btn-api">Get API Key</a>
+    <a href="#" class="nav-btn nav-btn-start">Start Free →</a>
+  </div>
+  <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu">☰</button>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="ai-human.html">🧠 AI &amp; Language</a>
+  <a href="ipl.html">🖼️ Image &amp; Vision</a>
+  <a href="chemtrails.html">🎵 Audio &amp; Video</a>
+  <a href="football.html">💻 Code &amp; Dev</a>
+  <a href="medicine.html">🏥 Health &amp; Medical</a>
+  <a href="finance.html">📊 Data &amp; Analytics</a>
+  <a href="surveillance.html">🔐 Security &amp; Auth</a>
+  <a href="shadow-gov.html">⚙️ Automation</a>
+  <a href="space.html">🔍 Search &amp; Semantic</a>
+  <div class="nav-mobile-divider"></div>
+  <div class="nav-mobile-actions">
+    <a href="index.html#api-browser" class="nav-btn nav-btn-browse">Browse APIs</a>
+    <a href="#" class="nav-btn nav-btn-api">Get API Key</a>
+    <a href="#" class="nav-btn nav-btn-start">Start Free →</a>
+  </div>
+</div>
+
+<!-- ── PLAYGROUND ── -->
+<div class="playground-wrap">
+
+  <!-- TOP BAR -->
+  <div class="pg-topbar" id="pgTopbar">
+    <div class="pg-model-badge">
+      <span class="pg-dot"></span>
+      <span id="pgModelName">AI Model</span>
+    </div>
+    <div class="pg-type-tabs" id="pgTypeTabs">
+      <button class="pg-tab" data-type="chat">💬 Chat</button>
+      <button class="pg-tab" data-type="image">🖼️ Image</button>
+      <button class="pg-tab" data-type="audio">🎵 Audio &amp; Video</button>
+    </div>
+    <div class="pg-topbar-actions">
+      <a href="#" class="pg-api-btn" id="pgGetApiBtn">🔑 Get API Key</a>
+      <button class="pg-start-btn" id="pgStartFreeBtn">Start Free →</button>
+    </div>
+  </div>
+
+  <div class="pg-panels">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="pg-sidebar" id="pgSidebar">
+      <!-- Chat settings -->
+      <div id="sidebarChat">
+        <div class="pg-sidebar-title">Model Settings</div>
+        <div class="pg-setting">
+          <label>Model <span id="sidebarModelLabel">GPT-4o</span></label>
+          <select class="pg-select" id="sidebarModel">
+            <option>GPT-4o</option>
+            <option>GPT-4o mini</option>
+            <option>Claude 3.5 Sonnet</option>
+            <option>Gemini Ultra</option>
+            <option>Llama 3.1 405B</option>
+            <option>Mistral Large 2</option>
+          </select>
+        </div>
+        <div class="pg-setting">
+          <label>Temperature <span id="tempVal">0.7</span></label>
+          <input type="range" class="pg-range" id="tempRange" min="0" max="2" step="0.1" value="0.7">
+        </div>
+        <div class="pg-setting">
+          <label>Max tokens <span id="tokensVal">2048</span></label>
+          <input type="range" class="pg-range" id="tokensRange" min="256" max="8192" step="256" value="2048">
+        </div>
+        <div class="pg-setting">
+          <label>System prompt</label>
+          <textarea class="pg-input-field" id="systemPrompt" rows="4" placeholder="You are a helpful assistant…"></textarea>
+        </div>
+        <div class="pg-info-box">
+          <strong>Live Demo</strong>
+          Connect your API key to send real requests. Sign up free for your first month.
+        </div>
+      </div>
+
+      <!-- Image settings -->
+      <div id="sidebarImage" style="display:none">
+        <div class="pg-sidebar-title">Image Settings</div>
+        <div class="pg-setting">
+          <label>Model</label>
+          <select class="pg-select">
+            <option>DALL-E 3</option>
+            <option>Stable Diffusion XL</option>
+            <option>Adobe Firefly</option>
+            <option>Midjourney (proxy)</option>
+          </select>
+        </div>
+        <div class="pg-setting">
+          <label>Size</label>
+          <select class="pg-select">
+            <option>1024×1024 (Square)</option>
+            <option>1792×1024 (Landscape)</option>
+            <option>1024×1792 (Portrait)</option>
+          </select>
+        </div>
+        <div class="pg-setting">
+          <label>Quality</label>
+          <select class="pg-select">
+            <option>Standard</option>
+            <option>HD</option>
+          </select>
+        </div>
+        <div class="pg-setting">
+          <label>Style</label>
+          <select class="pg-select">
+            <option>Vivid</option>
+            <option>Natural</option>
+          </select>
+        </div>
+        <div class="pg-info-box">
+          <strong>Live Demo</strong>
+          Add your API key to generate real images with DALL-E 3 and more.
+        </div>
+      </div>
+
+      <!-- Audio / Video settings -->
+      <div id="sidebarAudio" style="display:none">
+        <div class="pg-sidebar-title">Audio &amp; Video</div>
+        <div class="pg-setting">
+          <label>TTS Model</label>
+          <select class="pg-select">
+            <option>OpenAI TTS HD</option>
+            <option>ElevenLabs Multilingual</option>
+            <option>PlayHT 2.0</option>
+          </select>
+        </div>
+        <div class="pg-setting">
+          <label>Voice</label>
+          <select class="pg-select">
+            <option>Alloy</option>
+            <option>Echo</option>
+            <option>Fable</option>
+            <option>Onyx</option>
+            <option>Nova</option>
+            <option>Shimmer</option>
+          </select>
+        </div>
+        <div class="pg-setting">
+          <label>Video Model</label>
+          <select class="pg-select">
+            <option>Runway Gen-2</option>
+            <option>Stable Video Diffusion</option>
+            <option>Pika Labs</option>
+          </select>
+        </div>
+        <div class="pg-info-box">
+          <strong>Live Demo</strong>
+          Connect your API key to generate real audio and video output.
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN PANEL -->
+    <div class="pg-main" id="pgMain">
+
+      <!-- CHAT PANEL -->
+      <div id="panelChat" style="display:flex; flex-direction:column; height:100%">
+        <div class="chat-area" id="chatArea">
+          <div class="chat-welcome" id="chatWelcome">
+            <div class="chat-welcome-icon">🤖</div>
+            <h2>Chat with <span id="welcomeModelName">AI</span></h2>
+            <p>Start a conversation to test the model. Type your message below or pick a prompt to get started quickly.</p>
+            <div class="chat-starters" id="chatStarters">
+              <button class="chat-starter" onclick="sendStarter(this)">Explain quantum computing in simple terms</button>
+              <button class="chat-starter" onclick="sendStarter(this)">Write a Python function to sort a list</button>
+              <button class="chat-starter" onclick="sendStarter(this)">Summarize the latest AI trends</button>
+              <button class="chat-starter" onclick="sendStarter(this)">Translate "Hello, world!" to French</button>
+            </div>
+          </div>
+        </div>
+        <div class="chat-footer">
+          <textarea class="chat-textarea" id="chatInput" rows="1" placeholder="Type a message…" onkeydown="chatKeyDown(event)"></textarea>
+          <button class="chat-send-btn" id="chatSendBtn" onclick="sendChat()" title="Send">➤</button>
+        </div>
+      </div>
+
+      <!-- IMAGE GEN PANEL -->
+      <div id="panelImage" style="display:none; flex-direction:column; height:100%">
+        <div class="imggen-area">
+          <div class="imggen-prompt-row">
+            <div class="imggen-prompt-wrap">
+              <div class="imggen-prompt-label">Describe your image</div>
+              <input type="text" class="imggen-prompt-input" id="imgPrompt" placeholder="A futuristic city skyline at sunset, cinematic lighting, 4K…">
+            </div>
+            <button class="imggen-gen-btn" onclick="generateImage()">✨ Generate</button>
+          </div>
+          <div id="imgGallery" class="imggen-gallery" style="display:none"></div>
+          <div class="imggen-placeholder" id="imgPlaceholder">
+            <div class="imggen-placeholder-icon">🎨</div>
+            <h2>Generate any image</h2>
+            <p>Describe what you want to see and click Generate. Connect your API key to create real images.</p>
+            <div class="imggen-sample-grid">
+              <div class="imggen-sample" style="background:linear-gradient(135deg,#ffecd2,#fcb69f)">🌅</div>
+              <div class="imggen-sample" style="background:linear-gradient(135deg,#a8edea,#fed6e3)">🌸</div>
+              <div class="imggen-sample" style="background:linear-gradient(135deg,#d299c2,#fef9d7)">✨</div>
+              <div class="imggen-sample" style="background:linear-gradient(135deg,#89f7fe,#66a6ff)">🌊</div>
+              <div class="imggen-sample" style="background:linear-gradient(135deg,#fddb92,#d1fdff)">☀️</div>
+              <div class="imggen-sample" style="background:linear-gradient(135deg,#c3cfe2,#c3cfe2)">🏙️</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AUDIO / VIDEO PANEL -->
+      <div id="panelAudio" style="display:none; flex-direction:column; height:100%">
+        <div class="audiovid-area">
+
+          <div class="audiovid-card">
+            <div class="audiovid-card-title">🔊 Text-to-Speech</div>
+            <div class="audiovid-card-desc">Convert any text to natural-sounding speech using ElevenLabs, OpenAI TTS, or PlayHT.</div>
+            <div class="audiovid-input-row">
+              <input type="text" class="audiovid-text-input" id="ttsInput" placeholder="Type text to convert to speech…">
+              <button class="audiovid-gen-btn" onclick="generateAudio('tts')">Generate</button>
+            </div>
+            <div class="audiovid-player-mock" id="ttsPlayer" style="display:none">
+              <button class="audiovid-play-btn">▶</button>
+              <div class="audiovid-waveform"></div>
+              <span class="audiovid-duration">0:08</span>
+            </div>
+          </div>
+
+          <div class="audiovid-card">
+            <div class="audiovid-card-title">🎤 Speech-to-Text</div>
+            <div class="audiovid-card-desc">Transcribe audio with Whisper Large v3 or Deepgram Nova-2 for real-time, high-accuracy results.</div>
+            <div class="audiovid-input-row">
+              <input type="text" class="audiovid-text-input" placeholder="Upload or record audio to transcribe…" disabled>
+              <button class="audiovid-gen-btn" onclick="generateAudio('stt')">Transcribe</button>
+            </div>
+            <div class="audiovid-player-mock" id="sttPlayer" style="display:none">
+              <button class="audiovid-play-btn">▶</button>
+              <div class="audiovid-waveform"></div>
+              <span class="audiovid-duration">0:12</span>
+            </div>
+          </div>
+
+          <div class="audiovid-card">
+            <div class="audiovid-card-title">🎬 Video Generation</div>
+            <div class="audiovid-card-desc">Generate short video clips from text prompts using Runway Gen-2, Stable Video Diffusion, or Pika Labs.</div>
+            <div class="audiovid-input-row">
+              <input type="text" class="audiovid-text-input" id="vidInput" placeholder="A drone flying over a mountain range at golden hour…">
+              <button class="audiovid-gen-btn" onclick="generateAudio('video')">Generate</button>
+            </div>
+            <div class="audiovid-player-mock" id="vidPlayer" style="display:none">
+              <button class="audiovid-play-btn">▶</button>
+              <div class="audiovid-waveform"></div>
+              <span class="audiovid-duration">0:05</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- /pg-main -->
+  </div><!-- /pg-panels -->
+</div><!-- /playground-wrap -->
+
+<!-- ── API KEY GATE ── -->
+<div class="pg-gate" id="pgGate" style="display:none">
+  <div class="pg-gate-card" style="position:relative">
+    <button class="pg-gate-close" id="pgGateClose">✕</button>
+    <div class="pg-gate-icon">🔑</div>
+    <h2>Get Your Free API Key</h2>
+    <p>Sign up for Get Set Go Api to send real requests to <strong id="gateModelName">this model</strong>. Your first month is completely free — no rate limits, all 500+ models included.</p>
+    <div class="pg-gate-actions">
+      <a href="index.html" class="pg-gate-primary">🚀 Start Free — First Month On Us</a>
+      <button class="pg-gate-secondary" id="pgGateCancel">Continue exploring UI only</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  // Parse URL params
+  var params = new URLSearchParams(window.location.search);
+  var model = params.get('model') || 'AI Model';
+  var type  = params.get('type')  || 'chat';
+
+  // Set model name in various places
+  document.getElementById('pgModelName').textContent = model;
+  var wm = document.getElementById('welcomeModelName');
+  if (wm) wm.textContent = model;
+  var gm = document.getElementById('gateModelName');
+  if (gm) gm.textContent = model;
+
+  // Populate sidebar model dropdown
+  var sidebarSel = document.getElementById('sidebarModel');
+  if (sidebarSel) {
+    var exists = Array.from(sidebarSel.options).some(function (o) { return o.value === model; });
+    if (!exists) {
+      var opt = document.createElement('option');
+      opt.value = model;
+      opt.textContent = model;
+      sidebarSel.insertBefore(opt, sidebarSel.firstChild);
+    }
+    sidebarSel.value = model;
+    sidebarSel.addEventListener('change', function () {
+      document.getElementById('pgModelName').textContent = sidebarSel.value;
+      document.getElementById('sidebarModelLabel').textContent = sidebarSel.value;
+      if (wm) wm.textContent = sidebarSel.value;
+    });
+  }
+
+  // Activate correct tab based on URL type
+  function activateTab(t) {
+    document.querySelectorAll('.pg-tab').forEach(function (btn) {
+      btn.classList.toggle('active', btn.dataset.type === t);
+    });
+    document.getElementById('panelChat').style.display  = t === 'chat'  ? 'flex' : 'none';
+    document.getElementById('panelImage').style.display = t === 'image' ? 'flex' : 'none';
+    document.getElementById('panelAudio').style.display = t === 'audio' ? 'flex' : 'none';
+    document.getElementById('sidebarChat').style.display  = t === 'chat'  ? 'block' : 'none';
+    document.getElementById('sidebarImage').style.display = t === 'image' ? 'block' : 'none';
+    document.getElementById('sidebarAudio').style.display = t === 'audio' ? 'block' : 'none';
+  }
+  activateTab(type);
+
+  document.querySelectorAll('.pg-tab').forEach(function (btn) {
+    btn.addEventListener('click', function () { activateTab(btn.dataset.type); });
+  });
+
+  // Temperature slider label
+  var tempRange = document.getElementById('tempRange');
+  var tempVal   = document.getElementById('tempVal');
+  if (tempRange) tempRange.addEventListener('input', function () { tempVal.textContent = tempRange.value; });
+
+  // Tokens slider label
+  var tokensRange = document.getElementById('tokensRange');
+  var tokensVal   = document.getElementById('tokensVal');
+  if (tokensRange) tokensRange.addEventListener('input', function () { tokensVal.textContent = (+tokensRange.value).toLocaleString(); });
+
+  // Gate popup
+  document.getElementById('pgGateClose').addEventListener('click', hideGate);
+  document.getElementById('pgGateCancel').addEventListener('click', hideGate);
+  document.getElementById('pgStartFreeBtn').addEventListener('click', showGate);
+  document.getElementById('pgGetApiBtn').addEventListener('click', function (e) { e.preventDefault(); showGate(); });
+  function showGate() { document.getElementById('pgGate').style.display = 'flex'; }
+  function hideGate() { document.getElementById('pgGate').style.display = 'none'; }
+  document.getElementById('pgGate').addEventListener('click', function (e) {
+    if (e.target === this) hideGate();
+  });
+
+  // ── CHAT LOGIC ──
+  var messages = [];
+  window.chatKeyDown = function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); }
+  };
+  window.sendStarter = function (btn) { 
+    document.getElementById('chatInput').value = btn.textContent;
+    sendChat();
+  };
+  window.sendChat = function () {
+    var input = document.getElementById('chatInput');
+    var text  = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    appendMsg('user', text);
+    // Demo: simulate assistant response after delay
+    setTimeout(function () { showGate(); }, 400);
+  };
+  function appendMsg(role, text) {
+    var welcome = document.getElementById('chatWelcome');
+    if (welcome) welcome.style.display = 'none';
+    var area = document.getElementById('chatArea');
+    var msg = document.createElement('div');
+    msg.className = 'chat-msg ' + role;
+    var avatar = role === 'user' ? '👤' : '🤖';
+    msg.innerHTML =
+      '<div class="chat-avatar">' + avatar + '</div>' +
+      '<div class="chat-bubble">' + escHtml(text) + '</div>';
+    area.appendChild(msg);
+    area.scrollTop = area.scrollHeight;
+  }
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  // ── IMAGE GEN LOGIC ──
+  window.generateImage = function () {
+    var prompt = document.getElementById('imgPrompt').value.trim();
+    if (!prompt) return;
+    showGate();
+  };
+
+  // ── AUDIO/VIDEO GEN LOGIC ──
+  window.generateAudio = function (kind) {
+    showGate();
+  };
+})();
+</script>
+</body>
+</html>

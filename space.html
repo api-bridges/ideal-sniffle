@@ -16,20 +16,54 @@
 <body>
 
 <nav>
-  <a href="index.html" class="nav-logo">GET SET GO API</a>
-  <ul class="nav-links">
-    <li><a href="ai-human.html">AI &amp; Language</a></li>
-    <li><a href="ipl.html">Image &amp; Vision</a></li>
-    <li><a href="finance.html">Data &amp; Analytics</a></li>
-    <li><a href="football.html">Code &amp; Dev</a></li>
-    <li><a href="medicine.html">Health &amp; Medical</a></li>
-    <li><a href="surveillance.html">Security &amp; Auth</a></li>
-    <li><a href="shadow-gov.html">Automation</a></li>
-    <li><a href="space.html" class="active">Search &amp; Semantic</a></li>
-    <li><a href="chemtrails.html">Audio &amp; Video</a></li>
-  </ul>
-  <a href="index.html" class="back-btn">← All APIs</a>
+  <a href="index.html" class="nav-logo">
+    <span class="logo-dot"></span>GET SET GO API
+  </a>
+  <div class="nav-center">
+    <ul class="nav-links">
+      <li class="nav-dropdown">
+        <a href="#" class="nav-dropdown-toggle">Explore <span class="dropdown-arrow">▾</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="ai-human.html">🧠 AI &amp; Language</a>
+          <a href="ipl.html">🖼️ Image &amp; Vision</a>
+          <a href="chemtrails.html">🎵 Audio &amp; Video</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="football.html">💻 Code &amp; Dev</a>
+          <a href="medicine.html">🏥 Health &amp; Medical</a>
+          <a href="finance.html">📊 Data &amp; Analytics</a>
+          <a href="surveillance.html">🔐 Security &amp; Auth</a>
+          <a href="shadow-gov.html">⚙️ Automation</a>
+          <a href="space.html" class="active">🔍 Search &amp; Semantic</a>
+        </div>
+      </li>
+      <li><a href="#">Docs</a></li>
+      <li><a href="#">Pricing</a></li>
+    </ul>
+  </div>
+  <div class="nav-actions">
+    <a href="index.html#api-browser" class="nav-btn nav-btn-browse">Browse APIs</a>
+    <a href="#" class="nav-btn nav-btn-api">Get API Key</a>
+    <a href="#" class="nav-btn nav-btn-start">Start Free →</a>
+  </div>
+  <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu">☰</button>
 </nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="ai-human.html">🧠 AI &amp; Language</a>
+  <a href="ipl.html">🖼️ Image &amp; Vision</a>
+  <a href="chemtrails.html">🎵 Audio &amp; Video</a>
+  <a href="football.html">💻 Code &amp; Dev</a>
+  <a href="medicine.html">🏥 Health &amp; Medical</a>
+  <a href="finance.html">📊 Data &amp; Analytics</a>
+  <a href="surveillance.html">🔐 Security &amp; Auth</a>
+  <a href="shadow-gov.html">⚙️ Automation</a>
+  <a href="space.html" class="active">🔍 Search &amp; Semantic</a>
+  <div class="nav-mobile-divider"></div>
+  <div class="nav-mobile-actions">
+    <a href="index.html#api-browser" class="nav-btn nav-btn-browse">Browse APIs</a>
+    <a href="#" class="nav-btn nav-btn-api">Get API Key</a>
+    <a href="#" class="nav-btn nav-btn-start">Start Free →</a>
+  </div>
+</div>
 
 <section class="page-hero">
   <div class="page-hero-inner">
