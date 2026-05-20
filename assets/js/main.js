@@ -49,8 +49,94 @@ function initStatBars() {
   bars.forEach(bar => observer.observe(bar));
 }
 
+// Mobile nav hamburger toggle
+function initHamburger() {
+  const btn = document.getElementById('navToggle');
+  const drawer = document.getElementById('navMobile');
+  if (!btn || !drawer) return;
+  btn.addEventListener('click', function () {
+    const open = drawer.classList.toggle('open');
+    btn.textContent = open ? '✕' : '☰';
+    btn.setAttribute('aria-expanded', open);
+  });
+  // Close on outside click
+  document.addEventListener('click', function (e) {
+    if (!btn.contains(e.target) && !drawer.contains(e.target)) {
+      drawer.classList.remove('open');
+      btn.textContent = '☰';
+    }
+  });
+}
+
+// Determine playground type from a category page href
+function playgroundType(href) {
+  if (!href) return 'chat';
+  if (href.includes('ipl.html')) return 'image';
+  if (href.includes('chemtrails.html')) return 'audio';
+  return 'chat';
+}
+
+// Determine playground type for the current category page
+function currentPageType() {
+  const path = window.location.pathname;
+  if (path.includes('ipl.html')) return 'image';
+  if (path.includes('chemtrails.html')) return 'audio';
+  return 'chat';
+}
+
+// Add "Use →" buttons to api-model-cards in the index API browser
+function initModelCards() {
+  document.querySelectorAll('a.api-model-card').forEach(function (card) {
+    var href = card.getAttribute('href') || '';
+    var type = playgroundType(href);
+    var modelName = (card.querySelector('.api-model-name') || {}).textContent || '';
+    if (!modelName) return;
+
+    // Create wrapper div to hold top row + actions
+    var wrapper = document.createElement('div');
+    wrapper.className = card.className + ' api-model-card--has-actions';
+    var styleAttr = card.getAttribute('style');
+    if (styleAttr) wrapper.setAttribute('style', styleAttr);
+
+    // Move logo + info into a horizontal top row
+    var topRow = document.createElement('div');
+    topRow.className = 'card-top-row';
+    topRow.innerHTML = card.innerHTML;
+    wrapper.appendChild(topRow);
+
+    // Action bar
+    var actions = document.createElement('div');
+    actions.className = 'api-model-actions';
+    actions.innerHTML =
+      '<a href="' + href + '" class="api-model-view-btn">View API</a>' +
+      '<a href="playground.html?model=' + encodeURIComponent(modelName) + '&type=' + type + '" class="api-model-use-btn">Try it \u2192</a>';
+    wrapper.appendChild(actions);
+
+    card.parentNode.replaceChild(wrapper, card);
+  });
+}
+
+// Add "Use →" buttons to theory-items in category pages
+function initTheoryUseButtons() {
+  const type = currentPageType();
+  document.querySelectorAll('.theory-item').forEach(function (item) {
+    const nameEl = item.querySelector('.theory-name');
+    if (!nameEl) return;
+    const modelName = nameEl.textContent.trim();
+    const btn = document.createElement('a');
+    btn.href = 'playground.html?model=' + encodeURIComponent(modelName) + '&type=' + type;
+    btn.className = 'theory-use-btn';
+    btn.textContent = 'Use →';
+    item.appendChild(btn);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   initCounters();
   initTicker();
   initStatBars();
+  initHamburger();
+  initModelCards();
+  initTheoryUseButtons();
 });
+

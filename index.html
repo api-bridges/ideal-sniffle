@@ -567,6 +567,61 @@
   background: var(--model-bg, #eef2ff);
 }
 
+/* ── MODEL CARD ACTIONS ── */
+.api-model-card--has-actions {
+  display: flex !important;
+  flex-direction: column;
+  align-items: stretch;
+  cursor: default;
+}
+.card-top-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+.api-model-actions {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.65rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--border);
+}
+.api-model-view-btn,
+.api-model-use-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: 0.03em;
+  padding: 0.32rem 0.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.api-model-view-btn {
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.api-model-view-btn:hover {
+  color: var(--heading);
+  border-color: var(--border-2);
+}
+.api-model-use-btn {
+  color: var(--model-accent, var(--primary));
+  border: 1px solid currentColor;
+  background: var(--model-bg, #eef2ff);
+}
+.api-model-use-btn:hover {
+  background: var(--model-accent, var(--primary));
+  color: #fff;
+  border-color: var(--model-accent, var(--primary));
+}
+
 /* ── OFFER SECTION ── */
 .offer-section {
   padding: 5rem;
@@ -747,19 +802,52 @@
   <a href="index.html" class="nav-logo">
     <span class="logo-dot"></span>GET SET GO API
   </a>
-  <ul class="nav-links">
-    <li><a href="ai-human.html">AI &amp; Language</a></li>
-    <li><a href="ipl.html">Image &amp; Vision</a></li>
-    <li><a href="finance.html">Data &amp; Analytics</a></li>
-    <li><a href="football.html">Code &amp; Dev</a></li>
-    <li><a href="medicine.html">Health &amp; Medical</a></li>
-    <li><a href="surveillance.html">Security &amp; Auth</a></li>
-    <li><a href="shadow-gov.html">Automation</a></li>
-    <li><a href="space.html">Search &amp; Semantic</a></li>
-    <li><a href="chemtrails.html">Audio &amp; Video</a></li>
-  </ul>
-  <span class="nav-badge">🎁 Free 1st Month</span>
+  <div class="nav-center">
+    <ul class="nav-links">
+      <li class="nav-dropdown">
+        <a href="#" class="nav-dropdown-toggle">Explore <span class="dropdown-arrow">▾</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="ai-human.html">🧠 AI &amp; Language</a>
+          <a href="ipl.html">🖼️ Image &amp; Vision</a>
+          <a href="chemtrails.html">🎵 Audio &amp; Video</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="football.html">💻 Code &amp; Dev</a>
+          <a href="medicine.html">🏥 Health &amp; Medical</a>
+          <a href="finance.html">📊 Data &amp; Analytics</a>
+          <a href="surveillance.html">🔐 Security &amp; Auth</a>
+          <a href="shadow-gov.html">⚙️ Automation</a>
+          <a href="space.html">🔍 Search &amp; Semantic</a>
+        </div>
+      </li>
+      <li><a href="#">Docs</a></li>
+      <li><a href="#">Pricing</a></li>
+    </ul>
+  </div>
+  <div class="nav-actions">
+    <a href="#api-browser" class="nav-btn nav-btn-browse">Browse APIs</a>
+    <a href="#" class="nav-btn nav-btn-api">Get API Key</a>
+    <a href="#" class="nav-btn nav-btn-start">Start Free →</a>
+  </div>
+  <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu">☰</button>
 </nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="ai-human.html">🧠 AI &amp; Language</a>
+  <a href="ipl.html">🖼️ Image &amp; Vision</a>
+  <a href="chemtrails.html">🎵 Audio &amp; Video</a>
+  <a href="football.html">💻 Code &amp; Dev</a>
+  <a href="medicine.html">🏥 Health &amp; Medical</a>
+  <a href="finance.html">📊 Data &amp; Analytics</a>
+  <a href="surveillance.html">🔐 Security &amp; Auth</a>
+  <a href="shadow-gov.html">⚙️ Automation</a>
+  <a href="space.html">🔍 Search &amp; Semantic</a>
+  <div class="nav-mobile-divider"></div>
+  <div class="nav-mobile-actions">
+    <a href="#api-browser" class="nav-btn nav-btn-browse">Browse APIs</a>
+    <a href="#" class="nav-btn nav-btn-api">Get API Key</a>
+    <a href="#" class="nav-btn nav-btn-start">Start Free →</a>
+  </div>
+</div>
+
 
 <!-- ═══════════════ HERO ═══════════════ -->
 <section class="hero">
