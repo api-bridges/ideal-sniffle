@@ -64,6 +64,7 @@ function initHamburger() {
     if (!btn.contains(e.target) && !drawer.contains(e.target)) {
       drawer.classList.remove('open');
       btn.textContent = '☰';
+      btn.setAttribute('aria-expanded', 'false');
     }
   });
 }
@@ -109,7 +110,7 @@ function initModelCards() {
     actions.className = 'api-model-actions';
     actions.innerHTML =
       '<a href="' + href + '" class="api-model-view-btn">View API</a>' +
-      '<a href="playground.html?model=' + encodeURIComponent(modelName) + '&type=' + type + '" class="api-model-use-btn">Try it \u2192</a>';
+      '<a href="playground.html?model=' + encodeURIComponent(modelName) + '&type=' + type + '" class="api-model-use-btn">Use \u2192</a>';
     wrapper.appendChild(actions);
 
     card.parentNode.replaceChild(wrapper, card);
