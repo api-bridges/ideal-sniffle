@@ -706,4 +706,30 @@ footer {
   .page-hero-inner { padding: 3rem 1.5rem 2.5rem; }
   .content-grid { padding: 2rem 1.5rem; }
   footer { padding: 1.5rem; flex-direction: column; align-items: flex-start; }
+  .article-h2 { font-size: 1.45rem; }
+  .theory-item { grid-template-columns: 36px 1fr; }
+  .theory-use-btn { margin-top: 0.5rem; display: block; width: 100%; text-align: center; grid-column: 1 / -1; }
+  .pricing-badge .price-free { font-size: 1.6rem; }
+}
+@media (max-width: 480px) {
+  .nav-actions .nav-btn-start { font-size: 0.7rem; padding: 0.42rem 0.8rem; }
+  .page-hero-inner { padding: 2rem 1rem 1.5rem; }
+  .page-title { font-size: clamp(1.8rem, 9vw, 2.8rem); }
+  .page-intro { font-size: 0.92rem; padding-left: 1rem; }
+  .content-grid { padding: 1.5rem 1rem; gap: 1.5rem; }
+  footer { padding: 1.25rem 1rem; gap: 0.8rem; }
+  .footer-nav { gap: 0.3rem; }
+  .article-h2 { font-size: 1.25rem; }
+  .article-p { font-size: 0.9rem; }
+  .theory-item { grid-template-columns: 32px 1fr; gap: 0.6rem; padding: 1rem; }
+  .theory-num { font-size: 1.1rem; }
+  .theory-name { font-size: 0.92rem; }
+  .theory-use-btn { font-size: 0.7rem; padding: 0.3rem 0.6rem; }
+  .highlight-box { padding: 1.1rem 1.2rem; }
+  .highlight-box p { font-size: 0.95rem; }
+  .section-label { margin-top: 1.8rem; }
+  .widget-body { padding: 0.85rem; }
+  .sidebar-widget { margin-bottom: 1rem; }
+  .nav-mobile-actions { gap: 0.35rem; }
+  .nav-mobile-actions .nav-btn { font-size: 0.74rem; padding: 0.4rem 0.75rem; }
 }
