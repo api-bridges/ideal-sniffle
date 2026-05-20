@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Football's Hidden Rulers — DEEP SIGNAL</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cyan: #00e5ff;
+    --red: #ff2020;
+    --amber: #ffaa00;
+    --bg: #03050a;
+    --surface: #080c16;
+    --border: #0f1830;
+    --text: #a8b8d8;
+    --text-dim: #3a4560;
+    --white: #e8eeff;
+    --accent: #00e5ff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Share Tech Mono', monospace; overflow-x: hidden; cursor: crosshair; }
+  body::before { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(transparent,transparent 2px,rgba(0,0,0,0.18) 2px,rgba(0,0,0,0.18) 4px); pointer-events: none; z-index: 9999; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(3,5,10,0.97); border-bottom: 1px solid var(--cyan); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 56px; }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--red); letter-spacing: 0.15em; text-decoration: none; }
+  .nav-links { display: flex; gap: 0; list-style: none; }
+  .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.65rem; letter-spacing: 0.12em; padding: 0.4rem 0.9rem; border-left: 1px solid var(--border); transition: all 0.2s; text-transform: uppercase; }
+  .nav-links a:hover, .nav-links a.active { color: var(--cyan); }
+  .back-btn { font-size: 0.6rem; letter-spacing: 0.15em; color: var(--text-dim); text-decoration: none; padding: 0.4rem 0.8rem; border: 1px solid var(--border); transition: all 0.2s; }
+  .back-btn:hover { color: var(--cyan); border-color: var(--cyan); }
+
+  .page-hero { padding-top: 56px; min-height: 65vh; display: flex; align-items: center; position: relative; overflow: hidden; }
+  .football-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 80% 30%, rgba(0,229,255,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 10% 80%, rgba(255,32,32,0.05) 0%, transparent 50%);
+  }
+  .pitch-pattern {
+    position: absolute; inset: 0; opacity: 0.04;
+    background: repeating-linear-gradient(90deg, var(--cyan) 0, var(--cyan) 1px, transparent 1px, transparent 80px),
+      repeating-linear-gradient(var(--cyan) 0, var(--cyan) 1px, transparent 1px, transparent 80px);
+  }
+  .page-hero-inner { position: relative; z-index: 1; padding: 5rem 3rem 4rem; }
+  .page-tag { font-size: 0.55rem; letter-spacing: 0.3em; color: var(--cyan); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+  .page-tag::before { content: ''; display: block; width: 30px; height: 1px; background: var(--cyan); }
+  .page-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 9vw, 8rem); line-height: 0.88; color: var(--white); letter-spacing: 0.02em; margin-bottom: 2rem; }
+  .page-title span { color: var(--cyan); }
+  .page-intro { font-family: 'Crimson Pro', serif; font-style: italic; font-size: 1.15rem; color: var(--text); max-width: 640px; line-height: 1.8; border-left: 3px solid var(--cyan); padding-left: 1.5rem; }
+
+  /* POWER MAP */
+  .power-section { padding: 3rem; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .power-label { font-size: 0.55rem; letter-spacing: 0.25em; color: var(--cyan); text-transform: uppercase; margin-bottom: 1rem; }
+  .power-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--white); margin-bottom: 2rem; }
+  .power-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px; background: var(--border); }
+  .power-node { background: var(--bg); padding: 1.5rem 1rem; text-align: center; position: relative; }
+  .power-node::after { content: '↓'; position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%); color: var(--cyan); font-size: 1rem; z-index: 1; }
+  .power-node:last-child::after { display: none; }
+  .power-icon { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
+  .power-name { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--white); letter-spacing: 0.05em; margin-bottom: 0.3rem; }
+  .power-sub { font-size: 0.6rem; color: var(--text-dim); }
+
+  /* CONTENT */
+  .content-grid { padding: 4rem 3rem; display: grid; grid-template-columns: 1fr 300px; gap: 3rem; }
+  .section-label { font-size: 0.55rem; letter-spacing: 0.25em; color: var(--cyan); text-transform: uppercase; margin-bottom: 0.5rem; margin-top: 2.5rem; }
+  .article-h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--white); letter-spacing: 0.04em; margin-bottom: 1rem; line-height: 1.05; }
+  .article-p { font-family: 'Crimson Pro', serif; font-size: 1.05rem; color: var(--text); line-height: 1.9; margin-bottom: 1.5rem; }
+  .highlight-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--cyan); padding: 1.5rem; margin: 2rem 0; }
+  .highlight-box p { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--white); line-height: 1.3; }
+  .highlight-box cite { font-size: 0.6rem; letter-spacing: 0.15em; color: var(--text-dim); margin-top: 0.5rem; display: block; text-transform: uppercase; }
+
+  .theory-list { display: flex; flex-direction: column; gap: 0; margin: 2rem 0; }
+  .theory-item { background: var(--surface); border: 1px solid var(--border); border-top: none; padding: 1.5rem; display: grid; grid-template-columns: 50px 1fr; gap: 1rem; transition: border-color 0.2s; }
+  .theory-item:first-child { border-top: 1px solid var(--border); }
+  .theory-item:hover { border-color: var(--cyan); }
+  .theory-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--border); line-height: 1; }
+  .theory-item:hover .theory-num { color: var(--cyan); }
+  .theory-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: var(--white); letter-spacing: 0.04em; margin-bottom: 0.4rem; }
+  .theory-desc { font-size: 0.75rem; color: var(--text-dim); line-height: 1.6; }
+
+  .sidebar-widget { background: var(--surface); border: 1px solid var(--border); margin-bottom: 1.5rem; overflow: hidden; }
+  .widget-header { background: var(--cyan); padding: 0.6rem 1rem; font-size: 0.6rem; letter-spacing: 0.2em; color: var(--bg); text-transform: uppercase; }
+  .widget-body { padding: 1.2rem; }
+  .widget-item { display: flex; gap: 0.6rem; padding: 0.6rem 0; border-bottom: 1px solid var(--border); font-size: 0.7rem; color: var(--text); align-items: flex-start; line-height: 1.5; }
+  .widget-item:last-child { border-bottom: none; }
+  .widget-item::before { content: '→'; color: var(--cyan); flex-shrink: 0; }
+  .nav-page-link { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0.8rem; border: 1px solid var(--border); text-decoration: none; color: var(--text-dim); font-size: 0.65rem; letter-spacing: 0.1em; transition: all 0.2s; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .nav-page-link:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  @media (max-width: 768px) { .content-grid { grid-template-columns: 1fr; } .nav-links { display: none; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">DEEP SIGNAL</a>
+  <ul class="nav-links">
+    <li><a href="ai-human.html">AI vs Human</a></li>
+    <li><a href="ipl.html">IPL</a></li>
+    <li><a href="finance.html">Finance</a></li>
+    <li><a href="football.html" class="active">Football</a></li>
+    <li><a href="medicine.html">Medicine</a></li>
+  </ul>
+  <a href="index.html" class="back-btn">← Home</a>
+</nav>
+
+<section class="page-hero">
+  <div class="football-bg"></div>
+  <div class="pitch-pattern"></div>
+  <div class="page-hero-inner">
+    <div class="page-tag">Dossier 04 · Sport · Global</div>
+    <h1 class="page-title">FOOTBALL'S<br><span>HIDDEN</span><br>RULERS</h1>
+    <p class="page-intro">
+      The world's most watched sport is also the world's most elegant cover story. 
+      Beneath the beautiful game runs a parallel economy of sovereign wealth, 
+      geopolitical influence operations, and money flows that no FIFA audit has ever 
+      come close to tracing.
+    </p>
+  </div>
+</section>
+
+<!-- POWER CHAIN -->
+<div class="power-section">
+  <div class="power-label">// The Chain of Command</div>
+  <h2 class="power-title">Who Actually Runs Football</h2>
+  <div class="power-grid">
+    <div class="power-node">
+      <span class="power-icon">🏦</span>
+      <div class="power-name">Sovereign Wealth Funds</div>
+      <div class="power-sub">Qatar, UAE, Saudi Arabia — direct club ownership</div>
+    </div>
+    <div class="power-node">
+      <span class="power-icon">📡</span>
+      <div class="power-name">Media Empires</div>
+      <div class="power-sub">beIN Sports, DAZN, Sky — rights buyers define clubs' survival</div>
+    </div>
+    <div class="power-node">
+      <span class="power-icon">🏛️</span>
+      <div class="power-name">FIFA / UEFA Oligarchy</div>
+      <div class="power-sub">67 officials charged, fined, or banned since 2015</div>
+    </div>
+    <div class="power-node">
+      <span class="power-icon">👔</span>
+      <div class="power-name">Club Ownership Shells</div>
+      <div class="power-sub">Most Premier League clubs: beneficial owner 3 layers deep</div>
+    </div>
+    <div class="power-node">
+      <span class="power-icon">🎽</span>
+      <div class="power-name">The Players</div>
+      <div class="power-sub">The visible face. Maximum scrutiny. Minimum power.</div>
+    </div>
+  </div>
+</div>
+
+<div class="content-grid">
+  <article class="article-body">
+
+    <div class="section-label">// Theory Alpha</div>
+    <h2 class="article-h2">QATAR 2022: SPORTSWASHING AT PLANETARY SCALE</h2>
+    <p class="article-p">
+      The 2022 FIFA World Cup was awarded to Qatar in 2010, by a vote in which at least 
+      six of the 22 FIFA executive committee members who voted have since been charged with 
+      corruption. Qatar, a peninsula of 3 million people with summer temperatures of 50°C, 
+      was selected over Australia, the United States, Japan, and South Korea. 
+      The decision was announced by Sepp Blatter, who was later banned from football for 8 years.
+    </p>
+    <p class="article-p">
+      The construction of eight World Cup stadiums required the labor of an estimated 
+      1.5 million migrant workers, predominantly from India, Nepal, Bangladesh, and Pakistan, 
+      working under a kafala sponsorship system that human rights organizations have 
+      characterized as conditions of labor bondage. The Guardian documented over 6,500 
+      worker deaths over the construction decade. FIFA never commissioned an independent 
+      investigation.
+    </p>
+
+    <div class="highlight-box">
+      <p>"Football has become the last truly global soft power commodity — and the Gulf states understand this far better than democracies do."</p>
+      <cite>— Former EU sports policy advisor, off-record briefing, Brussels 2023</cite>
+    </div>
+
+    <div class="section-label">// Theory Beta</div>
+    <h2 class="article-h2">THE PREMIER LEAGUE IS A SOVEREIGN WEALTH OPERATION</h2>
+    <p class="article-p">
+      As of 2024, four of the twenty Premier League clubs are majority-owned by entities 
+      directly connected to Middle Eastern or Asian sovereign wealth funds: Manchester City 
+      (UAE), Newcastle United (Saudi Arabia), Paris Saint-Germain's competitor Chelsea 
+      (Russian oligarch, replaced by American consortium with Gulf links), and several others 
+      with state-adjacent ownership. This is not sports investment. It is geopolitical 
+      adjacency purchasing — buying access to the world's most watched media property 
+      to launder national brand reputation.
+    </p>
+    <p class="article-p">
+      Manchester City's Financial Fair Play charges revealed a pattern of financial 
+      engineering so sophisticated that it required the club to produce over 
+      12,000 documents in defense. The Premier League's own independent hearing 
+      has dragged for three-plus years — a timeline that, critics note, would have 
+      concluded in weeks if the club were relegated to League One.
+    </p>
+
+    <div class="theory-list">
+      <div class="theory-item">
+        <div class="theory-num">01</div>
+        <div>
+          <div class="theory-name">The Transfer Market Money Laundry</div>
+          <div class="theory-desc">Over-inflated transfer fees between connected clubs within the same ownership network allow money to move between entities with a football-shaped cover story. The EU has never investigated.</div>
+        </div>
+      </div>
+      <div class="theory-item">
+        <div class="theory-num">02</div>
+        <div>
+          <div class="theory-name">Referee Assignment Algorithms</div>
+          <div class="theory-desc">Analysis of 15 years of Premier League data shows statistically significant correlations between financially important matches and favorable VAR decisions. The dataset is available. The investigation isn't.</div>
+        </div>
+      </div>
+      <div class="theory-item">
+        <div class="theory-num">03</div>
+        <div>
+          <div class="theory-name">FIFA's Bribery Architecture Was Structural</div>
+          <div class="theory-desc">The 2015 FBI indictment of 14 FIFA officials revealed a system of kickbacks, broadcast rights manipulation, and vote buying that had operated continuously since the 1990s. Sepp Blatter was not indicted. The structure he built was not reformed.</div>
+        </div>
+      </div>
+      <div class="theory-item">
+        <div class="theory-num">04</div>
+        <div>
+          <div class="theory-name">The Super League Was The Threat, Not The Plan</div>
+          <div class="theory-desc">The 2021 European Super League announcement was never intended to succeed. It was a negotiating tactic to extract better terms from UEFA. The "collapse" was staged for optics.</div>
+        </div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="sidebar">
+    <div class="sidebar-widget">
+      <div class="widget-header">// Key Evidence</div>
+      <div class="widget-body">
+        <div class="widget-item">2015 FBI operation "Beautiful Game": 14 FIFA officials indicted, $150M+ in bribes documented</div>
+        <div class="widget-item">Qatar 2022 vote: 6 of 22 voters later charged with corruption</div>
+        <div class="widget-item">Man City FFP charges: 115 charges, 12,000+ documents, still pending</div>
+        <div class="widget-item">Saudi Pro League signed 6 active Ballon d'Or contenders in 14 months</div>
+        <div class="widget-item">Newcastle United: 80% owned by Saudi Public Investment Fund</div>
+      </div>
+    </div>
+
+    <div class="sidebar-widget">
+      <div class="widget-header">// Geopolitical Map</div>
+      <div class="widget-body">
+        <div class="widget-item">🇶🇦 Qatar: PSG, beIN Sports, 2022 World Cup host</div>
+        <div class="widget-item">🇸🇦 Saudi: Newcastle, LIV Golf, 2034 World Cup host</div>
+        <div class="widget-item">🇦🇪 UAE: Man City, Abu Dhabi Media, multiple clubs</div>
+        <div class="widget-item">🇺🇸 USA: Chelsea, Man United, Liverpool, Arsenal</div>
+        <div class="widget-item">🇷🇺 Russia: Expelled. Assets transferred silently.</div>
+      </div>
+    </div>
+
+    <div class="sidebar-widget">
+      <div class="widget-header">Other Dossiers</div>
+      <div class="widget-body">
+        <a href="ai-human.html" class="nav-page-link">AI vs Human <span>→</span></a>
+        <a href="ipl.html" class="nav-page-link">IPL Shadow Empire <span>→</span></a>
+        <a href="finance.html" class="nav-page-link">Debt as Control <span>→</span></a>
+        <a href="medicine.html" class="nav-page-link">Buried Cures <span>→</span></a>
+      </div>
+    </div>
+  </aside>
+</div>
+
+</body>
+</html>

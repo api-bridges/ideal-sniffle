@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEEP SIGNAL — Uncover The Truth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #ff2020;
+    --amber: #ffaa00;
+    --green: #00ff88;
+    --bg: #050508;
+    --surface: #0d0d14;
+    --border: #1a1a2e;
+    --text: #c8c8d8;
+    --text-dim: #5a5a7a;
+    --white: #f0f0f8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Share Tech Mono', monospace;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  /* SCANLINES OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.18) 2px,
+      rgba(0,0,0,0.18) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* NOISE TEXTURE */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.5;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(5,5,8,0.95);
+    border-bottom: 1px solid var(--red);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 56px;
+    backdrop-filter: blur(8px);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--red);
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    position: relative;
+  }
+  .nav-logo::after {
+    content: '▮';
+    animation: blink 1s step-end infinite;
+    color: var(--amber);
+    font-size: 1rem;
+    margin-left: 4px;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .nav-links {
+    display: flex;
+    gap: 0;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    padding: 0.4rem 0.9rem;
+    border-left: 1px solid var(--border);
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  .nav-links a:hover { color: var(--amber); background: rgba(255,170,0,0.05); }
+  .nav-links a.active { color: var(--red); border-bottom: 2px solid var(--red); }
+
+  .nav-ticker {
+    font-size: 0.6rem;
+    color: var(--green);
+    overflow: hidden;
+    width: 220px;
+    white-space: nowrap;
+  }
+  .ticker-inner {
+    display: inline-block;
+    animation: ticker 18s linear infinite;
+  }
+  @keyframes ticker { from { transform: translateX(220px); } to { transform: translateX(-100%); } }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    padding-top: 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 20% 50%, rgba(255,32,32,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 80% 30%, rgba(0,255,136,0.04) 0%, transparent 70%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,32,32,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,32,32,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-left {
+    padding: 5rem 3rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .classified-stamp {
+    display: inline-block;
+    border: 2px solid var(--red);
+    color: var(--red);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    padding: 0.2rem 0.6rem;
+    transform: rotate(-2deg);
+    margin-bottom: 2rem;
+    animation: stamp-glow 3s ease-in-out infinite;
+    width: fit-content;
+  }
+  @keyframes stamp-glow {
+    0%,100% { box-shadow: 0 0 4px var(--red); }
+    50% { box-shadow: 0 0 16px var(--red), 0 0 32px rgba(255,32,32,0.3); }
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 0.9;
+    color: var(--white);
+    letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .hero-title span { color: var(--red); }
+
+  .hero-sub {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    border-left: 2px solid var(--red);
+    padding-left: 1rem;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid;
+    transition: all 0.25s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-101%);
+    transition: transform 0.3s ease;
+  }
+  .btn:hover::before { transform: translateX(0); }
+  .btn span { position: relative; z-index: 1; }
+
+  .btn-red {
+    color: var(--red);
+    border-color: var(--red);
+  }
+  .btn-red::before { background: var(--red); }
+  .btn-red:hover { color: var(--bg); }
+
+  .btn-ghost {
+    color: var(--text-dim);
+    border-color: var(--border);
+  }
+  .btn-ghost::before { background: var(--border); }
+  .btn-ghost:hover { color: var(--white); }
+
+  /* HERO RIGHT — FILE CARDS */
+  .hero-right {
+    padding: 6rem 2rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .file-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: inherit;
+  }
+  .file-card:hover {
+    border-color: var(--red);
+    transform: translateX(6px);
+    background: rgba(255,32,32,0.04);
+  }
+  .file-card::before {
+    content: attr(data-num);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--border);
+    min-width: 2.5rem;
+    transition: color 0.25s;
+  }
+  .file-card:hover::before { color: var(--red); }
+
+  .file-card-body { flex: 1; }
+  .file-card-tag {
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .file-card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    color: var(--white);
+    letter-spacing: 0.05em;
+  }
+  .file-card-arrow {
+    color: var(--text-dim);
+    font-size: 1rem;
+    transition: color 0.25s;
+  }
+  .file-card:hover .file-card-arrow { color: var(--red); }
+
+  /* ─── SECTION LABELS ─── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  .section-header h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    color: var(--white);
+    letter-spacing: 0.05em;
+  }
+  .section-header h2 span { color: var(--red); }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--red), transparent);
+  }
+  .section-badge {
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: var(--bg);
+    background: var(--red);
+    padding: 0.2rem 0.6rem;
+    text-transform: uppercase;
+  }
+
+  /* ─── TOPICS GRID ─── */
+  .topics-section {
+    padding: 5rem 3rem;
+    position: relative;
+  }
+
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+  }
+
+  .topic-card {
+    background: var(--surface);
+    padding: 2rem;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    display: block;
+  }
+  .topic-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent, var(--red));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+  }
+  .topic-card:hover { background: #111118; }
+  .topic-card:hover::after { transform: scaleX(1); }
+
+  .topic-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+    filter: grayscale(0.4);
+  }
+  .topic-category {
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent, var(--red));
+    margin-bottom: 0.5rem;
+  }
+  .topic-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.7rem;
+    color: var(--white);
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    margin-bottom: 0.8rem;
+  }
+  .topic-desc {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+  .topic-link {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--accent, var(--red));
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  /* ─── EVIDENCE TICKER ─── */
+  .evidence-bar {
+    background: var(--red);
+    padding: 0.6rem 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .evidence-scroll {
+    display: flex;
+    gap: 3rem;
+    animation: scroll-left 25s linear infinite;
+    white-space: nowrap;
+  }
+  @keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .evidence-item {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--bg);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .evidence-item::before { content: '◆'; font-size: 0.4rem; }
+
+  /* ─── FEATURED THEORY ─── */
+  .featured-section {
+    padding: 5rem 3rem;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .featured-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .featured-label::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--red);
+  }
+  .featured-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 5vw, 4.5rem);
+    line-height: 0.95;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+  .featured-headline em { color: var(--red); font-style: normal; }
+  .featured-body {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.05rem;
+    color: var(--text);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .evidence-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .evidence-title {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .evidence-point {
+    display: flex;
+    gap: 0.8rem;
+    font-size: 0.75rem;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .evidence-point::before {
+    content: '//';
+    color: var(--red);
+    flex-shrink: 0;
+  }
+
+  /* ─── STATS ROW ─── */
+  .stats-row {
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5px;
+    background: var(--border);
+  }
+  .stat-cell {
+    background: var(--surface);
+    padding: 2rem;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    color: var(--red);
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .stat-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--red);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: var(--red);
+    letter-spacing: 0.15em;
+  }
+  .footer-text {
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+  .footer-signal {
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+  }
+  .signal-bar {
+    width: 3px;
+    background: var(--green);
+    border-radius: 1px;
+    animation: signal-pulse 1.5s ease-in-out infinite;
+  }
+  .signal-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
+  .signal-bar:nth-child(2) { height: 14px; animation-delay: 0.2s; }
+  .signal-bar:nth-child(3) { height: 10px; animation-delay: 0.4s; }
+  .signal-bar:nth-child(4) { height: 18px; animation-delay: 0.6s; }
+  .signal-bar:nth-child(5) { height: 12px; animation-delay: 0.8s; }
+  @keyframes signal-pulse {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  /* ─── GLITCH EFFECT ─── */
+  .glitch {
+    position: relative;
+    display: inline-block;
+  }
+  .glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%);
+  }
+  .glitch::before {
+    color: var(--red);
+    animation: glitch-a 3s infinite steps(1);
+  }
+  .glitch::after {
+    color: var(--green);
+    animation: glitch-b 3s infinite steps(1);
+    clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
+  }
+  @keyframes glitch-a {
+    0%,94%,100% { transform: translateX(0); opacity: 0; }
+    95% { transform: translateX(-3px); opacity: 1; }
+    97% { transform: translateX(3px); opacity: 1; }
+  }
+  @keyframes glitch-b {
+    0%,96%,100% { transform: translateX(0); opacity: 0; }
+    97% { transform: translateX(3px); opacity: 1; }
+    99% { transform: translateX(-3px); opacity: 1; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .featured-section { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">DEEP SIGNAL</a>
+  <ul class="nav-links">
+    <li><a href="ai-human.html">AI vs Human</a></li>
+    <li><a href="ipl.html">IPL</a></li>
+    <li><a href="finance.html">Finance</a></li>
+    <li><a href="football.html">Football</a></li>
+    <li><a href="medicine.html">Medicine</a></li>
+    <li><a href="index.html" class="active">Home</a></li>
+  </ul>
+  <div class="nav-ticker">
+    <span class="ticker-inner">◆ SIGNAL ACTIVE ◆ 1,247 FILES DECLASSIFIED ◆ THEY ARE WATCHING ◆ QUESTION EVERYTHING ◆</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-left">
+    <div class="classified-stamp">⚠ CLASSIFIED DOSSIER</div>
+    <h1 class="hero-title">
+      <span class="glitch" data-text="THE">THE</span><br>
+      TRUTH<br>
+      <span>THEY HID</span>
+    </h1>
+    <p class="hero-sub">
+      From AI replacing humanity to match-fixing empires, financial black holes and suppressed cures — 
+      every institution carries secrets. We connect the dots so you don't have to.
+    </p>
+    <div class="hero-cta">
+      <a href="ai-human.html" class="btn btn-red"><span>Access Files →</span></a>
+      <a href="#topics" class="btn btn-ghost"><span>Browse Theories</span></a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <a href="ai-human.html" class="file-card" data-num="01">
+      <div class="file-card-body">
+        <div class="file-card-tag">⚠ Critical</div>
+        <div class="file-card-title">AI IS REPLACING YOUR MIND, NOT YOUR JOB</div>
+      </div>
+      <span class="file-card-arrow">→</span>
+    </a>
+    <a href="ipl.html" class="file-card" data-num="02">
+      <div class="file-card-body">
+        <div class="file-card-tag">◆ Sport</div>
+        <div class="file-card-title">IPL: THE BILLION DOLLAR SCRIPT</div>
+      </div>
+      <span class="file-card-arrow">→</span>
+    </a>
+    <a href="finance.html" class="file-card" data-num="03">
+      <div class="file-card-body">
+        <div class="file-card-tag">$ Finance</div>
+        <div class="file-card-title">YOUR BANK WORKS AGAINST YOU</div>
+      </div>
+      <span class="file-card-arrow">→</span>
+    </a>
+    <a href="football.html" class="file-card" data-num="04">
+      <div class="file-card-body">
+        <div class="file-card-tag">⚽ Sport</div>
+        <div class="file-card-title">FIFA'S SHADOW GOVERNMENT</div>
+      </div>
+      <span class="file-card-arrow">→</span>
+    </a>
+    <a href="medicine.html" class="file-card" data-num="05">
+      <div class="file-card-body">
+        <div class="file-card-tag">🧬 Health</div>
+        <div class="file-card-title">THE CURE THAT WAS BURIED</div>
+      </div>
+      <span class="file-card-arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- EVIDENCE TICKER -->
+<div class="evidence-bar">
+  <div class="evidence-scroll">
+    <span class="evidence-item">AI patent filings up 4,000% — who benefits?</span>
+    <span class="evidence-item">IPL spot-fixing arrests: only the small fish caught</span>
+    <span class="evidence-item">Central banks bought $14T in assets nobody asked for</span>
+    <span class="evidence-item">Pharma spends more on lobbying than R&D</span>
+    <span class="evidence-item">FIFA World Cup hosts selected 10 years in advance — why?</span>
+    <span class="evidence-item">Your credit score is a social compliance metric</span>
+    <span class="evidence-item">AI training data: scraped without consent, used without transparency</span>
+    <span class="evidence-item">IPL auction rooms have no public oversight</span>
+    <span class="evidence-item">AI patent filings up 4,000% — who benefits?</span>
+    <span class="evidence-item">IPL spot-fixing arrests: only the small fish caught</span>
+    <span class="evidence-item">Central banks bought $14T in assets nobody asked for</span>
+    <span class="evidence-item">Pharma spends more on lobbying than R&D</span>
+  </div>
+</div>
+
+<!-- TOPICS SECTION -->
+<section class="topics-section" id="topics">
+  <div class="section-header">
+    <span class="section-badge">Dossiers</span>
+    <h2><span>Active</span> Investigations</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="topics-grid">
+    <a href="ai-human.html" class="topic-card" style="--accent: #ff2020;">
+      <span class="topic-icon">🤖</span>
+      <div class="topic-category">Technology · Critical</div>
+      <div class="topic-name">AI vs Human Supremacy</div>
+      <p class="topic-desc">The machines aren't rising — they're being aimed. Big Tech is engineering cognitive dependency while governments quietly draft AI governance that exempts the powerful.</p>
+      <span class="topic-link">Open Dossier →</span>
+    </a>
+
+    <a href="ipl.html" class="topic-card" style="--accent: #ffaa00;">
+      <span class="topic-icon">🏏</span>
+      <div class="topic-category">Sport · India</div>
+      <div class="topic-name">IPL Shadow Empire</div>
+      <p class="topic-desc">The Indian Premier League generates ₹50,000 crore — and almost none of it is transparent. Follow the franchise ownership to offshore shells and political donors.</p>
+      <span class="topic-link">Open Dossier →</span>
+    </a>
+
+    <a href="finance.html" class="topic-card" style="--accent: #00ff88;">
+      <span class="topic-icon">💸</span>
+      <div class="topic-category">Finance · Global</div>
+      <div class="topic-name">Debt as Control</div>
+      <p class="topic-desc">Loans are not financial products — they are leashes. The modern banking system was designed by 12 men in 1910 to ensure perpetual debt dependency across generations.</p>
+      <span class="topic-link">Open Dossier →</span>
+    </a>
+
+    <a href="football.html" class="topic-card" style="--accent: #00aaff;">
+      <span class="topic-icon">⚽</span>
+      <div class="topic-category">Sport · Global</div>
+      <div class="topic-name">Football's Hidden Rulers</div>
+      <p class="topic-desc">From Qatar 2022 to Premier League ownership by sovereign wealth funds, football has become the world's most elegant money laundering and geopolitical influence operation.</p>
+      <span class="topic-link">Open Dossier →</span>
+    </a>
+
+    <a href="medicine.html" class="topic-card" style="--accent: #ff44aa;">
+      <span class="topic-icon">🧬</span>
+      <div class="topic-category">Medicine · Big Pharma</div>
+      <div class="topic-name">The Buried Cures</div>
+      <p class="topic-desc">The pharmaceutical industry earns $1.4 trillion treating symptoms. A world of cures would destroy that model. Patents are not about innovation — they are about market locks.</p>
+      <span class="topic-link">Open Dossier →</span>
+    </a>
+
+    <a href="finance.html" class="topic-card" style="--accent: #aa44ff;">
+      <span class="topic-icon">🏦</span>
+      <div class="topic-category">Finance · Loans</div>
+      <div class="topic-name">Loan Trap Architecture</div>
+      <p class="topic-desc">Compound interest was outlawed in many civilizations for good reason. Modern personal loan products are designed to ensure minimum repayment keeps maximum profit flowing indefinitely.</p>
+      <span class="topic-link">Open Dossier →</span>
+    </a>
+  </div>
+</section>
+
+<!-- FEATURED THEORY -->
+<section class="featured-section">
+  <div>
+    <div class="featured-label">FEATURED THEORY</div>
+    <h2 class="featured-headline">
+      THE GLOBAL <em>RESET</em><br>IS ALREADY<br>HAPPENING
+    </h2>
+    <p class="featured-body">
+      Since 2020, central banks have injected over $20 trillion into financial systems, 
+      AI companies have received unprecedented regulatory exemptions, sports leagues have 
+      signed billion-dollar media deals with state-controlled entities, and pharmaceutical 
+      companies have been granted blanket liability shields. These events are not unconnected. 
+      They represent a coordinated transfer of power from democratic institutions to 
+      techno-financial oligarchies operating in the open.
+    </p>
+    <a href="finance.html" class="btn btn-red"><span>Read Full Analysis →</span></a>
+  </div>
+
+  <div class="evidence-box">
+    <div class="evidence-title">// Evidence Chain</div>
+    <div class="evidence-point">WEF's "Great Reset" document published June 2020 — same week of unprecedented central bank action</div>
+    <div class="evidence-point">BlackRock advising both US Federal Reserve AND central banks of 3 other nations simultaneously</div>
+    <div class="evidence-point">AI regulation bills in 11 countries drafted using identical language — same consulting firm</div>
+    <div class="evidence-point">IPL, Premier League, Formula 1 all received sovereign wealth investment within 18 months of each other</div>
+    <div class="evidence-point">4 Big Pharma CEOs sold $500M+ in personal stock before Q1 2020</div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat-cell">
+    <span class="stat-num">1,247</span>
+    <div class="stat-label">Declassified Files</div>
+  </div>
+  <div class="stat-cell">
+    <span class="stat-num">6</span>
+    <div class="stat-label">Active Investigations</div>
+  </div>
+  <div class="stat-cell">
+    <span class="stat-num">$20T</span>
+    <div class="stat-label">Unexplained Capital Flows</div>
+  </div>
+  <div class="stat-cell">
+    <span class="stat-num">99%</span>
+    <div class="stat-label">Never Reported By Media</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">DEEP SIGNAL</div>
+  <div class="footer-text">SIGNAL ENCRYPTED · TOR-FRIENDLY · NO COOKIES · NO TRACKING · EST. UNKNOWN</div>
+  <div class="footer-signal">
+    <div class="signal-bar"></div>
+    <div class="signal-bar"></div>
+    <div class="signal-bar"></div>
+    <div class="signal-bar"></div>
+    <div class="signal-bar"></div>
+  </div>
+</footer>
+
+</body>
+</html>
