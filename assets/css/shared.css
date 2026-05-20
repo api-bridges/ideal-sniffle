@@ -702,6 +702,7 @@ footer {
   .content-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
+  nav { padding: 0 1.25rem; gap: 0.5rem; }
   .nav-actions .nav-btn-api { display: none; }
   .page-hero-inner { padding: 3rem 1.5rem 2.5rem; }
   .content-grid { padding: 2rem 1.5rem; }
@@ -712,6 +713,7 @@ footer {
   .pricing-badge .price-free { font-size: 1.6rem; }
 }
 @media (max-width: 480px) {
+  nav { padding: 0 1rem; gap: 0.35rem; }
   .nav-actions .nav-btn-start { font-size: 0.7rem; padding: 0.42rem 0.8rem; }
   .page-hero-inner { padding: 2rem 1rem 1.5rem; }
   .page-title { font-size: clamp(1.8rem, 9vw, 2.8rem); }
@@ -732,4 +734,9 @@ footer {
   .sidebar-widget { margin-bottom: 1rem; }
   .nav-mobile-actions { gap: 0.35rem; }
   .nav-mobile-actions .nav-btn { font-size: 0.74rem; padding: 0.4rem 0.75rem; }
+}
+@media (max-width: 360px) {
+  nav { padding: 0 0.75rem; gap: 0.2rem; }
+  .nav-logo { font-size: 1rem; }
+  .nav-actions .nav-btn-start { display: none; }
 }
