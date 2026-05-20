@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generate API Keys — Get Set Go Api</title>
+<meta name="description" content="Generate API keys for OpenAI, Anthropic Claude, Google Gemini, Stability AI, ElevenLabs, and 500+ more AI APIs. One unified key or per-provider keys — all free for your first month.">
+<link rel="canonical" href="https://getsetgoapi.com/api-keys.html">
+<link rel="stylesheet" href="assets/css/shared.css">
+<style>
+:root { --accent: #4f46e5; }
+
+/* ── UNIFIED KEY BANNER ── */
+.unified-banner {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  padding: 2.5rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+.unified-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+.unified-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 780px;
+}
+.unified-eyebrow {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 0.6rem;
+}
+.unified-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.015em;
+}
+.unified-sub {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 1.4rem;
+  line-height: 1.65;
+  max-width: 560px;
+}
+.unified-key-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.unified-key-field {
+  flex: 1;
+  min-width: 260px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 9px;
+  padding: 0.7rem 1rem;
+  color: #fff;
+  letter-spacing: 0.04em;
+  outline: none;
+  transition: background 0.18s;
+  cursor: text;
+}
+.unified-key-field::placeholder { color: rgba(255,255,255,0.45); }
+.unified-key-field:focus { background: rgba(255,255,255,0.18); }
+.unified-generate-btn {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  background: #fff;
+  color: var(--primary);
+  border: none;
+  border-radius: 9px;
+  padding: 0.7rem 1.4rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+.unified-generate-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+.unified-copy-btn {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 9px;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+.unified-copy-btn:hover { background: rgba(255,255,255,0.28); }
+.unified-note {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.6);
+  margin-top: 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.02em;
+}
+
+/* ── PROVIDER GRID LAYOUT ── */
+.keys-section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 3rem 3rem 4rem;
+}
+.keys-category {
+  margin-bottom: 3.5rem;
+}
+.keys-category-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--border);
+}
+.keys-cat-icon {
+  width: 42px; height: 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.keys-cat-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--heading);
+  letter-spacing: -0.01em;
+}
+.keys-cat-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.1rem;
+}
+
+/* ── PROVIDER CARDS GRID ── */
+.provider-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 1.1rem;
+}
+
+/* ── PROVIDER CARD ── */
+.provider-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.4rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.22s, border-color 0.22s;
+  position: relative;
+  overflow: hidden;
+}
+.provider-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--card-accent, var(--primary)), var(--card-accent2, var(--secondary)));
+  opacity: 0;
+  transition: opacity 0.22s;
+}
+.provider-card:hover { border-color: var(--card-accent, var(--primary)); box-shadow: var(--shadow); }
+.provider-card:hover::before { opacity: 1; }
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  margin-bottom: 1.1rem;
+}
+.card-logo {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.card-info { flex: 1; min-width: 0; }
+.card-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--heading);
+  margin-bottom: 0.15rem;
+}
+.card-provider {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: 0.45rem;
+}
+.card-tags {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+}
+.card-tag {
+  font-size: 0.62rem;
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: 0.04em;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  padding: 0.18rem 0.5rem;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+}
+
+.card-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 1.1rem;
+}
+
+/* ── GENERATED KEY AREA ── */
+.card-key-area {
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.9rem;
+  animation: fadeIn 0.25s ease;
+}
+.card-key-area.visible { display: flex; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.card-key-label {
+  font-size: 0.62rem;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+.card-key-row {
+  display: flex;
+  gap: 0.45rem;
+}
+.card-key-input {
+  flex: 1;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--heading);
+  outline: none;
+  letter-spacing: 0.03em;
+  min-width: 0;
+  transition: border-color 0.18s;
+}
+.card-key-input:focus { border-color: var(--accent); }
+.card-copy-btn {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: var(--primary-light);
+  color: var(--primary);
+  border: 1px solid rgba(79,70,229,0.25);
+  border-radius: 7px;
+  padding: 0.55rem 0.8rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.18s;
+  letter-spacing: 0.02em;
+}
+.card-copy-btn:hover {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+.card-copy-btn.copied {
+  background: #059669;
+  color: #fff;
+  border-color: #059669;
+}
+
+/* ── GENERATE BUTTON ── */
+.card-generate-btn {
+  width: 100%;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #fff;
+  background: linear-gradient(135deg, var(--card-accent, var(--primary)), var(--card-accent2, var(--secondary)));
+  border: none;
+  border-radius: 9px;
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+}
+.card-generate-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 18px rgba(0,0,0,0.18);
+}
+.card-generate-btn.regenerate {
+  background: none;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  box-shadow: none;
+  font-weight: 600;
+  font-size: 0.72rem;
+  padding: 0.45rem 0.8rem;
+  width: auto;
+}
+.card-generate-btn.regenerate:hover {
+  color: var(--heading);
+  border-color: var(--border-2);
+  transform: none;
+  box-shadow: none;
+}
+
+/* ── INFO NOTE ── */
+.keys-info-note {
+  background: var(--primary-light);
+  border: 1px solid rgba(79,70,229,0.18);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  font-size: 0.8rem;
+  color: var(--primary);
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+}
+.keys-info-note strong { font-weight: 600; color: var(--primary); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .unified-banner { padding: 2rem 1.5rem; }
+  .keys-section { padding: 2rem 1.25rem 3rem; }
+  .provider-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .unified-key-row { flex-direction: column; align-items: stretch; }
+  .unified-key-field { min-width: 0; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="logo-dot"></span>GET SET GO API
+  </a>
+  <div class="nav-center">
+    <ul class="nav-links">
+      <li class="nav-dropdown">
+        <a href="#" class="nav-dropdown-toggle">Explore <span class="dropdown-arrow">▾</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="ai-human.html">🧠 AI &amp; Language</a>
+          <a href="ipl.html">🖼️ Image &amp; Vision</a>
+          <a href="chemtrails.html">🎵 Audio &amp; Video</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="football.html">💻 Code &amp; Dev</a>
+          <a href="medicine.html">🏥 Health &amp; Medical</a>
+          <a href="finance.html">📊 Data &amp; Analytics</a>
+          <a href="surveillance.html">🔐 Security &amp; Auth</a>
+          <a href="shadow-gov.html">⚙️ Automation</a>
+          <a href="space.html">🔍 Search &amp; Semantic</a>
+        </div>
+      </li>
+      <li><a href="#">Docs</a></li>
+      <li><a href="#">Pricing</a></li>
+    </ul>
+  </div>
+  <div class="nav-actions">
+    <a href="index.html#api-browser" class="nav-btn nav-btn-browse">Browse APIs</a>
+    <a href="api-keys.html" class="nav-btn nav-btn-api active">Get API Key</a>
+    <a href="#" class="nav-btn nav-btn-start">Start Free →</a>
+  </div>
+  <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu">☰</button>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="ai-human.html">🧠 AI &amp; Language</a>
+  <a href="ipl.html">🖼️ Image &amp; Vision</a>
+  <a href="chemtrails.html">🎵 Audio &amp; Video</a>
+  <a href="football.html">💻 Code &amp; Dev</a>
+  <a href="medicine.html">🏥 Health &amp; Medical</a>
+  <a href="finance.html">📊 Data &amp; Analytics</a>
+  <a href="surveillance.html">🔐 Security &amp; Auth</a>
+  <a href="shadow-gov.html">⚙️ Automation</a>
+  <a href="space.html">🔍 Search &amp; Semantic</a>
+  <div class="nav-mobile-divider"></div>
+  <div class="nav-mobile-actions">
+    <a href="index.html#api-browser" class="nav-btn nav-btn-browse">Browse APIs</a>
+    <a href="api-keys.html" class="nav-btn nav-btn-api">Get API Key</a>
+    <a href="#" class="nav-btn nav-btn-start">Start Free →</a>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE HERO ═══════════════ -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-tag">🔑 API KEYS · ALL PROVIDERS</div>
+    <h1 class="page-title">GENERATE API<br><span>KEYS</span></h1>
+    <p class="page-intro">Generate API keys for every AI provider on our platform — OpenAI, Anthropic, Google Gemini, Stability AI, ElevenLabs, and 30+ more. One unified key for everything, or individual keys per provider.</p>
+  </div>
+</section>
+
+<!-- ═══════════════ UNIFIED KEY BANNER ═══════════════ -->
+<div class="unified-banner">
+  <div class="unified-inner">
+    <div class="unified-eyebrow">⚡ Recommended — One Key for Everything</div>
+    <div class="unified-title">Your Unified API Key</div>
+    <div class="unified-sub">A single key that routes to all 500+ AI APIs on our platform. No provider-switching, no separate accounts. Just one endpoint, one key.</div>
+    <div class="unified-key-row">
+      <input type="text" class="unified-key-field" id="unifiedKeyField" placeholder="Click "Generate" to create your unified key…" readonly>
+      <button class="unified-generate-btn" id="unifiedGenerateBtn" onclick="generateUnifiedKey()">⚡ Generate Key</button>
+      <button class="unified-copy-btn" id="unifiedCopyBtn" onclick="copyUnifiedKey()" style="display:none">Copy</button>
+    </div>
+    <div class="unified-note" id="unifiedNote" style="display:none">✓ Key generated — valid for 30 days free trial. Rotate anytime from your dashboard.</div>
+  </div>
+</div>
+
+<!-- ═══════════════ PROVIDER KEYS SECTION ═══════════════ -->
+<section class="keys-section">
+
+  <div class="keys-info-note">
+    <span style="font-size:1.1rem;flex-shrink:0">ℹ️</span>
+    <span><strong>Need a provider-specific key?</strong> Generate individual keys below for each AI provider. Each key authenticates directly to that provider's API via our unified gateway — same endpoint, scoped access. All keys are included in your free first month.</span>
+  </div>
+
+  <!-- ── LANGUAGE MODELS ── -->
+  <div class="keys-category" id="language-models">
+    <div class="keys-category-header">
+      <div class="keys-cat-icon" style="background:#eef2ff;border-color:rgba(79,70,229,0.2)">🧠</div>
+      <div>
+        <div class="keys-cat-title">Language Models</div>
+        <div class="keys-cat-sub">Frontier LLMs — text generation, reasoning, multimodal</div>
+      </div>
+    </div>
+    <div class="provider-grid">
+
+      <!-- OpenAI -->
+      <div class="provider-card" style="--card-accent:#10a37f;--card-accent2:#0ea5e9">
+        <div class="card-top">
+          <div class="card-logo" style="background:#f0fdf4">🤖</div>
+          <div class="card-info">
+            <div class="card-name">OpenAI</div>
+            <div class="card-provider">openai.com</div>
+            <div class="card-tags">
+              <span class="card-tag">GPT-4o</span>
+              <span class="card-tag">o3</span>
+              <span class="card-tag">GPT-4 Turbo</span>
+              <span class="card-tag">o1</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">Access GPT-4o, GPT-4 Turbo, o3, o1, and every OpenAI language model via our unified gateway.</div>
+        <div class="card-key-area" id="key-area-openai-llm">
+          <div class="card-key-label">Your OpenAI API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-openai-llm" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-openai-llm', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-openai-llm" onclick="generateKey('openai-llm','openai','key-area-openai-llm','btn-openai-llm')">🔑 Generate OpenAI Key</button>
+        </div>
+      </div>
+
+      <!-- Anthropic -->
+      <div class="provider-card" style="--card-accent:#d97706;--card-accent2:#f59e0b">
+        <div class="card-top">
+          <div class="card-logo" style="background:#fffbeb">🔮</div>
+          <div class="card-info">
+            <div class="card-name">Anthropic</div>
+            <div class="card-provider">anthropic.com</div>
+            <div class="card-tags">
+              <span class="card-tag">Claude 4 Opus</span>
+              <span class="card-tag">Claude 4 Sonnet</span>
+              <span class="card-tag">Claude 3.5</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">Full Claude model family — Claude 4 Opus, Claude 3.7 Sonnet, Claude 3.5 Haiku, and every previous generation.</div>
+        <div class="card-key-area" id="key-area-anthropic">
+          <div class="card-key-label">Your Anthropic API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-anthropic" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-anthropic', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-anthropic" onclick="generateKey('anthropic','anthropic','key-area-anthropic','btn-anthropic')">🔑 Generate Anthropic Key</button>
+        </div>
+      </div>
+
+      <!-- Google Gemini -->
+      <div class="provider-card" style="--card-accent:#4285f4;--card-accent2:#0ea5e9">
+        <div class="card-top">
+          <div class="card-logo" style="background:#eff6ff">✨</div>
+          <div class="card-info">
+            <div class="card-name">Google Gemini</div>
+            <div class="card-provider">deepmind.google</div>
+            <div class="card-tags">
+              <span class="card-tag">Gemini 2.5 Pro</span>
+              <span class="card-tag">Gemini 2.5 Flash</span>
+              <span class="card-tag">Gemini 2.0</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">Gemini 2.5 Pro, Gemini 2.0 Flash, Gemini 1.5 Ultra, and the full Google DeepMind model lineup.</div>
+        <div class="card-key-area" id="key-area-gemini">
+          <div class="card-key-label">Your Google Gemini API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-gemini" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-gemini', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-gemini" onclick="generateKey('gemini','gemini','key-area-gemini','btn-gemini')">🔑 Generate Gemini Key</button>
+        </div>
+      </div>
+
+      <!-- Meta Llama -->
+      <div class="provider-card" style="--card-accent:#0866ff;--card-accent2:#1a91ff">
+        <div class="card-top">
+          <div class="card-logo" style="background:#eff6ff">🦙</div>
+          <div class="card-info">
+            <div class="card-name">Meta — Llama</div>
+            <div class="card-provider">ai.meta.com</div>
+            <div class="card-tags">
+              <span class="card-tag">Llama 3.3 70B</span>
+              <span class="card-tag">Llama 3.1 405B</span>
+              <span class="card-tag">Open-source</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">Llama 3.3 70B, Llama 3.1 405B, and all open-source Meta AI models served at full quality with no throttling.</div>
+        <div class="card-key-area" id="key-area-meta">
+          <div class="card-key-label">Your Meta Llama API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-meta" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-meta', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-meta" onclick="generateKey('meta','llama','key-area-meta','btn-meta')">🔑 Generate Llama Key</button>
+        </div>
+      </div>
+
+      <!-- Mistral -->
+      <div class="provider-card" style="--card-accent:#f97316;--card-accent2:#fb923c">
+        <div class="card-top">
+          <div class="card-logo" style="background:#fff7ed">🌪️</div>
+          <div class="card-info">
+            <div class="card-name">Mistral AI</div>
+            <div class="card-provider">mistral.ai</div>
+            <div class="card-tags">
+              <span class="card-tag">Mistral Large</span>
+              <span class="card-tag">Mixtral 8x22B</span>
+              <span class="card-tag">Codestral</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">Mistral Large 2, Mixtral 8×22B MoE, Mistral Small, and Codestral for specialised code generation tasks.</div>
+        <div class="card-key-area" id="key-area-mistral">
+          <div class="card-key-label">Your Mistral API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-mistral" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-mistral', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-mistral" onclick="generateKey('mistral','mistral','key-area-mistral','btn-mistral')">🔑 Generate Mistral Key</button>
+        </div>
+      </div>
+
+      <!-- xAI Grok -->
+      <div class="provider-card" style="--card-accent:#171717;--card-accent2:#404040">
+        <div class="card-top">
+          <div class="card-logo" style="background:#f8fafc">⚡</div>
+          <div class="card-info">
+            <div class="card-name">xAI — Grok</div>
+            <div class="card-provider">x.ai</div>
+            <div class="card-tags">
+              <span class="card-tag">Grok-2</span>
+              <span class="card-tag">Grok-1.5V</span>
+              <span class="card-tag">Real-time</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">Grok-2, Grok-1.5 Vision, and Grok-1 — Elon Musk's frontier models with real-time X/Twitter data access.</div>
+        <div class="card-key-area" id="key-area-grok">
+          <div class="card-key-label">Your xAI Grok API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-grok" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-grok', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-grok" onclick="generateKey('grok','xai','key-area-grok','btn-grok')">🔑 Generate Grok Key</button>
+        </div>
+      </div>
+
+      <!-- DeepSeek -->
+      <div class="provider-card" style="--card-accent:#6366f1;--card-accent2:#8b5cf6">
+        <div class="card-top">
+          <div class="card-logo" style="background:#f5f3ff">🔭</div>
+          <div class="card-info">
+            <div class="card-name">DeepSeek</div>
+            <div class="card-provider">deepseek.com</div>
+            <div class="card-tags">
+              <span class="card-tag">DeepSeek V3</span>
+              <span class="card-tag">DeepSeek R1</span>
+              <span class="card-tag">Coder</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">DeepSeek V3, DeepSeek R1 (reasoning), and DeepSeek Coder — high-performance open models at competitive pricing.</div>
+        <div class="card-key-area" id="key-area-deepseek">
+          <div class="card-key-label">Your DeepSeek API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-deepseek" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-deepseek', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-deepseek" onclick="generateKey('deepseek','deepseek','key-area-deepseek','btn-deepseek')">🔑 Generate DeepSeek Key</button>
+        </div>
+      </div>
+
+      <!-- Cohere -->
+      <div class="provider-card" style="--card-accent:#39d353;--card-accent2:#0ea5e9">
+        <div class="card-top">
+          <div class="card-logo" style="background:#f0fdf4">🌊</div>
+          <div class="card-info">
+            <div class="card-name">Cohere</div>
+            <div class="card-provider">cohere.com</div>
+            <div class="card-tags">
+              <span class="card-tag">Command R+</span>
+              <span class="card-tag">Command R</span>
+              <span class="card-tag">Embed v3</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">Command R+ and Command R for enterprise RAG, plus Embed v3 for multilingual semantic search and embeddings.</div>
+        <div class="card-key-area" id="key-area-cohere">
+          <div class="card-key-label">Your Cohere API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-cohere" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-cohere', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-cohere" onclick="generateKey('cohere','cohere','key-area-cohere','btn-cohere')">🔑 Generate Cohere Key</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── IMAGE & VISION ── -->
+  <div class="keys-category" id="image-vision">
+    <div class="keys-category-header">
+      <div class="keys-cat-icon" style="background:#fff7ed;border-color:rgba(249,115,22,0.2)">🖼️</div>
+      <div>
+        <div class="keys-cat-title">Image &amp; Vision</div>
+        <div class="keys-cat-sub">Image generation, editing, upscaling, and visual understanding</div>
+      </div>
+    </div>
+    <div class="provider-grid">
+
+      <!-- DALL-E / OpenAI Images -->
+      <div class="provider-card" style="--card-accent:#10a37f;--card-accent2:#0ea5e9">
+        <div class="card-top">
+          <div class="card-logo" style="background:#f0fdf4">🎨</div>
+          <div class="card-info">
+            <div class="card-name">OpenAI — DALL-E</div>
+            <div class="card-provider">openai.com</div>
+            <div class="card-tags">
+              <span class="card-tag">DALL-E 3</span>
+              <span class="card-tag">DALL-E 2</span>
+              <span class="card-tag">GPT-4o Vision</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">DALL-E 3 for text-to-image generation, DALL-E 2 for inpainting, and GPT-4o Vision for visual understanding.</div>
+        <div class="card-key-area" id="key-area-dalle">
+          <div class="card-key-label">Your DALL-E API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-dalle" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-dalle', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-dalle" onclick="generateKey('dalle','openai','key-area-dalle','btn-dalle')">🔑 Generate DALL-E Key</button>
+        </div>
+      </div>
+
+      <!-- Stability AI -->
+      <div class="provider-card" style="--card-accent:#7c3aed;--card-accent2:#a855f7">
+        <div class="card-top">
+          <div class="card-logo" style="background:#faf5ff">🌀</div>
+          <div class="card-info">
+            <div class="card-name">Stability AI</div>
+            <div class="card-provider">stability.ai</div>
+            <div class="card-tags">
+              <span class="card-tag">SD3 Ultra</span>
+              <span class="card-tag">SDXL</span>
+              <span class="card-tag">Stable Video</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">Stable Diffusion 3 Ultra, SDXL, Stable Video Diffusion, and Stable Zero123 for 3D image generation.</div>
+        <div class="card-key-area" id="key-area-stability">
+          <div class="card-key-label">Your Stability AI API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-stability" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-stability', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-stability" onclick="generateKey('stability','stability','key-area-stability','btn-stability')">🔑 Generate Stability Key</button>
+        </div>
+      </div>
+
+      <!-- Adobe Firefly -->
+      <div class="provider-card" style="--card-accent:#ff0000;--card-accent2:#ff6b6b">
+        <div class="card-top">
+          <div class="card-logo" style="background:#fff1f2">🔥</div>
+          <div class="card-info">
+            <div class="card-name">Adobe Firefly</div>
+            <div class="card-provider">adobe.com</div>
+            <div class="card-tags">
+              <span class="card-tag">Firefly 3</span>
+              <span class="card-tag">Commercial-safe</span>
+              <span class="card-tag">Generative Fill</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">Adobe Firefly 3 for commercially safe image generation, generative fill, text effects, and vector graphic creation.</div>
+        <div class="card-key-area" id="key-area-firefly">
+          <div class="card-key-label">Your Adobe Firefly API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-firefly" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-firefly', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-firefly" onclick="generateKey('firefly','adobe','key-area-firefly','btn-firefly')">🔑 Generate Firefly Key</button>
+        </div>
+      </div>
+
+      <!-- Runway -->
+      <div class="provider-card" style="--card-accent:#14b8a6;--card-accent2:#0891b2">
+        <div class="card-top">
+          <div class="card-logo" style="background:#f0fdfa">🎬</div>
+          <div class="card-info">
+            <div class="card-name">Runway</div>
+            <div class="card-provider">runwayml.com</div>
+            <div class="card-tags">
+              <span class="card-tag">Gen-2</span>
+              <span class="card-tag">Gen-1</span>
+              <span class="card-tag">Image-to-Video</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">Runway Gen-2 for text-to-video and image-to-video generation, plus Gen-1 for video style transfer.</div>
+        <div class="card-key-area" id="key-area-runway-img">
+          <div class="card-key-label">Your Runway API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-runway-img" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-runway-img', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-runway-img" onclick="generateKey('runway-img','runway','key-area-runway-img','btn-runway-img')">🔑 Generate Runway Key</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── AUDIO & VIDEO ── -->
+  <div class="keys-category" id="audio-video">
+    <div class="keys-category-header">
+      <div class="keys-cat-icon" style="background:#fdf4ff;border-color:rgba(168,85,247,0.2)">🎵</div>
+      <div>
+        <div class="keys-cat-title">Audio &amp; Video</div>
+        <div class="keys-cat-sub">Speech-to-text, TTS, voice cloning, music, and video generation</div>
+      </div>
+    </div>
+    <div class="provider-grid">
+
+      <!-- OpenAI Audio -->
+      <div class="provider-card" style="--card-accent:#10a37f;--card-accent2:#0ea5e9">
+        <div class="card-top">
+          <div class="card-logo" style="background:#f0fdf4">🎤</div>
+          <div class="card-info">
+            <div class="card-name">OpenAI — Audio</div>
+            <div class="card-provider">openai.com</div>
+            <div class="card-tags">
+              <span class="card-tag">Whisper v3</span>
+              <span class="card-tag">TTS HD</span>
+              <span class="card-tag">100+ langs</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">Whisper v3 large for transcription in 100+ languages, plus OpenAI TTS HD with six natural-sounding voices.</div>
+        <div class="card-key-area" id="key-area-openai-audio">
+          <div class="card-key-label">Your OpenAI Audio API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-openai-audio" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-openai-audio', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-openai-audio" onclick="generateKey('openai-audio','openai','key-area-openai-audio','btn-openai-audio')">🔑 Generate Whisper Key</button>
+        </div>
+      </div>
+
+      <!-- ElevenLabs -->
+      <div class="provider-card" style="--card-accent:#f59e0b;--card-accent2:#fbbf24">
+        <div class="card-top">
+          <div class="card-logo" style="background:#fffbeb">🔊</div>
+          <div class="card-info">
+            <div class="card-name">ElevenLabs</div>
+            <div class="card-provider">elevenlabs.io</div>
+            <div class="card-tags">
+              <span class="card-tag">Voice Clone</span>
+              <span class="card-tag">TTS v2</span>
+              <span class="card-tag">Multilingual</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">ElevenLabs TTS v2 with instant voice cloning, 30+ languages, and ultra-realistic speech synthesis for any use case.</div>
+        <div class="card-key-area" id="key-area-elevenlabs">
+          <div class="card-key-label">Your ElevenLabs API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-elevenlabs" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-elevenlabs', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-elevenlabs" onclick="generateKey('elevenlabs','elevenlabs','key-area-elevenlabs','btn-elevenlabs')">🔑 Generate ElevenLabs Key</button>
+        </div>
+      </div>
+
+      <!-- Deepgram -->
+      <div class="provider-card" style="--card-accent:#06b6d4;--card-accent2:#0891b2">
+        <div class="card-top">
+          <div class="card-logo" style="background:#ecfeff">🌊</div>
+          <div class="card-info">
+            <div class="card-name">Deepgram</div>
+            <div class="card-provider">deepgram.com</div>
+            <div class="card-tags">
+              <span class="card-tag">Nova-2</span>
+              <span class="card-tag">Streaming STT</span>
+              <span class="card-tag">Speaker ID</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">Deepgram Nova-2 for real-time streaming speech-to-text, speaker diarisation, and sentiment analysis at scale.</div>
+        <div class="card-key-area" id="key-area-deepgram">
+          <div class="card-key-label">Your Deepgram API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-deepgram" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-deepgram', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-deepgram" onclick="generateKey('deepgram','deepgram','key-area-deepgram','btn-deepgram')">🔑 Generate Deepgram Key</button>
+        </div>
+      </div>
+
+      <!-- Suno -->
+      <div class="provider-card" style="--card-accent:#a855f7;--card-accent2:#c084fc">
+        <div class="card-top">
+          <div class="card-logo" style="background:#faf5ff">🎵</div>
+          <div class="card-info">
+            <div class="card-name">Suno</div>
+            <div class="card-provider">suno.ai</div>
+            <div class="card-tags">
+              <span class="card-tag">Music Gen</span>
+              <span class="card-tag">Lyrics AI</span>
+              <span class="card-tag">Vocals</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">Suno AI for full song generation from text prompts — complete with instrumentation, vocals, and lyrics in any genre.</div>
+        <div class="card-key-area" id="key-area-suno">
+          <div class="card-key-label">Your Suno API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-suno" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-suno', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-suno" onclick="generateKey('suno','suno','key-area-suno','btn-suno')">🔑 Generate Suno Key</button>
+        </div>
+      </div>
+
+      <!-- AssemblyAI -->
+      <div class="provider-card" style="--card-accent:#6366f1;--card-accent2:#818cf8">
+        <div class="card-top">
+          <div class="card-logo" style="background:#eef2ff">📝</div>
+          <div class="card-info">
+            <div class="card-name">AssemblyAI</div>
+            <div class="card-provider">assemblyai.com</div>
+            <div class="card-tags">
+              <span class="card-tag">Universal-2</span>
+              <span class="card-tag">Summarisation</span>
+              <span class="card-tag">PII Redaction</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">AssemblyAI Universal-2 for transcription with automatic summarisation, chapter detection, and PII redaction.</div>
+        <div class="card-key-area" id="key-area-assemblyai">
+          <div class="card-key-label">Your AssemblyAI API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-assemblyai" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-assemblyai', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-assemblyai" onclick="generateKey('assemblyai','assemblyai','key-area-assemblyai','btn-assemblyai')">🔑 Generate AssemblyAI Key</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── CODE & DEV ── -->
+  <div class="keys-category" id="code-dev">
+    <div class="keys-category-header">
+      <div class="keys-cat-icon" style="background:#f0fdf4;border-color:rgba(22,163,74,0.2)">💻</div>
+      <div>
+        <div class="keys-cat-title">Code &amp; Dev</div>
+        <div class="keys-cat-sub">AI code generation, completion, and review APIs</div>
+      </div>
+    </div>
+    <div class="provider-grid">
+
+      <!-- GitHub Copilot -->
+      <div class="provider-card" style="--card-accent:#171717;--card-accent2:#404040">
+        <div class="card-top">
+          <div class="card-logo" style="background:#f8fafc">🐙</div>
+          <div class="card-info">
+            <div class="card-name">GitHub Copilot</div>
+            <div class="card-provider">github.com</div>
+            <div class="card-tags">
+              <span class="card-tag">Copilot API</span>
+              <span class="card-tag">Inline Completion</span>
+              <span class="card-tag">Chat</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">GitHub Copilot API for inline code completion, chat assistance, and code explanation powered by OpenAI Codex.</div>
+        <div class="card-key-area" id="key-area-copilot">
+          <div class="card-key-label">Your GitHub Copilot API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-copilot" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-copilot', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-copilot" onclick="generateKey('copilot','github','key-area-copilot','btn-copilot')">🔑 Generate Copilot Key</button>
+        </div>
+      </div>
+
+      <!-- DeepSeek Coder -->
+      <div class="provider-card" style="--card-accent:#6366f1;--card-accent2:#8b5cf6">
+        <div class="card-top">
+          <div class="card-logo" style="background:#f5f3ff">⌨️</div>
+          <div class="card-info">
+            <div class="card-name">DeepSeek Coder</div>
+            <div class="card-provider">deepseek.com</div>
+            <div class="card-tags">
+              <span class="card-tag">Coder V2</span>
+              <span class="card-tag">33B / 7B</span>
+              <span class="card-tag">FIM</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">DeepSeek Coder V2 for advanced code generation, fill-in-the-middle completion, and multi-language support.</div>
+        <div class="card-key-area" id="key-area-deepseek-coder">
+          <div class="card-key-label">Your DeepSeek Coder API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-deepseek-coder" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-deepseek-coder', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-deepseek-coder" onclick="generateKey('deepseek-coder','deepseek','key-area-deepseek-coder','btn-deepseek-coder')">🔑 Generate Coder Key</button>
+        </div>
+      </div>
+
+      <!-- Tabnine -->
+      <div class="provider-card" style="--card-accent:#1d4ed8;--card-accent2:#3b82f6">
+        <div class="card-top">
+          <div class="card-logo" style="background:#eff6ff">🤖</div>
+          <div class="card-info">
+            <div class="card-name">Tabnine</div>
+            <div class="card-provider">tabnine.com</div>
+            <div class="card-tags">
+              <span class="card-tag">Local AI</span>
+              <span class="card-tag">Privacy-first</span>
+              <span class="card-tag">IDE plugin</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">Tabnine AI for privacy-first code completion — runs locally or in the cloud with full-line and full-function suggestions.</div>
+        <div class="card-key-area" id="key-area-tabnine">
+          <div class="card-key-label">Your Tabnine API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-tabnine" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-tabnine', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-tabnine" onclick="generateKey('tabnine','tabnine','key-area-tabnine','btn-tabnine')">🔑 Generate Tabnine Key</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── SEARCH & SEMANTIC ── -->
+  <div class="keys-category" id="search-semantic">
+    <div class="keys-category-header">
+      <div class="keys-cat-icon" style="background:#eff6ff;border-color:rgba(59,130,246,0.2)">🔍</div>
+      <div>
+        <div class="keys-cat-title">Search &amp; Semantic</div>
+        <div class="keys-cat-sub">Embeddings, vector databases, and semantic search APIs</div>
+      </div>
+    </div>
+    <div class="provider-grid">
+
+      <!-- OpenAI Embeddings -->
+      <div class="provider-card" style="--card-accent:#10a37f;--card-accent2:#0ea5e9">
+        <div class="card-top">
+          <div class="card-logo" style="background:#f0fdf4">📐</div>
+          <div class="card-info">
+            <div class="card-name">OpenAI Embeddings</div>
+            <div class="card-provider">openai.com</div>
+            <div class="card-tags">
+              <span class="card-tag">text-3-large</span>
+              <span class="card-tag">3072-dim</span>
+              <span class="card-tag">RAG</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">text-embedding-3-large and text-embedding-3-small for semantic search, RAG pipelines, and classification.</div>
+        <div class="card-key-area" id="key-area-openai-embed">
+          <div class="card-key-label">Your OpenAI Embeddings API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-openai-embed" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-openai-embed', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-openai-embed" onclick="generateKey('openai-embed','openai','key-area-openai-embed','btn-openai-embed')">🔑 Generate Embeddings Key</button>
+        </div>
+      </div>
+
+      <!-- Pinecone -->
+      <div class="provider-card" style="--card-accent:#1d4ed8;--card-accent2:#3b82f6">
+        <div class="card-top">
+          <div class="card-logo" style="background:#eff6ff">🌲</div>
+          <div class="card-info">
+            <div class="card-name">Pinecone</div>
+            <div class="card-provider">pinecone.io</div>
+            <div class="card-tags">
+              <span class="card-tag">Vector DB</span>
+              <span class="card-tag">Serverless</span>
+              <span class="card-tag">ANN Search</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">Pinecone managed vector database for approximate nearest-neighbour search — serverless, scalable, and production-ready.</div>
+        <div class="card-key-area" id="key-area-pinecone">
+          <div class="card-key-label">Your Pinecone API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-pinecone" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-pinecone', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-pinecone" onclick="generateKey('pinecone','pinecone','key-area-pinecone','btn-pinecone')">🔑 Generate Pinecone Key</button>
+        </div>
+      </div>
+
+      <!-- Voyage AI -->
+      <div class="provider-card" style="--card-accent:#9333ea;--card-accent2:#a855f7">
+        <div class="card-top">
+          <div class="card-logo" style="background:#faf5ff">🚀</div>
+          <div class="card-info">
+            <div class="card-name">Voyage AI</div>
+            <div class="card-provider">voyageai.com</div>
+            <div class="card-tags">
+              <span class="card-tag">Voyage 3</span>
+              <span class="card-tag">Best retrieval</span>
+              <span class="card-tag">1024-dim</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">Voyage 3 embeddings — state-of-the-art retrieval accuracy for RAG, code search, and domain-specific tasks.</div>
+        <div class="card-key-area" id="key-area-voyage">
+          <div class="card-key-label">Your Voyage AI API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-voyage" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-voyage', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-voyage" onclick="generateKey('voyage','voyage','key-area-voyage','btn-voyage')">🔑 Generate Voyage Key</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── SECURITY & AUTH ── -->
+  <div class="keys-category" id="security-auth">
+    <div class="keys-category-header">
+      <div class="keys-cat-icon" style="background:#fff1f2;border-color:rgba(220,38,38,0.2)">🔐</div>
+      <div>
+        <div class="keys-cat-title">Security &amp; Auth</div>
+        <div class="keys-cat-sub">Fraud detection, content moderation, and anomaly detection APIs</div>
+      </div>
+    </div>
+    <div class="provider-grid">
+
+      <!-- OpenAI Moderation -->
+      <div class="provider-card" style="--card-accent:#dc2626;--card-accent2:#ef4444">
+        <div class="card-top">
+          <div class="card-logo" style="background:#fff1f2">🛡️</div>
+          <div class="card-info">
+            <div class="card-name">OpenAI Moderation</div>
+            <div class="card-provider">openai.com</div>
+            <div class="card-tags">
+              <span class="card-tag">Content Safety</span>
+              <span class="card-tag">Hate Detection</span>
+              <span class="card-tag">Free tier</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">OpenAI Moderation API for real-time content safety checks — hate speech, violence, self-harm, and adult content detection.</div>
+        <div class="card-key-area" id="key-area-openai-mod">
+          <div class="card-key-label">Your OpenAI Moderation API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-openai-mod" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-openai-mod', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-openai-mod" onclick="generateKey('openai-mod','openai','key-area-openai-mod','btn-openai-mod')">🔑 Generate Moderation Key</button>
+        </div>
+      </div>
+
+      <!-- AWS Fraud Detector -->
+      <div class="provider-card" style="--card-accent:#ff9900;--card-accent2:#fbbf24">
+        <div class="card-top">
+          <div class="card-logo" style="background:#fffbeb">🔒</div>
+          <div class="card-info">
+            <div class="card-name">AWS Fraud Detector</div>
+            <div class="card-provider">aws.amazon.com</div>
+            <div class="card-tags">
+              <span class="card-tag">Real-time</span>
+              <span class="card-tag">ML-powered</span>
+              <span class="card-tag">Custom models</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-desc">Amazon Fraud Detector for real-time online fraud detection using machine learning models tuned to your own data.</div>
+        <div class="card-key-area" id="key-area-aws-fraud">
+          <div class="card-key-label">Your AWS Fraud Detector API Key</div>
+          <div class="card-key-row">
+            <input type="text" class="card-key-input" id="key-aws-fraud" readonly>
+            <button class="card-copy-btn" onclick="copyKey('key-aws-fraud', this)">Copy</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <button class="card-generate-btn" id="btn-aws-fraud" onclick="generateKey('aws-fraud','aws','key-area-aws-fraud','btn-aws-fraud')">🔑 Generate AWS Key</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<footer>
+  <a href="index.html" class="footer-logo">
+    <span class="logo-dot"></span>GET SET GO API
+  </a>
+  <nav class="footer-nav">
+    <a href="ai-human.html">AI &amp; Language</a>
+    <a href="ipl.html">Image &amp; Vision</a>
+    <a href="finance.html">Data &amp; Analytics</a>
+    <a href="football.html">Code &amp; Dev</a>
+    <a href="medicine.html">Health &amp; Medical</a>
+    <a href="surveillance.html">Security &amp; Auth</a>
+    <a href="shadow-gov.html">Automation</a>
+    <a href="space.html">Search &amp; Semantic</a>
+    <a href="chemtrails.html">Audio &amp; Video</a>
+    <a href="api-keys.html" class="active">API Keys</a>
+  </nav>
+  <span class="footer-text">All Premium AI APIs · Free First Month · No Rate Limits · Unified Access</span>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script>
+// ── KEY GENERATION HELPERS ──
+
+const CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+
+function randStr(len) {
+  let s = '';
+  for (let i = 0; i < len; i++) {
+    s += CHARS[Math.floor(Math.random() * CHARS.length)];
+  }
+  return s;
+}
+
+function makeKey(prefix) {
+  // Format: gsg-{prefix}-{segment1}-{segment2}-{segment3}
+  return 'gsg-' + prefix + '-' + randStr(8) + '-' + randStr(8) + '-' + randStr(12);
+}
+
+// Generate a per-provider key
+function generateKey(cardId, prefix, areaId, btnId) {
+  const key = makeKey(prefix);
+  const input = document.getElementById('key-' + cardId);
+  const area = document.getElementById(areaId);
+  const btn = document.getElementById(btnId);
+
+  if (!input || !area || !btn) return;
+
+  input.value = key;
+  area.classList.add('visible');
+
+  // Switch button to "Regenerate" style
+  btn.textContent = '↻ Regenerate';
+  btn.classList.add('regenerate');
+  btn.onclick = function () { generateKey(cardId, prefix, areaId, btnId); };
+}
+
+// Copy a per-card key
+function copyKey(inputId, btn) {
+  const input = document.getElementById(inputId);
+  if (!input || !input.value) return;
+  navigator.clipboard.writeText(input.value).then(function () {
+    const orig = btn.textContent;
+    btn.textContent = 'Copied ✓';
+    btn.classList.add('copied');
+    setTimeout(function () {
+      btn.textContent = orig;
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+// Generate the unified key
+function generateUnifiedKey() {
+  const key = 'gsg-unified-' + randStr(8) + '-' + randStr(8) + '-' + randStr(16);
+  const field = document.getElementById('unifiedKeyField');
+  const copyBtn = document.getElementById('unifiedCopyBtn');
+  const note = document.getElementById('unifiedNote');
+  const genBtn = document.getElementById('unifiedGenerateBtn');
+
+  field.value = key;
+  copyBtn.style.display = '';
+  note.style.display = '';
+  genBtn.textContent = '↻ Regenerate';
+}
+
+// Copy the unified key
+function copyUnifiedKey() {
+  const field = document.getElementById('unifiedKeyField');
+  const btn = document.getElementById('unifiedCopyBtn');
+  if (!field || !field.value) return;
+  navigator.clipboard.writeText(field.value).then(function () {
+    const orig = btn.textContent;
+    btn.textContent = 'Copied ✓';
+    setTimeout(function () { btn.textContent = orig; }, 2000);
+  });
+}
+</script>
+</body>
+</html>
