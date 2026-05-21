@@ -110,7 +110,7 @@ function initModelCards() {
     actions.className = 'api-model-actions';
     actions.innerHTML =
       '<a href="' + href + '" class="api-model-view-btn">View API</a>' +
-      '<a href="playground.html?model=' + encodeURIComponent(modelName) + '&type=' + type + '" class="api-model-use-btn">Use \u2192</a>';
+      '<a href="/playground/?model=' + encodeURIComponent(modelName) + '&type=' + type + '" class="api-model-use-btn">Use \u2192</a>';
     wrapper.appendChild(actions);
 
     card.parentNode.replaceChild(wrapper, card);
@@ -125,7 +125,7 @@ function initTheoryUseButtons() {
     if (!nameEl) return;
     const modelName = nameEl.textContent.trim();
     const btn = document.createElement('a');
-    btn.href = 'playground.html?model=' + encodeURIComponent(modelName) + '&type=' + type;
+    btn.href = '/playground/?model=' + encodeURIComponent(modelName) + '&type=' + type;
     btn.className = 'theory-use-btn';
     btn.textContent = 'Use →';
     item.appendChild(btn);
