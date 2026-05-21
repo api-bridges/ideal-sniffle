@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Documentation — Get Set Go API</title>
+<meta name="description" content="Get Set Go API documentation — quickstart guides, API reference, authentication, endpoints, and code examples for 500+ AI APIs.">
+<meta property="og:title" content="Documentation — Get Set Go API">
+<meta property="og:url" content="https://getsetgoapi.com/docs.html">
+<link rel="canonical" href="https://getsetgoapi.com/docs.html">
+<link rel="stylesheet" href="assets/css/shared.css">
+<style>
+  :root { --accent: #4f46e5; }
+
+  /* ── CODE BLOCK ── */
+  .code-block {
+    background: #0f172a;
+    color: #e2e8f0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 10px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    line-height: 1.7;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .code-block .code-label {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.9rem;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #475569;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .code-block .c-keyword { color: #7dd3fc; }
+  .code-block .c-string  { color: #86efac; }
+  .code-block .c-comment { color: #475569; font-style: italic; }
+  .code-block .c-key     { color: #c4b5fd; }
+  .code-block .c-url     { color: #fbbf24; }
+  .code-block .c-method  { color: #f472b6; }
+
+  /* ── ENDPOINTS TABLE ── */
+  .endpoint-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    margin: 1.5rem 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .endpoint-table thead tr {
+    background: var(--surface);
+    border-bottom: 2px solid var(--border);
+  }
+  .endpoint-table thead th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .endpoint-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .endpoint-table tbody tr:last-child { border-bottom: none; }
+  .endpoint-table tbody tr:hover { background: var(--primary-light); }
+  .endpoint-table td {
+    padding: 0.8rem 1rem;
+    color: var(--text);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .endpoint-method {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(79,70,229,0.1);
+    color: var(--primary);
+    letter-spacing: 0.05em;
+  }
+  .endpoint-path {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--heading);
+    font-weight: 500;
+  }
+
+  /* ── STEP LIST ── */
+  .step-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin: 1.5rem 0 2rem;
+  }
+  .step-item {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .step-num {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(79,70,229,0.3);
+  }
+  .step-content .step-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--heading);
+    margin-bottom: 0.35rem;
+  }
+  .step-content .step-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .step-content .step-desc a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .step-content .step-desc a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="logo-dot"></span>GET SET GO API
+  </a>
+  <div class="nav-center">
+    <ul class="nav-links">
+      <li class="nav-dropdown">
+        <a href="#" class="nav-dropdown-toggle">Explore <span class="dropdown-arrow">▾</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="ai-human.html">🧠 AI &amp; Language</a>
+          <a href="ipl.html">🖼️ Image &amp; Vision</a>
+          <a href="chemtrails.html">🎵 Audio &amp; Video</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="football.html">💻 Code &amp; Dev</a>
+          <a href="medicine.html">🏥 Health &amp; Medical</a>
+          <a href="finance.html">📊 Data &amp; Analytics</a>
+          <a href="surveillance.html">🔐 Security &amp; Auth</a>
+          <a href="shadow-gov.html">⚙️ Automation</a>
+          <a href="space.html">🔍 Search &amp; Semantic</a>
+        </div>
+      </li>
+      <li><a href="docs.html" class="active">Docs</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </div>
+  <div class="nav-actions">
+    <a href="index.html#api-browser" class="nav-btn nav-btn-browse">Browse APIs</a>
+    <a href="api-keys.html" class="nav-btn nav-btn-api">Get API Key</a>
+    <a href="pricing.html" class="nav-btn nav-btn-start">Start Free →</a>
+  </div>
+  <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu">☰</button>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="ai-human.html">🧠 AI &amp; Language</a>
+  <a href="ipl.html">🖼️ Image &amp; Vision</a>
+  <a href="chemtrails.html">🎵 Audio &amp; Video</a>
+  <a href="football.html">💻 Code &amp; Dev</a>
+  <a href="medicine.html">🏥 Health &amp; Medical</a>
+  <a href="finance.html">📊 Data &amp; Analytics</a>
+  <a href="surveillance.html">🔐 Security &amp; Auth</a>
+  <a href="shadow-gov.html">⚙️ Automation</a>
+  <a href="space.html">🔍 Search &amp; Semantic</a>
+  <div class="nav-mobile-divider"></div>
+  <a href="docs.html" class="active">📚 Docs</a>
+  <a href="pricing.html">💰 Pricing</a>
+  <a href="about.html">ℹ️ About</a>
+  <div class="nav-mobile-divider"></div>
+  <div class="nav-mobile-actions">
+    <a href="index.html#api-browser" class="nav-btn nav-btn-browse">Browse APIs</a>
+    <a href="api-keys.html" class="nav-btn nav-btn-api">Get API Key</a>
+    <a href="pricing.html" class="nav-btn nav-btn-start">Start Free →</a>
+  </div>
+</div>
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-tag">DOCS · QUICKSTART · REFERENCE</div>
+    <h1 class="page-title">DOCUMENTATION</h1>
+    <p class="page-intro">Everything you need to start building with 500+ AI APIs. OpenAI-compatible endpoints, single API key, zero configuration. Most integrations are live in under 5 minutes.</p>
+  </div>
+</section>
+
+<div class="content-grid">
+  <main>
+
+    <div class="section-label">Quick Start</div>
+    <h2 class="article-h2">Up and Running in 3 Steps</h2>
+
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Get your API key</div>
+          <div class="step-desc">
+            <a href="api-keys.html">Create a free account and generate your API key →</a> No credit card required. Your key is active immediately and grants access to all 500+ APIs for your first month at no cost.
+          </div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Make your first request</div>
+          <div class="step-desc">
+            Use the base URL <code style="font-family:'JetBrains Mono',monospace;background:var(--surface-2);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.8rem;">https://api.getsetgoapi.com/v1</code> with your Bearer token. The API is fully OpenAI-compatible — if you have existing code using the OpenAI SDK, change only the base URL and key.
+          </div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Explore models and categories</div>
+          <div class="step-desc">
+            Browse our 9 API categories — <a href="ai-human.html">AI &amp; Language</a>, <a href="ipl.html">Image &amp; Vision</a>, <a href="chemtrails.html">Audio &amp; Video</a>, <a href="football.html">Code &amp; Dev</a>, <a href="medicine.html">Health &amp; Medical</a>, and more. Switch models by changing the <code style="font-family:'JetBrains Mono',monospace;background:var(--surface-2);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.8rem;">model</code> parameter — no code changes required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">Example Request</div>
+    <h2 class="article-h2">Your First API Call</h2>
+    <p class="article-p">This example sends a chat completion request to GPT-4o. Swap the model value for any of our 500+ supported models — the request structure stays identical.</p>
+
+    <div class="code-block">
+      <span class="code-label">HTTP</span>
+<span class="c-method">POST</span> <span class="c-url">https://api.getsetgoapi.com/v1/chat/completions</span>
+<span class="c-key">Authorization:</span> <span class="c-string">Bearer YOUR_API_KEY</span>
+<span class="c-key">Content-Type:</span> <span class="c-string">application/json</span>
+
+{
+  <span class="c-key">"model"</span>: <span class="c-string">"gpt-4o"</span>,
+  <span class="c-key">"messages"</span>: [
+    {
+      <span class="c-key">"role"</span>: <span class="c-string">"user"</span>,
+      <span class="c-key">"content"</span>: <span class="c-string">"Hello! What can you help me with?"</span>
+    }
+  ]
+}</div>
+
+    <div class="code-block">
+      <span class="code-label">Python</span>
+<span class="c-comment"># Works with the official OpenAI SDK — just change base_url</span>
+<span class="c-keyword">from</span> openai <span class="c-keyword">import</span> OpenAI
+
+client = OpenAI(
+    api_key=<span class="c-string">"YOUR_API_KEY"</span>,
+    base_url=<span class="c-string">"https://api.getsetgoapi.com/v1"</span>
+)
+
+response = client.chat.completions.create(
+    model=<span class="c-string">"gpt-4o"</span>,
+    messages=[{<span class="c-string">"role"</span>: <span class="c-string">"user"</span>, <span class="c-string">"content"</span>: <span class="c-string">"Hello!"</span>}]
+)
+
+<span class="c-keyword">print</span>(response.choices[<span class="c-string">0</span>].message.content)</div>
+
+    <div class="section-label">Authentication</div>
+    <h2 class="article-h2">Bearer Token Authentication</h2>
+    <p class="article-p">All requests must include your API key in the <code style="font-family:'JetBrains Mono',monospace;background:var(--surface-2);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.8rem;">Authorization</code> header as a Bearer token. Your key is available from the <a href="api-keys.html" style="color:var(--primary);font-weight:500;">API Keys dashboard</a> after registration.</p>
+
+    <div class="code-block">
+      <span class="code-label">Header</span>
+<span class="c-key">Authorization:</span> <span class="c-string">Bearer gsga_xxxxxxxxxxxxxxxxxxxxxxxxxxxx</span></div>
+
+    <div class="highlight-box">
+      <p>Keep your API key secret. Never expose it in client-side JavaScript, commit it to a repository, or share it publicly. Use environment variables in all production deployments.</p>
+      <cite>Security Best Practice · API Key Management</cite>
+    </div>
+
+    <div class="section-label">Endpoints</div>
+    <h2 class="article-h2">API Endpoints Reference</h2>
+    <p class="article-p">All endpoints use the base URL <code style="font-family:'JetBrains Mono',monospace;background:var(--surface-2);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.8rem;">https://api.getsetgoapi.com/v1</code> and follow OpenAI's REST API conventions for maximum compatibility.</p>
+
+    <table class="endpoint-table">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Endpoint</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="endpoint-method">POST</span></td>
+          <td class="endpoint-path">/v1/chat/completions</td>
+          <td>Language model completions — GPT-4o, Claude, Gemini, Llama, Mistral, and 100+ more</td>
+        </tr>
+        <tr>
+          <td><span class="endpoint-method">POST</span></td>
+          <td class="endpoint-path">/v1/images/generate</td>
+          <td>Image generation — DALL·E 3, Stable Diffusion, Midjourney-compatible, Flux</td>
+        </tr>
+        <tr>
+          <td><span class="endpoint-method">POST</span></td>
+          <td class="endpoint-path">/v1/audio/speech</td>
+          <td>Text-to-speech synthesis — multiple voices, speeds, and output formats</td>
+        </tr>
+        <tr>
+          <td><span class="endpoint-method">POST</span></td>
+          <td class="endpoint-path">/v1/audio/transcriptions</td>
+          <td>Speech-to-text transcription — Whisper and compatible models, 50+ languages</td>
+        </tr>
+        <tr>
+          <td><span class="endpoint-method">POST</span></td>
+          <td class="endpoint-path">/v1/embeddings</td>
+          <td>Vector embeddings for semantic search, RAG, and similarity — text-embedding-3-large and more</td>
+        </tr>
+        <tr>
+          <td><span class="endpoint-method">POST</span></td>
+          <td class="endpoint-path">/v1/completions</td>
+          <td>Legacy text completions (non-chat format) for compatibility with older integrations</td>
+        </tr>
+        <tr>
+          <td><span class="endpoint-method">GET</span></td>
+          <td class="endpoint-path">/v1/models</td>
+          <td>List all available models with their IDs, capabilities, and context window sizes</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-label">Supported Models</div>
+    <h2 class="article-h2">500+ Models Across 9 Categories</h2>
+    <p class="article-p">We support every major AI model across all categories. Pass any model ID in the <code style="font-family:'JetBrains Mono',monospace;background:var(--surface-2);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.8rem;">model</code> field. Use <code style="font-family:'JetBrains Mono',monospace;background:var(--surface-2);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.8rem;">GET /v1/models</code> to retrieve the full list programmatically.</p>
+
+    <div class="theory-list">
+      <div class="theory-item">
+        <div class="theory-num">LLM</div>
+        <div>
+          <div class="theory-name">Language Models</div>
+          <div class="theory-desc">gpt-4o, gpt-4-turbo, claude-3-5-sonnet, claude-3-opus, gemini-ultra, gemini-1.5-pro, llama-3.1-405b, mistral-large-2, mixtral-8x22b, cohere-command-r-plus and 90+ more</div>
+        </div>
+      </div>
+      <div class="theory-item">
+        <div class="theory-num">IMG</div>
+        <div>
+          <div class="theory-name">Image Generation</div>
+          <div class="theory-desc">dall-e-3, dall-e-2, stable-diffusion-3, stable-diffusion-xl, flux-1-pro, flux-1-dev, playground-v2.5 and 40+ more</div>
+        </div>
+      </div>
+      <div class="theory-item">
+        <div class="theory-num">AUD</div>
+        <div>
+          <div class="theory-name">Audio Models</div>
+          <div class="theory-desc">whisper-1, whisper-large-v3, tts-1, tts-1-hd, eleven-multilingual-v2, bark and 20+ more TTS and STT models</div>
+        </div>
+      </div>
+      <div class="theory-item">
+        <div class="theory-num">EMB</div>
+        <div>
+          <div class="theory-name">Embedding Models</div>
+          <div class="theory-desc">text-embedding-3-large, text-embedding-3-small, text-embedding-ada-002, embed-english-v3, cohere-embed-multilingual-v3 and more</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">Rate Limits &amp; Quotas</div>
+    <h2 class="article-h2">No Rate Limits</h2>
+    <p class="article-p">Get Set Go API does not impose artificial rate limits on any plan. We route requests to the fastest available provider instance and scale capacity automatically. There are no RPM (requests per minute) caps, no TPM (tokens per minute) ceilings, and no daily quotas.</p>
+    <p class="article-p">Individual model providers may have their own capacity constraints during peak periods. In those cases, our router automatically falls back to equivalent model instances or queues requests with minimal latency. We surface provider-side throttling errors with a <code style="font-family:'JetBrains Mono',monospace;background:var(--surface-2);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.8rem;">503</code> status code and include a <code style="font-family:'JetBrains Mono',monospace;background:var(--surface-2);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.8rem;">Retry-After</code> header.</p>
+
+    <div class="section-label">Error Codes</div>
+    <h2 class="article-h2">HTTP Status Codes</h2>
+    <p class="article-p">The API uses standard HTTP status codes. Error responses include a JSON body with a <code style="font-family:'JetBrains Mono',monospace;background:var(--surface-2);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.8rem;">error.message</code> field describing the issue in plain language.</p>
+
+    <div class="theory-list">
+      <div class="theory-item">
+        <div class="theory-num">200</div>
+        <div>
+          <div class="theory-name">OK — Request Successful</div>
+          <div class="theory-desc">The request was processed successfully. The response body contains the model output in the standard format.</div>
+        </div>
+      </div>
+      <div class="theory-item">
+        <div class="theory-num">400</div>
+        <div>
+          <div class="theory-name">Bad Request — Invalid Parameters</div>
+          <div class="theory-desc">The request body is malformed or contains invalid parameters. Check the error message for details on which field caused the issue.</div>
+        </div>
+      </div>
+      <div class="theory-item">
+        <div class="theory-num">401</div>
+        <div>
+          <div class="theory-name">Unauthorised — Invalid API Key</div>
+          <div class="theory-desc">The API key is missing, expired, or invalid. Ensure you're passing the key as a Bearer token in the Authorization header.</div>
+        </div>
+      </div>
+      <div class="theory-item">
+        <div class="theory-num">404</div>
+        <div>
+          <div class="theory-name">Not Found — Unknown Model or Endpoint</div>
+          <div class="theory-desc">The requested model ID or endpoint path does not exist. Use GET /v1/models to see the full list of valid model identifiers.</div>
+        </div>
+      </div>
+      <div class="theory-item">
+        <div class="theory-num">429</div>
+        <div>
+          <div class="theory-name">Too Many Requests — Upstream Throttle</div>
+          <div class="theory-desc">An upstream provider is temporarily capacity-constrained. The response includes a Retry-After header. Implement exponential backoff in your client.</div>
+        </div>
+      </div>
+      <div class="theory-item">
+        <div class="theory-num">500</div>
+        <div>
+          <div class="theory-name">Internal Server Error</div>
+          <div class="theory-desc">An unexpected error occurred in our infrastructure. These are rare — check our status page and retry. If persistent, contact support@getsetgoapi.com.</div>
+        </div>
+      </div>
+      <div class="theory-item">
+        <div class="theory-num">503</div>
+        <div>
+          <div class="theory-name">Service Unavailable — Model Offline</div>
+          <div class="theory-desc">The requested model is temporarily unavailable from all provider sources. Try an equivalent model or wait for the Retry-After period to elapse.</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <aside>
+    <div class="sidebar-widget">
+      <div class="widget-header">Quick Links</div>
+      <div class="widget-body">
+        <div class="nav-pages">
+          <a href="api-keys.html" class="nav-page-link">Get API Key <span>→</span></a>
+          <a href="playground.html" class="nav-page-link">Try Playground <span>→</span></a>
+          <a href="ai-human.html" class="nav-page-link">AI &amp; Language <span>→</span></a>
+          <a href="ipl.html" class="nav-page-link">Image &amp; Vision <span>→</span></a>
+          <a href="chemtrails.html" class="nav-page-link">Audio &amp; Video <span>→</span></a>
+          <a href="pricing.html" class="nav-page-link">Pricing Plans <span>→</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-widget">
+      <div class="widget-header">Code Example</div>
+      <div class="widget-body">
+        <div style="background:#0f172a;color:#e2e8f0;font-family:'JetBrains Mono',monospace;font-size:0.72rem;padding:1rem;border-radius:8px;line-height:1.65;overflow-x:auto;">
+<span style="color:#7dd3fc;">import</span> openai<br><br>
+client = openai.OpenAI(<br>
+&nbsp;&nbsp;api_key=<span style="color:#86efac;">"YOUR_KEY"</span>,<br>
+&nbsp;&nbsp;base_url=<span style="color:#86efac;">"https://api.getsetgoapi.com/v1"</span><br>
+)<br><br>
+<span style="color:#c4b5fd;">r</span> = client.chat.completions.create(<br>
+&nbsp;&nbsp;model=<span style="color:#86efac;">"gpt-4o"</span>,<br>
+&nbsp;&nbsp;messages=[{<span style="color:#86efac;">"role"</span>: <span style="color:#86efac;">"user"</span>, <span style="color:#86efac;">"content"</span>: <span style="color:#86efac;">"Hi!"</span>}]<br>
+)<br>
+<span style="color:#7dd3fc;">print</span>(r.choices[0].message.content)
+        </div>
+        <div style="padding-top:0.75rem;">
+          <a href="api-keys.html" class="nav-btn nav-btn-start" style="display:block;text-align:center;width:100%;justify-content:center;">Get API Key →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-widget">
+      <div class="widget-header">Pricing</div>
+      <div class="widget-body">
+        <div class="pricing-badge">
+          <div class="price-free">FREE</div>
+          <div class="price-label">First Month — Unlimited</div>
+          <div class="price-after">Then from <strong>$49/mo</strong></div>
+        </div>
+        <div class="widget-item">All 500+ models included</div>
+        <div class="widget-item">No rate limits</div>
+        <div class="widget-item">OpenAI-compatible</div>
+      </div>
+    </div>
+
+    <div class="sidebar-widget">
+      <div class="widget-header">API Categories</div>
+      <div class="widget-body">
+        <div class="nav-pages">
+          <a href="ai-human.html" class="nav-page-link">🧠 Language <span>→</span></a>
+          <a href="ipl.html" class="nav-page-link">🖼️ Vision <span>→</span></a>
+          <a href="football.html" class="nav-page-link">💻 Code <span>→</span></a>
+          <a href="space.html" class="nav-page-link">🔍 Search <span>→</span></a>
+          <a href="medicine.html" class="nav-page-link">🏥 Health <span>→</span></a>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <a href="index.html" class="footer-logo">
+    <span class="logo-dot"></span>GET SET GO API
+  </a>
+  <nav class="footer-nav">
+    <a href="about.html">About</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="docs.html" class="active">Docs</a>
+    <a href="contact.html">Contact</a>
+    <a href="api-keys.html">API Keys</a>
+    <a href="ai-human.html">AI &amp; Language</a>
+    <a href="ipl.html">Image &amp; Vision</a>
+    <a href="finance.html">Data &amp; Analytics</a>
+    <a href="football.html">Code &amp; Dev</a>
+    <a href="medicine.html">Health &amp; Medical</a>
+    <a href="surveillance.html">Security &amp; Auth</a>
+    <a href="shadow-gov.html">Automation</a>
+    <a href="space.html">Search &amp; Semantic</a>
+    <a href="chemtrails.html">Audio &amp; Video</a>
+  </nav>
+  <span class="footer-text">© 2025 Get Set Go API · All Premium AI APIs · Free First Month · No Rate Limits</span>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
