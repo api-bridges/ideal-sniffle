@@ -617,6 +617,175 @@
 }
 .pg-gate-close:hover { color: var(--heading); border-color: var(--border-2); }
 
+/* ── LOADING / OVERLOAD STATES ── */
+
+/* Chat: typing bubble */
+.chat-typing {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+.chat-typing .chat-avatar { font-size: 1.25rem; line-height: 1; flex-shrink: 0; }
+.chat-typing-dots {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0.6rem 1rem;
+}
+.chat-typing-dots span {
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--primary);
+  opacity: 0.4;
+  animation: typing-bounce 1.2s ease-in-out infinite;
+}
+.chat-typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.chat-typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing-bounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+  40%           { transform: translateY(-5px); opacity: 1; }
+}
+
+/* Chat overload error bubble */
+.chat-error-bubble {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+.chat-error-bubble .chat-avatar { font-size: 1.25rem; line-height: 1; flex-shrink: 0; }
+.chat-error-msg {
+  background: #fff5f5;
+  border: 1px solid #fca5a5;
+  border-radius: 14px;
+  padding: 0.75rem 1rem;
+  color: #b91c1c;
+  font-size: 0.87rem;
+  line-height: 1.5;
+}
+.chat-error-msg strong { display: block; margin-bottom: 0.25rem; font-size: 0.9rem; }
+.chat-error-retry {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #b91c1c;
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+  border-radius: 6px;
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.chat-error-retry:hover { background: #fecaca; }
+
+/* Image gen loading shimmer */
+.imggen-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 3rem 1rem;
+}
+.imggen-loading-spinner {
+  width: 52px; height: 52px;
+  border: 4px solid rgba(79,70,229,0.15);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.85s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.imggen-loading-text {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-family: 'Space Grotesk', sans-serif;
+}
+.imggen-loading-bar {
+  width: 220px;
+  height: 6px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.imggen-loading-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--primary), #7c3aed);
+  border-radius: 99px;
+  transition: width 0.4s linear;
+}
+
+/* Overload error banner (shared for image + audio/video) */
+.pg-overload-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  background: #fff5f5;
+  border: 1px solid #fca5a5;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+}
+.pg-overload-banner-icon { font-size: 1.6rem; flex-shrink: 0; }
+.pg-overload-banner-body { flex: 1; }
+.pg-overload-banner-body strong {
+  display: block;
+  font-size: 0.95rem;
+  color: #b91c1c;
+  margin-bottom: 0.3rem;
+}
+.pg-overload-banner-body p {
+  font-size: 0.85rem;
+  color: #7f1d1d;
+  margin: 0 0 0.6rem;
+  line-height: 1.5;
+}
+.pg-overload-retry {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #b91c1c;
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+  border-radius: 6px;
+  padding: 0.3rem 0.75rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.pg-overload-retry:hover { background: #fecaca; }
+
+/* Audio/video card loading state */
+.audiovid-gen-btn:disabled, .imggen-gen-btn:disabled, .chat-send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.audiovid-loading {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0;
+  font-size: 0.83rem;
+  color: var(--text-muted);
+}
+.audiovid-loading-spinner {
+  width: 16px; height: 16px;
+  border: 2px solid rgba(79,70,229,0.2);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.85s linear infinite;
+  flex-shrink: 0;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .pg-panels { grid-template-columns: 1fr; }
@@ -1237,8 +1406,17 @@
     if (e.target === this) hideGate();
   });
 
+  // ── HELPERS ──
+  function randDelay() { return Math.floor(Math.random() * 11 + 10) * 1000; } // 10–20 s
+
+  var OVERLOAD_MSG = {
+    title: '⚠️ System Overload',
+    body:  'Due to heavy traffic your request has been cancelled. Our servers are currently overwhelmed. Please retry after some time.'
+  };
+
   // ── CHAT LOGIC ──
   var messages = [];
+  var chatBusy = false;
   window.chatKeyDown = function (e) {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); }
   };
@@ -1247,13 +1425,43 @@
     sendChat();
   };
   window.sendChat = function () {
-    var input = document.getElementById('chatInput');
-    var text  = input.value.trim();
+    if (chatBusy) return;
+    var input   = document.getElementById('chatInput');
+    var sendBtn = document.getElementById('chatSendBtn');
+    var text    = input.value.trim();
     if (!text) return;
     input.value = '';
+    chatBusy = true;
+    sendBtn.disabled = true;
     appendMsg('user', text);
-    // Demo: simulate assistant response after delay
-    setTimeout(function () { showGate(); }, 400);
+
+    // Show typing indicator
+    var area    = document.getElementById('chatArea');
+    var typing  = document.createElement('div');
+    typing.className = 'chat-typing';
+    typing.innerHTML =
+      '<div class="chat-avatar">🤖</div>' +
+      '<div class="chat-typing-dots"><span></span><span></span><span></span></div>';
+    area.appendChild(typing);
+    area.scrollTop = area.scrollHeight;
+
+    // After random 10–20 s, replace typing bubble with overload error
+    setTimeout(function () {
+      if (typing.parentNode) typing.parentNode.removeChild(typing);
+      var errWrap = document.createElement('div');
+      errWrap.className = 'chat-error-bubble';
+      errWrap.innerHTML =
+        '<div class="chat-avatar">🤖</div>' +
+        '<div class="chat-error-msg">' +
+          '<strong>' + OVERLOAD_MSG.title + '</strong>' +
+          OVERLOAD_MSG.body +
+          '<br><button class="chat-error-retry" onclick="document.getElementById(\'chatInput\').focus()">🔄 Retry</button>' +
+        '</div>';
+      area.appendChild(errWrap);
+      area.scrollTop = area.scrollHeight;
+      chatBusy = false;
+      sendBtn.disabled = false;
+    }, randDelay());
   };
   function appendMsg(role, text) {
     var welcome = document.getElementById('chatWelcome');
@@ -1273,15 +1481,102 @@
   }
 
   // ── IMAGE GEN LOGIC ──
+  var imgBusy = false;
   window.generateImage = function () {
-    var prompt = document.getElementById('imgPrompt').value.trim();
+    if (imgBusy) return;
+    var prompt      = document.getElementById('imgPrompt').value.trim();
     if (!prompt) return;
-    showGate();
+    var genBtn      = document.querySelector('#panelImage .imggen-gen-btn');
+    var placeholder = document.getElementById('imgPlaceholder');
+    var gallery     = document.getElementById('imgGallery');
+    imgBusy = true;
+    genBtn.disabled = true;
+    placeholder.style.display = 'none';
+    gallery.style.display = 'none';
+
+    // Loading state inside gallery container (reuse imgGallery div)
+    gallery.style.display = 'block';
+    gallery.innerHTML =
+      '<div class="imggen-loading">' +
+        '<div class="imggen-loading-spinner"></div>' +
+        '<div class="imggen-loading-text">Generating your image… please wait</div>' +
+        '<div class="imggen-loading-bar"><div class="imggen-loading-bar-fill" id="imgLoadBar"></div></div>' +
+      '</div>';
+
+    // Animate progress bar up to ~90 %
+    var pct = 0;
+    var delay = randDelay();
+    var barEl;
+    var barTimer = setInterval(function () {
+      barEl = barEl || document.getElementById('imgLoadBar');
+      if (!barEl) { clearInterval(barTimer); return; }
+      pct = Math.min(pct + (90 / (delay / 400)), 90);
+      barEl.style.width = pct + '%';
+    }, 400);
+
+    setTimeout(function () {
+      clearInterval(barTimer);
+      gallery.innerHTML =
+        '<div class="pg-overload-banner">' +
+          '<div class="pg-overload-banner-icon">🚦</div>' +
+          '<div class="pg-overload-banner-body">' +
+            '<strong>' + OVERLOAD_MSG.title + '</strong>' +
+            '<p>' + OVERLOAD_MSG.body + '</p>' +
+            '<button class="pg-overload-retry" onclick="window.resetImgGen()">🔄 Retry</button>' +
+          '</div>' +
+        '</div>';
+      imgBusy = false;
+      genBtn.disabled = false;
+    }, delay);
+  };
+  window.resetImgGen = function () {
+    var gallery     = document.getElementById('imgGallery');
+    var placeholder = document.getElementById('imgPlaceholder');
+    gallery.style.display = 'none';
+    gallery.innerHTML = '';
+    placeholder.style.display = 'block';
   };
 
   // ── AUDIO/VIDEO GEN LOGIC ──
+  var audioBusy = {};
   window.generateAudio = function (kind) {
-    showGate();
+    if (audioBusy[kind]) return;
+    audioBusy[kind] = true;
+    var playerIdMap = { tts: 'ttsPlayer', stt: 'sttPlayer', video: 'vidPlayer' };
+    var labelMap    = { tts: 'Generating audio…', stt: 'Transcribing audio…', video: 'Generating video…' };
+    var player      = document.getElementById(playerIdMap[kind]);
+    var cardBtns    = player ? player.closest('.audiovid-card').querySelectorAll('.audiovid-gen-btn') : [];
+
+    cardBtns.forEach(function (b) { b.disabled = true; });
+    if (player) {
+      player.style.display = 'flex';
+      player.innerHTML =
+        '<div class="audiovid-loading">' +
+          '<div class="audiovid-loading-spinner"></div>' +
+          '<span>' + (labelMap[kind] || 'Processing…') + ' please wait</span>' +
+        '</div>';
+    }
+
+    setTimeout(function () {
+      if (player) {
+        player.innerHTML =
+          '<div class="pg-overload-banner">' +
+            '<div class="pg-overload-banner-icon">🚦</div>' +
+            '<div class="pg-overload-banner-body">' +
+              '<strong>' + OVERLOAD_MSG.title + '</strong>' +
+              '<p>' + OVERLOAD_MSG.body + '</p>' +
+              '<button class="pg-overload-retry" onclick="window.resetAudio(\'' + kind + '\')">🔄 Retry</button>' +
+            '</div>' +
+          '</div>';
+      }
+      audioBusy[kind] = false;
+      cardBtns.forEach(function (b) { b.disabled = false; });
+    }, randDelay());
+  };
+  window.resetAudio = function (kind) {
+    var playerIdMap = { tts: 'ttsPlayer', stt: 'sttPlayer', video: 'vidPlayer' };
+    var player = document.getElementById(playerIdMap[kind]);
+    if (player) { player.style.display = 'none'; player.innerHTML = ''; }
   };
 })();
 </script>
