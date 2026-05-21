@@ -1504,15 +1504,17 @@
       '</div>';
 
     // Animate progress bar up to ~90 %
+    var MAX_PROGRESS    = 90;  // percent cap before the result arrives
+    var PROGRESS_TICK   = 400; // ms between progress increments
     var pct = 0;
     var delay = randDelay();
     var barEl;
     var barTimer = setInterval(function () {
       barEl = barEl || document.getElementById('imgLoadBar');
       if (!barEl) { clearInterval(barTimer); return; }
-      pct = Math.min(pct + (90 / (delay / 400)), 90);
+      pct = Math.min(pct + (MAX_PROGRESS / (delay / PROGRESS_TICK)), MAX_PROGRESS);
       barEl.style.width = pct + '%';
-    }, 400);
+    }, PROGRESS_TICK);
 
     setTimeout(function () {
       clearInterval(barTimer);
