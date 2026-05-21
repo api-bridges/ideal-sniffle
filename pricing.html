@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing — Get Set Go API</title>
+<meta name="description" content="Simple, transparent pricing for 500+ AI APIs. Free first month, then Starter, Pro, or Enterprise plans. No rate limits, no hidden fees.">
+<meta property="og:title" content="Pricing — Get Set Go API">
+<meta property="og:url" content="https://getsetgoapi.com/pricing.html">
+<link rel="canonical" href="https://getsetgoapi.com/pricing.html">
+<link rel="stylesheet" href="assets/css/shared.css">
+<style>
+  :root { --accent: #4f46e5; }
+
+  /* ── PRICING CARDS ── */
+  .pricing-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin: 2rem 0;
+  }
+  .pricing-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.25s;
+    position: relative;
+  }
+  .pricing-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
+  }
+  .pricing-card.featured {
+    border-color: var(--primary);
+    border-width: 2px;
+    background: linear-gradient(160deg, var(--primary-light) 0%, var(--white) 60%);
+  }
+  .featured-badge {
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.9rem;
+    border-radius: 0 0 8px 8px;
+    white-space: nowrap;
+  }
+  .plan-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--primary);
+  }
+  .plan-price {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--heading);
+    line-height: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.1rem;
+  }
+  .plan-price sup {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    font-weight: 600;
+  }
+  .plan-price .period {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    align-self: flex-end;
+    margin-bottom: 0.2rem;
+  }
+  .plan-price-note {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: -0.5rem;
+  }
+  .plan-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .plan-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    flex: 1;
+  }
+  .plan-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .plan-features li::before {
+    content: '✓';
+    color: var(--green);
+    font-weight: 700;
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    margin-top: 0px;
+  }
+  .plan-cta {
+    display: block;
+    text-align: center;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    margin-top: 0.5rem;
+  }
+  .plan-cta-outline {
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    background: var(--white);
+  }
+  .plan-cta-outline:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-light);
+  }
+  .plan-cta-primary {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+    border: none;
+    box-shadow: 0 2px 12px rgba(79,70,229,0.3);
+  }
+  .plan-cta-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 18px rgba(79,70,229,0.4);
+  }
+  .plan-cta-ghost {
+    border: 1.5px solid rgba(79,70,229,0.3);
+    color: var(--primary);
+    background: transparent;
+  }
+  .plan-cta-ghost:hover {
+    background: var(--primary-light);
+    border-color: var(--primary);
+  }
+
+  /* ── COMPARISON TABLE ── */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    margin: 2rem 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .compare-table thead tr {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+  }
+  .compare-table thead th {
+    padding: 0.85rem 1.1rem;
+    text-align: left;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .compare-table thead th:not(:first-child) {
+    text-align: center;
+  }
+  .compare-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .compare-table tbody tr:last-child { border-bottom: none; }
+  .compare-table tbody tr:hover { background: var(--surface); }
+  .compare-table tbody tr:nth-child(even) { background: var(--surface); }
+  .compare-table tbody tr:nth-child(even):hover { background: var(--primary-light); }
+  .compare-table td {
+    padding: 0.8rem 1.1rem;
+    color: var(--text);
+    vertical-align: middle;
+  }
+  .compare-table td:not(:first-child) {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+  }
+  .compare-table .feature-name {
+    font-weight: 500;
+    color: var(--heading);
+    font-family: 'Inter', sans-serif;
+  }
+  .check-yes { color: var(--green); font-size: 1rem; }
+  .check-no { color: var(--border-2); font-size: 1rem; }
+
+  /* ── CTA BAND ── */
+  .cta-band {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    margin: 2rem 0;
+    color: #fff;
+  }
+  .cta-band h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: #fff;
+  }
+  .cta-band p {
+    font-size: 0.9rem;
+    opacity: 0.85;
+    margin-bottom: 1.5rem;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.65;
+  }
+  .cta-band-btns {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .cta-btn-white {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.7rem 1.4rem;
+    background: #fff;
+    color: var(--primary);
+    border-radius: 10px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  }
+  .cta-btn-white:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+  .cta-btn-outline-w {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.7rem 1.4rem;
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 10px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .cta-btn-outline-w:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.8); }
+
+  @media (max-width: 768px) {
+    .pricing-cards { grid-template-columns: 1fr; }
+    .compare-table { font-size: 0.74rem; }
+    .compare-table td, .compare-table th { padding: 0.65rem 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="logo-dot"></span>GET SET GO API
+  </a>
+  <div class="nav-center">
+    <ul class="nav-links">
+      <li class="nav-dropdown">
+        <a href="#" class="nav-dropdown-toggle">Explore <span class="dropdown-arrow">▾</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="ai-human.html">🧠 AI &amp; Language</a>
+          <a href="ipl.html">🖼️ Image &amp; Vision</a>
+          <a href="chemtrails.html">🎵 Audio &amp; Video</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="football.html">💻 Code &amp; Dev</a>
+          <a href="medicine.html">🏥 Health &amp; Medical</a>
+          <a href="finance.html">📊 Data &amp; Analytics</a>
+          <a href="surveillance.html">🔐 Security &amp; Auth</a>
+          <a href="shadow-gov.html">⚙️ Automation</a>
+          <a href="space.html">🔍 Search &amp; Semantic</a>
+        </div>
+      </li>
+      <li><a href="docs.html">Docs</a></li>
+      <li><a href="pricing.html" class="active">Pricing</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </div>
+  <div class="nav-actions">
+    <a href="index.html#api-browser" class="nav-btn nav-btn-browse">Browse APIs</a>
+    <a href="api-keys.html" class="nav-btn nav-btn-api">Get API Key</a>
+    <a href="pricing.html" class="nav-btn nav-btn-start">Start Free →</a>
+  </div>
+  <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu">☰</button>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="ai-human.html">🧠 AI &amp; Language</a>
+  <a href="ipl.html">🖼️ Image &amp; Vision</a>
+  <a href="chemtrails.html">🎵 Audio &amp; Video</a>
+  <a href="football.html">💻 Code &amp; Dev</a>
+  <a href="medicine.html">🏥 Health &amp; Medical</a>
+  <a href="finance.html">📊 Data &amp; Analytics</a>
+  <a href="surveillance.html">🔐 Security &amp; Auth</a>
+  <a href="shadow-gov.html">⚙️ Automation</a>
+  <a href="space.html">🔍 Search &amp; Semantic</a>
+  <div class="nav-mobile-divider"></div>
+  <a href="docs.html">📚 Docs</a>
+  <a href="pricing.html" class="active">💰 Pricing</a>
+  <a href="about.html">ℹ️ About</a>
+  <div class="nav-mobile-divider"></div>
+  <div class="nav-mobile-actions">
+    <a href="index.html#api-browser" class="nav-btn nav-btn-browse">Browse APIs</a>
+    <a href="api-keys.html" class="nav-btn nav-btn-api">Get API Key</a>
+    <a href="pricing.html" class="nav-btn nav-btn-start">Start Free →</a>
+  </div>
+</div>
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-tag">PLANS · PRICING · VALUE</div>
+    <h1 class="page-title">SIMPLE, TRANSPARENT<br><span>PRICING</span></h1>
+    <p class="page-intro">One free month to explore everything, then straightforward flat-rate plans. No per-token fees, no surprise bills, no rate limit anxiety — just full access to 500+ AI APIs.</p>
+  </div>
+</section>
+
+<div class="content-grid">
+  <main>
+    <div class="section-label">Plans</div>
+    <h2 class="article-h2">Choose the Right Plan</h2>
+    <p class="article-p">Every plan includes access to all 500+ APIs across all 9 categories with zero rate limits. The differences are in team size, support tier, and advanced features. Start free — no credit card needed.</p>
+
+    <div class="pricing-cards">
+      <!-- Starter -->
+      <div class="pricing-card">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">
+          <sup>$</sup>0<span class="period">&nbsp;first month</span>
+        </div>
+        <div class="plan-price-note">Then $49/mo — cancel anytime</div>
+        <div class="plan-desc">Perfect for developers exploring the platform and building their first AI integrations.</div>
+        <ul class="plan-features">
+          <li>All 500+ APIs included</li>
+          <li>No rate limits during trial</li>
+          <li>1 API key</li>
+          <li>Community support (Discord)</li>
+          <li>OpenAI-compatible endpoint</li>
+          <li>Access to all 9 categories</li>
+          <li>Basic usage dashboard</li>
+        </ul>
+        <a href="api-keys.html" class="plan-cta plan-cta-outline">Get Started Free →</a>
+      </div>
+
+      <!-- Pro (featured) -->
+      <div class="pricing-card featured">
+        <span class="featured-badge">Most Popular</span>
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">
+          <sup>$</sup>149<span class="period">/mo</span>
+        </div>
+        <div class="plan-price-note">Billed monthly — cancel anytime</div>
+        <div class="plan-desc">Built for growing teams that need more keys, faster support, and production-grade analytics.</div>
+        <ul class="plan-features">
+          <li>All 500+ APIs included</li>
+          <li>No rate limits</li>
+          <li>5 API keys</li>
+          <li>Priority support (email, &lt;12h SLA)</li>
+          <li>Full usage analytics dashboard</li>
+          <li>Dedicated routing endpoint</li>
+          <li>Model comparison tooling</li>
+          <li>Team access controls</li>
+        </ul>
+        <a href="api-keys.html" class="plan-cta plan-cta-primary">Start Pro →</a>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="pricing-card">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price" style="font-size:1.8rem;align-items:center;">
+          Custom
+        </div>
+        <div class="plan-price-note">Volume discounts · Custom SLA</div>
+        <div class="plan-desc">For large teams and organisations needing dedicated infrastructure, custom integrations, and white-glove support.</div>
+        <ul class="plan-features">
+          <li>Everything in Pro</li>
+          <li>Unlimited API keys</li>
+          <li>Custom SLA agreement</li>
+          <li>Dedicated infrastructure</li>
+          <li>24/7 support with named CSM</li>
+          <li>Volume pricing discounts</li>
+          <li>Custom model integrations</li>
+          <li>SSO &amp; advanced security</li>
+          <li>On-prem deployment option</li>
+        </ul>
+        <a href="contact.html" class="plan-cta plan-cta-ghost">Talk to Sales →</a>
+      </div>
+    </div>
+
+    <div class="section-label">Comparison</div>
+    <h2 class="article-h2">Feature Comparison</h2>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Starter</th>
+          <th>Pro</th>
+          <th>Enterprise</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="feature-name">API Access (500+ APIs)</td>
+          <td><span class="check-yes">✓</span></td>
+          <td><span class="check-yes">✓</span></td>
+          <td><span class="check-yes">✓</span></td>
+        </tr>
+        <tr>
+          <td class="feature-name">Rate Limits</td>
+          <td>None</td>
+          <td>None</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td class="feature-name">API Keys</td>
+          <td>1</td>
+          <td>5</td>
+          <td>Unlimited</td>
+        </tr>
+        <tr>
+          <td class="feature-name">Support</td>
+          <td>Community</td>
+          <td>Priority Email</td>
+          <td>24/7 + CSM</td>
+        </tr>
+        <tr>
+          <td class="feature-name">Usage Analytics</td>
+          <td>Basic</td>
+          <td><span class="check-yes">✓ Full</span></td>
+          <td><span class="check-yes">✓ Advanced</span></td>
+        </tr>
+        <tr>
+          <td class="feature-name">SLA Guarantee</td>
+          <td>99.9%</td>
+          <td>99.9%</td>
+          <td>Custom</td>
+        </tr>
+        <tr>
+          <td class="feature-name">Custom Integrations</td>
+          <td><span class="check-no">—</span></td>
+          <td><span class="check-no">—</span></td>
+          <td><span class="check-yes">✓</span></td>
+        </tr>
+        <tr>
+          <td class="feature-name">Dedicated Endpoint</td>
+          <td><span class="check-no">—</span></td>
+          <td><span class="check-yes">✓</span></td>
+          <td><span class="check-yes">✓</span></td>
+        </tr>
+        <tr>
+          <td class="feature-name">SSO / Enterprise Auth</td>
+          <td><span class="check-no">—</span></td>
+          <td><span class="check-no">—</span></td>
+          <td><span class="check-yes">✓</span></td>
+        </tr>
+        <tr>
+          <td class="feature-name">Volume Discounts</td>
+          <td><span class="check-no">—</span></td>
+          <td><span class="check-no">—</span></td>
+          <td><span class="check-yes">✓</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-label">FAQ</div>
+    <h2 class="article-h2">Frequently Asked Questions</h2>
+
+    <div class="theory-list">
+      <div class="theory-item">
+        <div class="theory-num">01</div>
+        <div>
+          <div class="theory-name">What happens after the free month?</div>
+          <div class="theory-desc">After your free first month, you'll be moved to the Starter plan at $49/month unless you upgrade to Pro. We'll email you a reminder before the trial ends. No credit card is required to start — you only need to add payment details when you're ready to continue.</div>
+        </div>
+      </div>
+      <div class="theory-item">
+        <div class="theory-num">02</div>
+        <div>
+          <div class="theory-name">Can I cancel anytime?</div>
+          <div class="theory-desc">Yes, completely. There are no long-term contracts and no cancellation fees. You can cancel your subscription at any time from your account dashboard, and you'll retain access until the end of your current billing period.</div>
+        </div>
+      </div>
+      <div class="theory-item">
+        <div class="theory-num">03</div>
+        <div>
+          <div class="theory-name">What's included in all plans?</div>
+          <div class="theory-desc">Every plan — including the free trial — includes full access to all 500+ APIs across all 9 categories with zero rate limits. There are no tiered model access restrictions; all plans get the same model library.</div>
+        </div>
+      </div>
+      <div class="theory-item">
+        <div class="theory-num">04</div>
+        <div>
+          <div class="theory-name">Do you have a startup discount?</div>
+          <div class="theory-desc">Yes. We offer a 50% discount for early-stage startups (pre-Series A). Contact us at enterprise@getsetgoapi.com with your company details and we'll set you up with a discounted plan. We believe in supporting the builder ecosystem.</div>
+        </div>
+      </div>
+      <div class="theory-item">
+        <div class="theory-num">05</div>
+        <div>
+          <div class="theory-name">Is there usage-based pricing?</div>
+          <div class="theory-desc">No. All our plans are flat-rate monthly subscriptions with no usage caps and no per-call fees. We believe predictable pricing makes building easier, so we've deliberately avoided the complexity of token-based or call-count billing.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-band">
+      <h2>Ready to Build?</h2>
+      <p>Start with a full free month — no credit card, no rate limits, all 500+ APIs unlocked from day one. Join thousands of developers building with the unified AI API.</p>
+      <div class="cta-band-btns">
+        <a href="api-keys.html" class="cta-btn-white">Get Free API Key →</a>
+        <a href="docs.html" class="cta-btn-outline-w">Read the Docs</a>
+      </div>
+    </div>
+  </main>
+
+  <aside>
+    <div class="sidebar-widget">
+      <div class="widget-header">Current Offer</div>
+      <div class="widget-body">
+        <div class="pricing-badge">
+          <div class="price-free">FREE</div>
+          <div class="price-label">First Month — Unlimited</div>
+          <div class="price-after">Then from <strong>$49/mo</strong></div>
+        </div>
+        <div class="widget-item">No credit card required</div>
+        <div class="widget-item">All 500+ APIs included</div>
+        <div class="widget-item">No rate limits ever</div>
+        <div class="widget-item">Cancel anytime</div>
+        <div style="padding-top:0.75rem;">
+          <a href="api-keys.html" class="nav-btn nav-btn-start" style="display:block;text-align:center;width:100%;justify-content:center;">Start Free Trial →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-widget">
+      <div class="widget-header">Platform Stats</div>
+      <div class="widget-body">
+        <div class="threat-meter">
+          <div class="threat-label"><span>APIs Available</span><span>500+</span></div>
+          <div class="threat-bar"><div class="threat-fill" style="width:100%"></div></div>
+          <div class="threat-label"><span>Providers</span><span>60+</span></div>
+          <div class="threat-bar"><div class="threat-fill" style="width:85%"></div></div>
+          <div class="threat-label"><span>Uptime</span><span>99.9%</span></div>
+          <div class="threat-bar"><div class="threat-fill" style="width:99%"></div></div>
+          <div class="threat-label"><span>Avg Latency</span><span>&lt;800ms</span></div>
+          <div class="threat-bar"><div class="threat-fill" style="width:88%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-widget">
+      <div class="widget-header">Quick Links</div>
+      <div class="widget-body">
+        <div class="nav-pages">
+          <a href="api-keys.html" class="nav-page-link">Get API Key <span>→</span></a>
+          <a href="docs.html" class="nav-page-link">Documentation <span>→</span></a>
+          <a href="playground.html" class="nav-page-link">Try Playground <span>→</span></a>
+          <a href="contact.html" class="nav-page-link">Enterprise Sales <span>→</span></a>
+          <a href="about.html" class="nav-page-link">About Us <span>→</span></a>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <a href="index.html" class="footer-logo">
+    <span class="logo-dot"></span>GET SET GO API
+  </a>
+  <nav class="footer-nav">
+    <a href="about.html">About</a>
+    <a href="pricing.html" class="active">Pricing</a>
+    <a href="docs.html">Docs</a>
+    <a href="contact.html">Contact</a>
+    <a href="api-keys.html">API Keys</a>
+    <a href="ai-human.html">AI &amp; Language</a>
+    <a href="ipl.html">Image &amp; Vision</a>
+    <a href="finance.html">Data &amp; Analytics</a>
+    <a href="football.html">Code &amp; Dev</a>
+    <a href="medicine.html">Health &amp; Medical</a>
+    <a href="surveillance.html">Security &amp; Auth</a>
+    <a href="shadow-gov.html">Automation</a>
+    <a href="space.html">Search &amp; Semantic</a>
+    <a href="chemtrails.html">Audio &amp; Video</a>
+  </nav>
+  <span class="footer-text">© 2025 Get Set Go API · All Premium AI APIs · Free First Month · No Rate Limits</span>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
