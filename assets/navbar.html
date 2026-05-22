@@ -1,0 +1,125 @@
+<!--
+  ══════════════════════════════════════════════════════════
+  GET SET GO API · Reusable Navbar Snippet
+  ══════════════════════════════════════════════════════════
+  Usage — paste this block right after <body> on every page.
+
+  1. Add the stylesheet in <head>:
+       <link rel="stylesheet" href="/assets/css/navbar.css">
+
+  2. Paste this snippet at the top of <body>.
+
+  3. Add the script before </body>:
+       <script src="/assets/js/navbar.js"></script>
+
+  4. Mark the active link by adding class="active" to the
+     matching <a> element, e.g. <a href="/docs/" class="active">
+  ══════════════════════════════════════════════════════════
+-->
+
+<nav class="site-nav" id="siteNav" aria-label="Main navigation">
+
+  <!-- ── LOGO ── -->
+  <a href="/" class="nav-logo">
+    <span class="logo-dot" aria-hidden="true"></span>
+    GET SET GO API
+  </a>
+
+  <!-- ── CENTRE LINKS (hidden on mobile) ── -->
+  <div class="nav-center">
+    <ul class="nav-links" role="list">
+
+      <li class="nav-dropdown">
+        <a href="#" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+          Explore <span class="dropdown-arrow" aria-hidden="true">▾</span>
+        </a>
+        <div class="nav-dropdown-menu" role="menu">
+          <a href="/apis/ai-language/" role="menuitem">🧠 AI &amp; Language</a>
+          <a href="/apis/image-vision/" role="menuitem">🖼️ Image &amp; Vision</a>
+          <a href="/apis/audio-video/" role="menuitem">🎵 Audio &amp; Video</a>
+          <div class="nav-dropdown-divider" role="separator"></div>
+          <a href="/apis/code-dev/" role="menuitem">💻 Code &amp; Dev</a>
+          <a href="/apis/health-medical/" role="menuitem">🏥 Health &amp; Medical</a>
+          <a href="/apis/data-analytics/" role="menuitem">📊 Data &amp; Analytics</a>
+          <a href="/apis/security-auth/" role="menuitem">🔐 Security &amp; Auth</a>
+          <a href="/apis/automation/" role="menuitem">⚙️ Automation</a>
+          <a href="/apis/search-semantic/" role="menuitem">🔍 Search &amp; Semantic</a>
+        </div>
+      </li>
+
+      <li><a href="/docs/">Docs</a></li>
+      <li><a href="/pricing/">Pricing</a></li>
+      <li><a href="/about/">About</a></li>
+
+    </ul>
+  </div>
+
+  <!-- ── RIGHT-SIDE ACTIONS ── -->
+  <div class="nav-actions">
+    <a href="/api-keys/" class="nav-btn nav-btn-api">
+      <!-- key icon -->
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="7.5" cy="15.5" r="5.5"/>
+        <path d="M21 2l-9.6 9.6"/>
+        <path d="M15.5 7.5l3 3"/>
+      </svg>
+      Get API Key
+    </a>
+    <a href="/pricing/" class="nav-btn nav-btn-start">Start Free →</a>
+  </div>
+
+  <!-- ── HAMBURGER (mobile) ── -->
+  <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false"
+          aria-controls="navMobile">
+    <svg class="hamburger-icon" width="18" height="18" viewBox="0 0 18 18" fill="none"
+         stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+      <line x1="2" y1="4.5"  x2="16" y2="4.5"/>
+      <line x1="2" y1="9"    x2="16" y2="9"/>
+      <line x1="2" y1="13.5" x2="16" y2="13.5"/>
+    </svg>
+    <svg class="close-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"
+         stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"
+         style="display:none">
+      <line x1="2" y1="2" x2="14" y2="14"/>
+      <line x1="14" y1="2" x2="2" y2="14"/>
+    </svg>
+  </button>
+
+</nav>
+
+<!-- ── MOBILE DRAWER ── -->
+<div class="nav-mobile" id="navMobile" role="navigation" aria-label="Mobile navigation">
+
+  <a href="/apis/ai-language/">🧠 AI &amp; Language</a>
+  <a href="/apis/image-vision/">🖼️ Image &amp; Vision</a>
+  <a href="/apis/audio-video/">🎵 Audio &amp; Video</a>
+  <a href="/apis/code-dev/">💻 Code &amp; Dev</a>
+  <a href="/apis/health-medical/">🏥 Health &amp; Medical</a>
+  <a href="/apis/data-analytics/">📊 Data &amp; Analytics</a>
+  <a href="/apis/security-auth/">🔐 Security &amp; Auth</a>
+  <a href="/apis/automation/">⚙️ Automation</a>
+  <a href="/apis/search-semantic/">🔍 Search &amp; Semantic</a>
+
+  <div class="nav-mobile-divider"></div>
+
+  <a href="/docs/">📚 Docs</a>
+  <a href="/pricing/">💰 Pricing</a>
+  <a href="/about/">ℹ️ About</a>
+
+  <div class="nav-mobile-divider"></div>
+
+  <div class="nav-mobile-actions">
+    <a href="/api-keys/" class="nav-btn nav-btn-api">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="7.5" cy="15.5" r="5.5"/>
+        <path d="M21 2l-9.6 9.6"/>
+        <path d="M15.5 7.5l3 3"/>
+      </svg>
+      Get API Key
+    </a>
+    <a href="/pricing/" class="nav-btn nav-btn-start">Start Free →</a>
+  </div>
+
+</div>
