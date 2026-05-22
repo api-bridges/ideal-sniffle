@@ -49,26 +49,6 @@ function initStatBars() {
   bars.forEach(bar => observer.observe(bar));
 }
 
-// Mobile nav hamburger toggle
-function initHamburger() {
-  const btn = document.getElementById('navToggle');
-  const drawer = document.getElementById('navMobile');
-  if (!btn || !drawer) return;
-  btn.addEventListener('click', function () {
-    const open = drawer.classList.toggle('open');
-    btn.textContent = open ? '✕' : '☰';
-    btn.setAttribute('aria-expanded', open);
-  });
-  // Close on outside click
-  document.addEventListener('click', function (e) {
-    if (!btn.contains(e.target) && !drawer.contains(e.target)) {
-      drawer.classList.remove('open');
-      btn.textContent = '☰';
-      btn.setAttribute('aria-expanded', 'false');
-    }
-  });
-}
-
 // Determine playground type from a category page href
 function playgroundType(href) {
   if (!href) return 'chat';
@@ -136,7 +116,6 @@ document.addEventListener('DOMContentLoaded', function () {
   initCounters();
   initTicker();
   initStatBars();
-  initHamburger();
   initModelCards();
   initTheoryUseButtons();
 });
