@@ -1,19 +1,24 @@
 <!--
   ══════════════════════════════════════════════════════════
-  GET SET GO API · Reusable Navbar Snippet
+  GET SET GO API · Reusable Navbar — Reference Only
   ══════════════════════════════════════════════════════════
-  Usage — paste this block right after <body> on every page.
+  The navbar is now injected automatically by navbar.js.
+  Do NOT paste this HTML into pages manually.
+
+  To add the navbar to any page:
 
   1. Add the stylesheet in <head>:
        <link rel="stylesheet" href="/assets/css/navbar.css">
 
-  2. Paste this snippet at the top of <body>.
-
-  3. Add the script before </body>:
+  2. Add the script before </body>:
        <script src="/assets/js/navbar.js"></script>
 
-  4. Mark the active link by adding class="active" to the
-     matching <a> element, e.g. <a href="/docs/" class="active">
+  The script injects the full nav HTML, highlights the active
+  link based on window.location.pathname, and wires up the
+  hamburger toggle automatically.
+
+  This file is kept as a readable reference for the navbar
+  markup. The single source of truth is assets/js/navbar.js.
   ══════════════════════════════════════════════════════════
 -->
 
