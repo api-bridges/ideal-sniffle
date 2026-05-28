@@ -129,7 +129,11 @@
   /* ── 3. AUTO-HIGHLIGHT ACTIVE LINK ── */
   function setActiveLinks() {
     var path = window.location.pathname;
-    /* Normalise: ensure trailing slash for directory-style paths */
+    /*
+     * Normalise to trailing-slash form so that nav hrefs (which all use
+     * trailing slashes, e.g. "/docs/") match both "/docs" and "/docs/".
+     * Paths that already end with "/" or contain a file extension are left as-is.
+     */
     if (path && path.slice(-1) !== '/' && !path.match(/\.[a-z0-9]+$/i)) {
       path += '/';
     }
@@ -203,9 +207,14 @@
     initToggle();
   }
 
-  if (document.body) {
-    init();
-  } else {
+  /*
+   * Run immediately when the script executes (placed before </body>, so
+   * document.readyState is 'interactive' once the HTML is fully parsed, or
+   * 'loading' if still parsing — wait for DOMContentLoaded in that case).
+   */
+  if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 }());
