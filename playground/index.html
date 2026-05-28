@@ -936,7 +936,7 @@
       <button class="pg-tab" data-type="audio">🎵 Audio &amp; Video</button>
     </div>
     <div class="pg-topbar-actions">
-      <a href="#" class="pg-api-btn" id="pgGetApiBtn">🔑 Get API Key</a>
+      <a href="/api-keys/" class="pg-api-btn" id="pgGetApiBtn">🔑 Get API Key</a>
       <button class="pg-start-btn" id="pgStartFreeBtn">Start Free →</button>
     </div>
   </div>
@@ -1228,10 +1228,10 @@
   <div class="pg-gate-card" style="position:relative">
     <button class="pg-gate-close" id="pgGateClose">✕</button>
     <div class="pg-gate-icon">🔑</div>
-    <h2>Get Your Free API Key</h2>
-    <p>Sign up for Get Set Go Api to send real requests to <strong id="gateModelName">this model</strong>. Your first month is completely free — no rate limits, all 500+ models included.</p>
+    <h2>Generate Your Free API Key</h2>
+    <p>Head to our API Keys page to generate a key for <strong id="gateModelName">this model</strong> and all 500+ APIs on the platform. Your first month is completely free — no rate limits, no credit card required.</p>
     <div class="pg-gate-actions">
-      <a href="/" class="pg-gate-primary">🚀 Start Free — First Month On Us</a>
+      <a href="/api-keys/" class="pg-gate-primary">🔑 Go to API Keys Page</a>
       <button class="pg-gate-secondary" id="pgGateCancel">Continue exploring UI only</button>
     </div>
   </div>
@@ -1458,7 +1458,6 @@
   document.getElementById('pgGateClose').addEventListener('click', hideGate);
   document.getElementById('pgGateCancel').addEventListener('click', hideGate);
   document.getElementById('pgStartFreeBtn').addEventListener('click', showGate);
-  document.getElementById('pgGetApiBtn').addEventListener('click', function (e) { e.preventDefault(); showGate(); });
   function showGate() { document.getElementById('pgGate').style.display = 'flex'; }
   function hideGate() { document.getElementById('pgGate').style.display = 'none'; }
   document.getElementById('pgGate').addEventListener('click', function (e) {
